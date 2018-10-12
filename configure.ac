@@ -55,6 +55,7 @@ AC_PYTHON_DEVEL([>= '2.3']) # ???
 AC_SUBST(ac_python_soname)
 AC_SUBST(ac_python_libdir)
 
+AC_SUBST([PYTHON_SITE_PKG])
 AC_SUBST([GC_CPPFLAGS])
 AC_SUBST([GC_INCLUDEDIR])
 AC_SUBST([GC_LIBS])
