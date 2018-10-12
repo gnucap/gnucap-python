@@ -16,8 +16,8 @@ SUBDIRS = include gnucap examples
 
 all-local:
 	rm -f c_python.so
-	${LN_S} .libs/c_python.so c_python.so
-	${LN_S} out3.6 out3.7
+	-${LN_S} .libs/c_python.so c_python.so
+	-${LN_S} out3.6 out3.7
 
 # gnucap plugins
 pluginsdir = $(libdir)/gnucap
@@ -76,7 +76,7 @@ crash.log: PY_LOG_FLAGS=SKIP
 CRASH_OUT = crash.py.out
 endif
 
-CLEANFILES = ${CRASH_OUT} out3.7
+CLEANFILES = ${CRASH_OUT} out3.7 c_python.so
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
 
