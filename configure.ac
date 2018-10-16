@@ -55,6 +55,7 @@ AC_PYTHON_DEVEL([>= '2.3']) # ???
 AC_SUBST(ac_python_soname)
 AC_SUBST(ac_python_libdir)
 
+AC_SUBST([PYTHON_SITE_PKG])
 AC_SUBST([GC_CPPFLAGS])
 AC_SUBST([GC_INCLUDEDIR])
 AC_SUBST([GC_LIBS])
@@ -69,8 +70,8 @@ AC_CONFIG_MACRO_DIR([m4])
 LDFLAGS="$LDFLAGS -rdynamic $GC_LDFLAGS"
 
 AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [help_dispatcher], [],
-		    [AC_MSG_WARN(["cannot find SONAME in -lgnucap, untested fallback"])
-		     LIBGNUCAP_SONAME=gnucap ],
+		    [AC_MSG_WARN(["cannot find SONAME in -lgnucap, using fallback"])
+		     LIBGNUCAP_SONAME=libgnucap.so ],
 		    [AC_MSG_ERROR(["cannot link -lgnucap"])])
 
 if test "$enable_debug" = "yes" ; then

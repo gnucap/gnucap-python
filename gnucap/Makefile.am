@@ -1,6 +1,6 @@
 # gnucap-python python library Makefile.am
 # Author: 2018 Felix Salfelder
-# license GPLV3
+# license GPL-3+
 #
 # (inspired by now obsolete files from Henrik Johansson)
 #
@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
 	@PYTHON_CPPFLAGS@ \
 	${CPPFLAGS} \
 	${GC_CPPFLAGS} \
+	-I${PYTHON_SITE_PKG} \
 	-DPYTHON_SO=\"@ac_python_libdir@/@ac_python_soname@\"
 
 # common library
