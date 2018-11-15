@@ -61,6 +61,7 @@ AC_SUBST([GC_INCLUDEDIR])
 AC_SUBST([GC_LIBS])
 AC_SUBST([GC_PKGLIBDIR])
 AC_SUBST([LIBGNUCAP_SONAME])
+AC_SUBST([gnucap_plugpath])
 
 ## Libtool init
 AC_PROG_LIBTOOL
@@ -79,6 +80,8 @@ if test "$enable_debug" = "yes" ; then
 else
 	CPPFLAGS="$CPPFLAGS -DNDEBUG"
 fi
+
+gnucap_plugpath=$(gnucap-conf$_program_suffix --pkglibdir)
 
 ## Check for numpy development file
 AC_PYTHON_MODULE(numpy)

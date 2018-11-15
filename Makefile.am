@@ -20,7 +20,7 @@ all-local:
 	-${LN_S} out3.6 out3.7
 
 # gnucap plugins
-pluginsdir = $(libdir)/gnucap
+pluginsdir = $(gnucap_plugpath)
 plugins_LTLIBRARIES = c_python.la
 
 c_python_la_SOURCES = c_python.cc # gnucap_wrap.cxx
