@@ -93,5 +93,17 @@ protected:
   bool solve_with_homotopy(OPT::ITL a, unsigned b){
         return SIM::solve_with_homotopy(a, SIM::TRACE(b));
   }
+public:
+  OMSTREAM&   hackout(){return _out;}
 };
+
 %}
+
+%extend SIM_ {
+  inline OMSTREAM& out_(){
+    return self->hackout();
+  }
+  inline OMSTREAM& out_assign(OMSTREAM& o){
+    return self->hackout() = o;
+  }
+}
