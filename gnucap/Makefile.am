@@ -33,6 +33,7 @@ pythongc_LTLIBRARIES = \
 	_m_cpoly.la \
 	_m_matrix.la \
 	_m_wave.la \
+	_mode.la \
 	_c_exp.la \
 	_c_comand.la \
 	_e_base.la \

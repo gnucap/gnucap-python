@@ -85,4 +85,7 @@ public:
   bool analysis_is_tran_static()  {return analysis_is_tran() && _phase == p_INIT_DC;}
   bool analysis_is_tran_restore() {return analysis_is_tran() && _phase == p_RESTORE;}
   bool analysis_is_tran_dynamic() {return analysis_is_tran() && _phase == p_TRAN;}
+
+  void reset_iteration_counter(int i) {assert(up_order(0,i,iCOUNT-1)); _iter[i] = 0;}
+  void count_iterations(int i)	{assert(up_order(0,i,iCOUNT-1)); ++_iter[i];}
 };

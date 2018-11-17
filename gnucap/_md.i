@@ -40,8 +40,11 @@ struct COMPLEX_array_t {
 
 %extend COMPLEX_array_t {
   // inline size_t __len__() const { return status.something }
-  inline COMPLEX& __getitem__(size_t i){
+  inline COMPLEX __getitem__(size_t i){
     return self->get(i);
+  }
+  inline COMPLEX __setitem__(size_t i, COMPLEX a){
+    return self->set(i, a);
   }
 }
 

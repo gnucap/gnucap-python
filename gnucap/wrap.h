@@ -5,6 +5,7 @@
 struct COMPLEX_array_t {
   operator COMPLEX*() { return _t; }
   COMPLEX& get(unsigned i){return _t[i];}
+  COMPLEX& set(unsigned i, COMPLEX const& a){return _t[i]=a;}
   COMPLEX* _t;
 };
 inline COMPLEX& get_z(COMPLEX* n, unsigned x){
