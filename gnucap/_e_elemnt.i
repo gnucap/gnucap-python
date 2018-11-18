@@ -68,6 +68,10 @@ protected: //COMPONENT, actually unnecessary here.
   virtual void  tr_begin();
   virtual void  tr_load();
   virtual void  tr_unload();
+
+  virtual void  ac_begin();
+  virtual void  do_ac();
+  virtual void  ac_load();
 protected: // CARD
   void	set_constant(bool c);
 public:
@@ -184,7 +188,7 @@ public:
   CPOLY1   _m1;		// matrix parameters, 1 fill ago
   double   _loss0;	// shunt conductance
   double   _loss1;
-  COMPLEX  _acg;	// ac admittance matrix values
+  std::complex<double>  _acg;	// "COMPLEX" does not work (bug?)
 public: // commons
   COMPLEX  _ev;		// ac effective value (usually real)
   double   _dt;
@@ -203,6 +207,9 @@ public: // commons
   }
   inline void element_precalc_last(){
     return self->ELEMENT::precalc_last();
+  }
+  inline SIM_DATA& sim_(){
+    return *self->_sim;
   }
 }
 
