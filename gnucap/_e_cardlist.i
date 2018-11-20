@@ -21,11 +21,66 @@
 
 %{
 #include <e_cardlist.h>
+#include <e_elemnt.h>
 #include <u_time_pair.h>
+%}
+
+%include "exception.i"
+%exception Card_Range::next {
+  try {
+    $action
+  } catch (CardListEnd) {
+    PyErr_SetString(PyExc_StopIteration, "end of card range");
+    return NULL;
+  }
+}
+%exception Card_Range::__next__ {
+  try {
+    $action
+  } catch (CardListEnd) {
+    PyErr_SetString(PyExc_StopIteration, "end of card range");
+    return NULL;
+  }
+}
+
+%inline %{
+	class ELEMENT;
+	class CardListEnd {};
+	class Card_Range {
+		public:
+			typedef CARD_LIST::iterator iterator;
+		public:
+			Card_Range(iterator c, iterator e) : _cur(c), _end(e) {}
+
+			// py3 (only?)
+			ELEMENT& __next__(){
+				return next();
+			}
+			Card_Range* __iter__(){
+				return this;
+			}
+			bool is_end(){ return _cur==_end; }
+			ELEMENT& next(){
+				// hide non-elements, for now.
+				while (!is_end()) {
+					if(ELEMENT* e=dynamic_cast<ELEMENT*>(*_cur)){
+						++_cur;
+						return *e;
+					}else{
+						++_cur;
+					}
+				}
+				throw CardListEnd();
+			}
+		private:
+			iterator _cur;
+			iterator _end;
+	};
 %}
 
 class CARD_LIST {
 public:
+	typedef std::list<CARD*>::iterator iterator;
    CARD_LIST& expand();
    CARD_LIST& map_nodes();
    CARD_LIST& tr_iwant_matrix();
@@ -46,10 +101,24 @@ public:
    CARD_LIST& do_ac();
    CARD_LIST& ac_load();
 
+	iterator begin()			{return _cl.begin();}
+	iterator end()			{return _cl.end();}
+	iterator find_again(const std::string& short_name, iterator);
+	iterator find_(const std::string& short_name);
 };
+
+
+
+%extend Card_Range
+{
+}
 
 %extend CARD_LIST {
   CARD_LIST& card_list_(){
     return self->card_list;
   }
-}
+  Card_Range __iter__() { untested();
+    // return a constructed Iterator object
+    return Card_Range($self->begin(), $self->end());
+  }
+};

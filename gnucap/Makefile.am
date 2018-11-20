@@ -5,6 +5,12 @@
 # (inspired by now obsolete files from Henrik Johansson)
 #
 
+BUILT_SOURCES = u_xprobe.h
+u_xprobe.h: ${GC_INCLUDEDIR}/u_xprobe.h
+	cp $< $@
+	sed -i '/^  explicit.*XPROBE():$$/s/e/public:e/' $@
+
+
 AM_CPPFLAGS = \
 	-I${top_srcdir}/include \
 	@PYTHON_CPPFLAGS@ \
@@ -43,6 +49,7 @@ pythongc_LTLIBRARIES = \
 	_io_.la \
 	_u_opt.la \
 	_u_status.la \
+	_u_xprobe.la \
 	_s__.la
 
 all-local:
@@ -75,14 +82,14 @@ EXTRA_DIST = \
 	wrap.h \
 	e_card.i
 
-CLEANFILES = *~ *.pyc
+CLEANFILES = *~ *.pyc u_xprobe.h
 
 CLEANFILES+= ${pythongc_LTLIBRARIES:_%.la=%.py}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.cxx}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.h}
 
 #### dep
-_e_elemnt.cxx: _e_node.i
+_e_elemnt.cxx: _e_node.i _u_xprobe.i
 _component.cxx: e_card.i _e_base.i _m_wave.i
 _globals.cxx: _m_wave.i
 _c_comand.cxx: _m_wave.i

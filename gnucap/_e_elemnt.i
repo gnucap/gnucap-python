@@ -28,11 +28,13 @@
 %include std_shared_ptr.i
 %include "_component.i"
 %include "_e_node.i"
+%include "_u_xprobe.i"
 %include "_m_cpoly.i"
 
 %{
 #include <e_elemnt.h>
 #include <e_compon.h>
+#include <typeindex>
 %}
 
 %exception {
@@ -44,6 +46,8 @@
     }
 }
 %allowexception;
+
+%nodefaultctor XPROBE;
 
 class ELEMENT : public CARD /* it's actually COMPONENT */ {
   virtual ~ELEMENT() {}
@@ -93,7 +97,7 @@ public: // override virtual
   std::string long_label()const;
   virtual void	   tr_iwant_matrix() = 0;
   virtual void	   ac_iwant_matrix() = 0;
-  //XPROBE   ac_probe_ext(const std::string&)const;
+  virtual XPROBE   ac_probe_ext(const std::string&)const;
 
 protected: // inline, below
   double   dampdiff(double*, const double&);
@@ -211,7 +215,56 @@ public: // commons
   inline SIM_DATA& sim_(){
     return *self->_sim;
   }
+  inline std::string typeNameHack(){
+    return typeid(self).name();
+  }
 }
+
+// %template(AList) std::vector<A*>;
+// %template(AList) CARD_LIST;
+
+%{
+namespace {
+  std::map<std::type_index, swig_type_info*> elt_type;
+}
+
+namespace swig {
+
+//   template<>
+//   struct traits<SwigDirector_ELEMENT>{
+//         static char const* type_name(){
+//         return "ELEMENT";
+//     }
+//   };
+  template<>
+  struct traits<ELEMENT>{
+        static char const* type_name(){
+        return "ELEMENT";
+    }
+  };
+  template<class Type>
+  struct traits_from_ptr;
+
+  template <class Type>
+  inline swig_type_info *type_info();
+
+  template<>
+  struct traits_from_ptr<ELEMENT> {
+    static PyObject *from(ELEMENT *val, int owner = 0) { untested();
+      auto ty = elt_type[typeid(*val)];
+      if (!ty) { untested();
+        ty = type_info<ELEMENT>();
+      }else{ untested();
+      }
+      return SWIG_NewPointerObj(val, ty, owner);
+    }
+  };
+
+  template<>
+  struct traits_info<ELEMENT*> {
+  };
+}
+%}
 
 
 // vim:ts=8:sw=2:et:
