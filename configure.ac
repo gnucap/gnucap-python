@@ -81,7 +81,26 @@ else
 	CPPFLAGS="$CPPFLAGS -DNDEBUG"
 fi
 
-gnucap_plugpath=$(gnucap-conf$_program_suffix --pkglibdir)
+AC_MSG_CHECKING([plugpath-override])
+AC_ARG_ENABLE([plugpath-override],
+[  --enable-plugpath-override          install plugins under prefix. [[default: disabled]]],
+[
+if test "X$enable_prefix_override" = "Xno" ; then
+	AC_MSG_RESULT([no])
+else
+	AC_MSG_RESULT([yes])
+	enable_plugpath_override=yes
+fi
+],
+[
+	AC_MSG_RESULT([no])
+	enable_plugpath_override=no
+])
+
+test "x$prefix" = xNONE &&  prefix=$ac_default_prefix
+AS_IF([ test "X$enable_plugpath_override" = "Xyes"],
+       [ gnucap_plugpath=$prefix/lib/gnucap ],
+       [ gnucap_plugpath=$(gnucap-conf$_program_suffix --pkglibdir) ])
 
 ## Check for numpy development file
 AC_PYTHON_MODULE(numpy)
@@ -117,6 +136,7 @@ AC_MSG_RESULT([
 ** Configuration summary for $PACKAGE $VERSION:
 
    prefix:                   $prefix
+   plugpath:                 $gnucap_plugpath
    CPPFLAGS:                 $CPPFLAGS
    GC_CPPFLAGS:              $GC_CPPFLAGS
    CFLAGS:                   $CFLAGS

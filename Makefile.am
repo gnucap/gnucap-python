@@ -4,6 +4,10 @@
 #
 # (inspired by now obsolete files from Henrik Johansson)
 #
+
+# put stuff into $prefix, no matter what gnucap-conf says
+AM_DISTCHECK_CONFIGURE_FLAGS=--enable-plugpath-override
+
 check_PROGRAMS = test_python
 test_python_SOURCES = test_python.cc
 
