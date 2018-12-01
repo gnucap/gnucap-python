@@ -1,4 +1,4 @@
-attach public ./c_python.so
+attach public c_python.so
 *attach c_make_attach.so
 *attach d_cap.cc
 *attach d_res.cc

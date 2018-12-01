@@ -5,10 +5,13 @@
 # (inspired by now obsolete files from Henrik Johansson)
 #
 
-BUILT_SOURCES = u_xprobe.h
+BUILT_SOURCES = u_xprobe.h m_matrix_hack.h
 u_xprobe.h: ${GC_INCLUDEDIR}/u_xprobe.h
 	cp $< $@
 	sed -i '/^  explicit.*XPROBE():$$/s/e/public:e/' $@
+m_matrix_hack.h: ${GC_INCLUDEDIR}/m_matrix.h
+	cp $< $@
+	sed -i '/^  mutable bool/s/m/public:m/' $@
 
 
 AM_CPPFLAGS = \
@@ -78,6 +81,7 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 .i.cxx:
 
 EXTRA_DIST = \
+	numpy.i \
 	m_wave_.h \
 	wrap.h \
 	e_card.i
@@ -97,4 +101,5 @@ _s__.cxx: _m_wave.i
 _e_base.cxx: _m_wave.i
 _e_node.cxx: _io_.i
 _e_elemnt.cxx: _m_wave.i
+_s__.cxx _u_sim_data.cxx: _m_matrix.i
 _gnucap_swig.cxx: e_card.i _e_base.i _m_matrix.i _m_wave.i

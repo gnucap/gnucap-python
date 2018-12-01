@@ -29,12 +29,20 @@
 %include _md.i
 
 %{
+#include "m_matrix_hack.h"
 #include "wrap.h"
 #include <Python.h>
 #if PY_MAJOR_VERSION >= 3
 #define IS_PY3K
 #endif
+%}
 
+%{
+#define SWIG_FILE_WITH_INIT
+%}
+%include "numpy.i"
+%init %{
+import_array();
 %}
 
 template<class T> class BSMATRIX {
@@ -46,7 +54,7 @@ public:
   void          allocate();
   void          reallocate();
   int           size()const;
-  double        density();
+  double        density(); // BUG: const
   void          zero();
   void          dezero(T& o);
   void          load_diagonal_point(int i, T value);
@@ -81,12 +89,56 @@ private:
   void fbsub_(COMPLEX_array_t& x){
     return self->fbsub(x._t);
   }
-  inline std::string __repr__(){
-        return("BMATRIX: incomplete");
+  inline std::string __repr__(){ untested();
+    return "complex BSMATRIX on gnd + " + std::to_string(self->size())
+                  + " nodes with " + std::to_string(self->_nzcount) + " nonzeroes,"
+                  + " density " + std::to_string(self->density());
   }
   inline BSCR __getitem__(int p){
+        incomplete();
     return BSCR(*self, p);
 //    return self->s(p,p);
+  }
+
+  double data_(){ untested();
+    return self->_space[0].real();
+  }
+
+  PyObject* _space(bool gnd=true) {
+      npy_intp dims[] = { self->_nzcount - 1 + gnd };
+      return PyArray_SimpleNewFromData(1, dims, NPY_CDOUBLE, self->_space + 1 - gnd);
+  }
+  PyObject* _coord(bool gnd=true) {
+    npy_intp dims[] = { self->_nzcount - 1 + gnd, 2 };
+    trace2("coord", dims[0], dims[1]);
+    PyObject* ret=PyArray_SimpleNew(2, dims, NPY_INT);
+    PyArrayObject* d=(PyArrayObject*)(ret); // fingers crossed.
+
+    int* raw = (int*)PyArray_DATA(d);
+
+    unsigned seek=0;
+    if(gnd){
+      seek+=2;
+      std::cout << "(0,0)\n";
+      raw[0] = raw[1] = 0;
+    }
+
+    int prev=1;
+    for(int d=gnd; d<gnd+self->_size; ++d){
+      int delta = self->_diaptr[d+1-gnd] - self->_diaptr[d-gnd] - prev;
+      prev=delta+1;
+
+      int c=d-delta;
+      for(; c<d; ++c){
+        raw[seek++] = d;
+        raw[seek++] = c;
+      }
+      for(; c>=d-delta; --c){
+        raw[seek++] = c;
+        raw[seek++] = d;
+      }
+    }
+    return ret;
   }
 }
 
@@ -95,8 +147,9 @@ private:
   inline COMPLEX __getitem__(int p){
     return self->get(p);
   }
-  inline std::string __repr__(){
-        return("BSCR: incomplete");
+  inline std::string __repr__(){ untested();
+    return "complex BSMATRIX of size " + std::to_string(self->size())
+                  + " density " + std::to_string(self->density());
   }
 
   void __getitem__(PyObject *param) {
@@ -118,3 +171,5 @@ private:
   }
 }
 
+
+// vim:ts=8:sw=2:et

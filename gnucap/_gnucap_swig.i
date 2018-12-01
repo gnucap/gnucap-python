@@ -13,6 +13,7 @@
 %include std_shared_ptr.i
 
 %{
+#include "m_matrix_hack.h"
 #include "wrap.h"
 #include <ap.h>
 #include <c_comand.h>
@@ -24,11 +25,9 @@
 #include <e_cardlist.h>
 #include <globals.h>
 #include <md.h>
-#include <m_matrix.h>
 #include <s_tr.h>
 #include <u_time_pair.h>
 #include <u_sim_data.h>
-#include <globals.h>
 #include <memory>
 %}
 

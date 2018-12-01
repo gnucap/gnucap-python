@@ -20,6 +20,7 @@
 %module(directors="0", allprotected="1") u_sim_data
 
 %{
+#include "m_matrix_hack.h"
 #include <u_sim_data.h>
 %}
 

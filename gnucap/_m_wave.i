@@ -26,7 +26,6 @@
 #include <e_base.h>
 %}
 
-
 %include std_pair.i
 %include std_deque.i
 

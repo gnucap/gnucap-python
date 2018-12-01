@@ -2,7 +2,7 @@ todo, easy
 - get rid of warnings
 - remove stale numpy code
 - need to figure out what to do with interactive output
-- node_t/NODE access
+- node_t/NODE access (done?)
 
 later
 - OUTPUT support
@@ -10,3 +10,7 @@ later
 hacks
 - cleanup does not work in pyton2.
 - clone (when implemented in python) must keep a local reference, to trick garbage collector
+
+bugs
+- takes ages to compile
+- error messages in loadpy...

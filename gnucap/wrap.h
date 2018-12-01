@@ -13,6 +13,7 @@ return n[x];
 }
 
 
+#include "m_matrix_hack.h"
 #include <c_comand.h>
 #include <l_dispatcher.h>
 #include <s__.h>
@@ -69,6 +70,12 @@ public:
   BSCR( BSMATRIX<COMPLEX> const& m, size_t r) : _m(m), _r(r){ }
   COMPLEX get(size_t x) const{
 	  return _m.s(_r, x);
+  }
+
+public:
+  size_t size() const{ return _m.size(); }
+  double density() const{
+	  return const_cast<BSMATRIX<COMPLEX>& >(_m).density();
   }
 
 private:

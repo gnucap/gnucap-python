@@ -64,13 +64,14 @@ PY_LOG_COMPILER = $(top_srcdir)/py_log_compiler
 GC_LOG_COMPILER = $(top_srcdir)/gc_log_compiler
 
 PY_TESTS = \
-	crash.py \
-	elmt.py \
-	sim.py \
 	ac.py \
+	crash.py \
+	comp.py \
+	elmt.py \
+	matrix.0.py \
 	param.py \
-	store.py \
-	comp.py
+	sim.py \
+	store.py
 
 GC_TESTS = \
 	use_simplugin.gc

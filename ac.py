@@ -64,9 +64,7 @@ class MyAC(gnucap.SIM):
 
         card_list.do_ac()
         card_list.ac_load()
-        print("incomplete " + str(  self.sim_()._acx))
-        print("incomplete", self.sim_()._acx[0])
-        print("incomplete", self.sim_()._acx[0][0:2])
+        print(self.sim_()._acx)
         print("M", self.sim_()._acx[0][0], self.sim_()._acx[0][1], self.sim_()._acx[0][2])
         print("M", self.sim_()._acx[1][0], self.sim_()._acx[1][1], self.sim_()._acx[1][2])
         print("M", self.sim_()._acx[2][0], self.sim_()._acx[2][1], self.sim_()._acx[2][2])
