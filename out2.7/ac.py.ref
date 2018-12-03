@@ -14,10 +14,7 @@ stashing as ac:0
  27.       
 numnodes: 2
 complex BSMATRIX on gnd + 2 nodes with 5 nonzeroes, density 1.000000
-M 0j 0j 0j
-M 0j (0.001+0.00125663706144j) (-0.001+0j)
-M 0j (-0.001+0j) (100000.001+0j)
 Loaded AC-matrix
 decomp
 fbsubt
-0 (20000.0, 0.6226769884870146)
+0 2.000000e+04 6.226770e-01

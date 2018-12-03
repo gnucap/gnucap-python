@@ -65,9 +65,9 @@ class MyAC(gnucap.SIM):
         card_list.do_ac()
         card_list.ac_load()
         print(self.sim_()._acx)
-        print("M", self.sim_()._acx[0][0], self.sim_()._acx[0][1], self.sim_()._acx[0][2])
-        print("M", self.sim_()._acx[1][0], self.sim_()._acx[1][1], self.sim_()._acx[1][2])
-        print("M", self.sim_()._acx[2][0], self.sim_()._acx[2][1], self.sim_()._acx[2][2])
+        # print("M", self.sim_()._acx[0][0], self.sim_()._acx[0][1], self.sim_()._acx[0][2])
+        # print("M", self.sim_()._acx[1][0], self.sim_()._acx[1][1], self.sim_()._acx[1][2])
+        # print("M", self.sim_()._acx[2][0], self.sim_()._acx[2][1], self.sim_()._acx[2][2])
 
         print("Loaded AC-matrix") # , gnucap.get_complex_array(gnucap.cvar.SIM_ac, n)
 
@@ -101,10 +101,7 @@ gnucap.command("myac")
 
 w = gnucap.CKT_BASE_find_wave("vm(2)")
 
-#w=w.begin()
-#print(next(w))
-
-for i,k in enumerate(w):
-    print(i,k)
+for i, k in enumerate(w):
+    print(i, '{:.6e}'.format(k[0]), '{:.6e}'.format(k[1]))
 
 # vim:et
