@@ -46,6 +46,8 @@ c_python_la_LIBADD += gnucap/libgnucap-python.la
 # possibly required on non-posix systems
 #c_python_la_LIBADD += @GC_LIBS@
 
+CLEANFILES =
+
 ####### TESTS #########
 GNUCAP_PLUGPATH := ${builddir}:@GC_PKGLIBDIR@:${GNUCAP_PLUGPATH:%=:%}
 PYTHONPATH=.
@@ -74,14 +76,24 @@ PY_TESTS = \
 	store.py
 
 GC_TESTS = \
-	use_simplugin.gc
+	use_simplugin.gc \
+	pz.0.gc \
+	pz.0g.gc
+
+pz.0.gc.out: pz_spice.py
+pz.0g.gc.out: pz_spice.py
+pz_spice.py:
+	$(LN_S) $(top_srcdir)/examples/$@
+
+CLEANFILES += pz_spice.py
+
 
 if PY2
 crash.log: PY_LOG_FLAGS=SKIP
 CRASH_OUT = crash.py.out
 endif
 
-CLEANFILES = ${CRASH_OUT} out3.7 c_python.so
+CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
 

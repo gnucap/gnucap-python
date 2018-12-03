@@ -1,0 +1,63 @@
+Gnucap : The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2013, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+main version
+core-lib version
+default plugins
+>>>>>attach public c_python.so 
+>>>>>attach ./d_brl.so 
+K: already installed, replacing
+stashing as K:0
+mutual_inductor: already installed, replacing
+stashing as mutual_inductor:0
+L: already installed, replacing
+stashing as L:0
+inductor: already installed, replacing
+stashing as inductor:0
+L: already installed, replacing
+stashing as L:1
+inductor: already installed, replacing
+stashing as inductor:1
+>>>>>loadpy pz_spice.py 
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
+>>>>>spice 
+>>>>>.list 
+i1 ( 1 0 )  AC  1.
+R1 ( 0 1 )  1.
+C3 ( 0 1 )  1.52
+C4 ( 2 0 )  1.5
+C5 ( 3 0 )  0.83
+C1 ( 1 2 )  0.93
+L1 ( 1 2 )  0.65
+C2 ( 2 3 )  3.8
+L2 ( 2 3 )  1.
+R2 ( 3 0 )  1.
+>>>>>.print op v(nodes) 
+>>>>>.op 
+#           v(1)       v(2)       v(3)      
+ 27.        0.         0.         0.        
+>>>>>.pz 1 0 3 0 cur pz 
+()
+poles
+ -5.450890e-01+1.463696e-16j
+ -1.182742e-01-8.914907e-01j
+ -1.182742e-01+8.914907e-01j
+ -6.948469e-02-4.671777e-01j
+ -6.948469e-02+4.671777e-01j
+()
+zeroes
+ 0.000000e+00-1.286180e+00j
+ 0.000000e+00-5.129892e-01j
+ 0.000000e+00+5.129892e-01j
+ 0.000000e+00+1.286180e+00j
+>>>>>.end 

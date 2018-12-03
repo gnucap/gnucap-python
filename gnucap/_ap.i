@@ -23,11 +23,27 @@
 #include <ap.h>
 %}
 
+%include std_string.i
+
 class CS {
 public:
-      enum STRING {_STRING};
-      CS(CS::STRING, const std::string& s);
-      const std::string fullstring()const;
+  enum STRING {_STRING};
+  CS(CS::STRING, const std::string& s);
+  const std::string fullstring()const;
+
+public:
+  std::string ctos(const std::string& term=",=(){};",
+		   const std::string& b="\"'{",
+		   const std::string& e="\"'}",
+		   const std::string& trap="");
+//...
+  double      ctof();
+  bool	      ctob();
+  int	      ctoi();
+  unsigned    ctou();
+  int	      ctoo();
+  int	      ctox();
+  double      ctopf()			 {return std::abs(ctof());}
 };
 
-
+// vim:ts=8:sw=2

@@ -50,6 +50,7 @@ pythongc_LTLIBRARIES = \
 	_e_elemnt.la \
 	_e_node.la \
 	_io_.la \
+	_u_nodemap.la \
 	_u_opt.la \
 	_u_status.la \
 	_u_xprobe.la \
@@ -98,8 +99,10 @@ _component.cxx: e_card.i _e_base.i _m_wave.i
 _globals.cxx: _m_wave.i
 _c_comand.cxx: _m_wave.i
 _s__.cxx: _m_wave.i
+_e_cardlist.cxx: _u_nodemap.i
 _e_base.cxx: _m_wave.i
 _e_node.cxx: _io_.i
 _e_elemnt.cxx: _m_wave.i
 _s__.cxx _u_sim_data.cxx: _m_matrix.i
+_s__.cxx: _ap.i
 _gnucap_swig.cxx: e_card.i _e_base.i _m_matrix.i _m_wave.i

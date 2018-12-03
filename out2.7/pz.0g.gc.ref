@@ -1,0 +1,56 @@
+Gnucap : The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2013, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+main version
+core-lib version
+default plugins
+K: already installed, replacing
+stashing as K:0
+mutual_inductor: already installed, replacing
+stashing as mutual_inductor:0
+L: already installed, replacing
+stashing as L:0
+inductor: already installed, replacing
+stashing as inductor:0
+L: already installed, replacing
+stashing as L:1
+inductor: already installed, replacing
+stashing as inductor:1
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
+i1 ( 1 gnd )  AC  1.
+R1 ( gnd 1 )  1.
+C3 ( gnd 1 )  1.52
+C4 ( 2 gnd )  1.5
+C5 ( 3 gnd )  0.83
+C1 ( 1 2 )  0.93
+L1 ( 1 2 )  0.65
+C2 ( 2 3 )  3.8
+L2 ( 2 3 )  1.
+R2 ( 3 gnd )  1.
+rr ( 0 gnd )  1.p
+#           v(1)       v(2)       v(3)       v(gnd)    
+ 27.        0.         0.         0.         0.        
+()
+poles
+ -5.450614e-01+8.948298e-08j
+ -1.182849e-01-8.914921e-01j
+ -1.182812e-01+8.914917e-01j
+ -6.950055e-02+4.671794e-01j
+ -6.949235e-02-4.671825e-01j
+()
+zeroes
+ -2.823810e+10+0.000000e+00j
+ -3.215297e-12-5.129892e-01j
+ -3.215297e-12+5.129892e-01j
+ 7.475197e-13-1.286180e+00j
+ 7.475197e-13+1.286180e+00j

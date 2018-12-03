@@ -25,7 +25,9 @@
 #include <u_time_pair.h>
 %}
 
+%include "_u_nodemap.i"
 %include "exception.i"
+
 %exception Card_Range::next {
   try {
     $action
@@ -100,6 +102,8 @@ public:
    CARD_LIST& ac_begin();
    CARD_LIST& do_ac();
    CARD_LIST& ac_load();
+
+	NODE_MAP*   nodes()const {assert(_nm); return _nm;}
 
 	iterator begin()			{return _cl.begin();}
 	iterator end()			{return _cl.end();}

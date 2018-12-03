@@ -91,6 +91,60 @@ return n[x];
 
 %}
 
+class NODE : public CKT_BASE {
+private:
+  int	_user_number;
+  //int	_flat_number;
+  //int	_matrix_number;
+protected:
+  explicit NODE();
+private: // inhibited
+  explicit NODE(const NODE& p);
+public:
+  explicit NODE(const NODE* p); // u_nodemap.cc:49 (deep copy)
+  explicit NODE(const std::string& s, int n);
+  ~NODE() {}
+
+public: // raw data access (rvalues)
+  int	user_number()const	{return _user_number;}
+  //int	flat_number()const	{itested();return _flat_number;}
+public: // simple calculated data access (rvalues)
+  int	matrix_number()const	{return _sim->_nm[_user_number];}
+  int	m_()const		{return matrix_number();}
+public: // maniputation
+  NODE&	set_user_number(int n)	{_user_number = n; return *this;}
+  //NODE& set_flat_number(int n) {itested();_flat_number = n; return *this;}
+  //NODE& set_matrix_number(int n){untested();_matrix_number = n;return *this;}
+public: // virtuals
+  double	tr_probe_num(const std::string&)const;
+  // XPROBE	ac_probe_ext(const std::string&)const;
+
+  double      v0()const	{
+    assert(m_() >= 0);
+    assert(m_() <= _sim->_total_nodes);
+    return _sim->_v0[m_()];
+  }
+  double      vt1()const {
+    assert(m_() >= 0);
+    assert(m_() <= _sim->_total_nodes);
+    return _sim->_vt1[m_()];
+  }
+  COMPLEX     vac()const {
+    assert(m_() >= 0);
+    assert(m_() <= _sim->_total_nodes);
+    return _sim->_ac[m_()];
+  }
+  //double      vdc()const		{untested();return _vdc[m_()];}
+
+  //double&     i()	{untested();return _i[m_()];}  /* lvalues */
+  COMPLEX&    iac() {
+    assert(m_() >= 0);
+    assert(m_() <= _sim->_total_nodes);
+    return _sim->_ac[m_()];
+  }
+};
+
+
 
 %extend nodearray_t {
   // inline size_t __len__() const { return -1; }

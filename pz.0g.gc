@@ -1,0 +1,34 @@
+attach public c_python.so
+attach ./d_brl.so
+loadpy pz_spice.py
+spice
+
+i1 1 gnd ac 1
+
+R1 gnd 1 1
+C3 gnd 1 1.52
+
+C4 2 gnd 1.5
+C5 3 gnd 0.83
+
+C1 1 2 0.93
+L1 1 2 0.65
+
+C2 2 3 3.8
+L2 2 3 1
+
+R2 3 gnd 1
+rr 0 gnd 1p
+
+.list
+
+.print op v(nodes)
+.op
+
+.pz 1 gnd 3 gnd
+
+.print ac v(3)
+
+.end
+.mysim
+.end
