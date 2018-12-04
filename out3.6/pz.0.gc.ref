@@ -10,7 +10,7 @@ main version
 core-lib version
 default plugins
 >>>>>attach public c_python.so 
->>>>>attach ./d_brl.so 
+>>>>>attach d_brl.so 
 K: already installed, replacing
 stashing as K:0
 mutual_inductor: already installed, replacing
