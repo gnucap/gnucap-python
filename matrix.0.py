@@ -60,19 +60,19 @@ class MyAC(gnucap.SIM):
         M=acx
         for a in range(1+n):
            for b in range(1+n):
-              printn(" ", M[a][b])
+              printn(' {:.1g}'.format(M[a][b]))
            print()
 
         print (M)
         print (M[0][0])
         print("incomplete", M[0])
         print("incomplete", M[0][0:2])
-        print("data", M.data_())
+        print(M.data_())
         N = np.array(M)
         print("np", N)
 
         raw = acx._space()
-        print("with gnd", raw[:5])
+        print("with gnd", ['{:.2f}'.format(xx) for xx in raw[:5]])
 
         raw = acx._space(False)
         print("without", raw[:5])
@@ -81,9 +81,13 @@ class MyAC(gnucap.SIM):
         print("coo", coo[:5], np.shape(coo));
         assert(np.shape(coo)==(19,2));
 
+        if sys.version_info[0] < 3:
+           print("too old")
+           return
+
         a=zip(*coo);
-        i=next(a)
-        j=next(a)
+        i = next(a)
+        j = next(a)
 
         print("trying coo 1", i[:3], j[:3])
         a = coo_matrix((raw[:3], (i[:3],j[:3])), shape=(4,4))

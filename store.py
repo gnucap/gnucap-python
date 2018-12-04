@@ -18,12 +18,9 @@ w = gnucap.CKT_BASE_find_wave("v(nout)")
 
 b = iter(w)
 
-print(next(b))
-print(next(b))
-print(next(b))
-print(next(b))
-print(next(b))
-print(next(b))
+for i in range(6):
+	n=next(b)
+	print(n[0], ' {:.6e}'.format(n[1]))
 
 try:
 	next(b)
@@ -32,6 +29,7 @@ except StopIteration:
 	pass
 
 for i in w:
-	print(i)
+	print(i[0], ' {:.6e}'.format(i[1]))
+
 
 print("done")
