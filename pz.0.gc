@@ -1,6 +1,6 @@
 options trace
 attach public c_python.so
-attach ./d_brl.so
+attach d_brl.so
 loadpy pz_spice.py
 
 spice

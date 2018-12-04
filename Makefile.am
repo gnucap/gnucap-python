@@ -16,7 +16,10 @@ test_python_CPPFLAGS = ${GC_CPPFLAGS} @PYTHON_CPPFLAGS@ \
 	-DPYTHON_SO=\"@ac_python_libdir@/@ac_python_soname@\" ${AM_CPPFLAGS}
 
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = gnucap examples
+SUBDIRS = \
+	examples \
+	gnucap \
+	misc
 
 all-local:
 	rm -f c_python.so
@@ -58,7 +61,7 @@ AM_TESTS_ENVIRONMENT = \
            PYTHON_VERSION=${PYTHON_VERSION} \
            PYTHONPATH=. \
            MAKEFLAGS=--no-print-directory \
-			  GNUCAP_PLUGPATH=${GNUCAP_PLUGPATH} \
+			  GNUCAP_PLUGPATH=$(top_builddir)/misc/.libs:${GNUCAP_PLUGPATH} \
            srcdir='$(srcdir)';
 AM_TESTS_FD_REDIRECT = 9>&2
 TEST_EXTENSIONS = .gc .py

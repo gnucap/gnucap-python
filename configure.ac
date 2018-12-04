@@ -126,6 +126,7 @@ AC_PROG_SWIG()
 
 AC_OUTPUT([
 	Makefile
+	misc/Makefile
 	gnucap/Makefile
 	examples/Makefile
 	gnucap/__init__.py
