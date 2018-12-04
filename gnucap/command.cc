@@ -10,8 +10,6 @@
 #include <e_cardlist.h>
 #include <u_lang.h>
 
-#include "numpy_interface.h"
-
 #include <stdio.h>
 #include <string>
 #include <fstream>

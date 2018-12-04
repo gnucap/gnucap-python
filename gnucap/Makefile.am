@@ -70,7 +70,7 @@ _globals_la_LIBADD = ${AM_LIBADD} libgnucap-python.la
 
 AM_DEFAULT_SOURCE_EXT = .i
 
-_gnucap_swig_la_SOURCES = command.cc numpy_interface.cc _gnucap_swig.i
+_gnucap_swig_la_SOURCES = command.cc _gnucap_swig.i
 _gnucap_swig_la_SOURCES += c_genrat.cc
 _gnucap_swig_la_SOURCES += s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
 
