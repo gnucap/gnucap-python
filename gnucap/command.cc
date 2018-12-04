@@ -16,7 +16,7 @@
 #include <memory>
 
 void parse(char const*command)
-{ untested();
+{
 	assert(OPT::language);
 	CS cmd(CS::_STRING, command);
 	trace1("parse", command);
@@ -70,7 +70,7 @@ void uninstall_command(DISPATCHER<CMD>::INSTALL *x) { untested();
 
 // could move to __init__.py.
 struct defpl_load{
-	defpl_load(){ untested();
+	defpl_load(){
 	  CKT_BASE::_sim = new SIM_DATA;
 	  CKT_BASE::_probe_lists = new PROBE_LISTS;
 	}

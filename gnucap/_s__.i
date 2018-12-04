@@ -73,8 +73,8 @@ protected:
     tVERBOSE   = 5	/* show extended diagnostics			*/
   };
 protected:
-  explicit SIM_() : SIM() { untested(); }
-  ~SIM_() { untested(); }
+  explicit SIM_() : SIM() { }
+  ~SIM_() { }
 public:
   virtual void  setup(CS&)=0;
   virtual void  sweep()=0;

@@ -6,6 +6,7 @@ todo, easy
 
 later
 - OUTPUT support
+- use swig to create dependencies (-MM)
 
 hacks
 - cleanup does not work in pyton2.
@@ -14,3 +15,4 @@ hacks
 bugs
 - takes ages to compile
 - error messages in loadpy...
+- swig generated code is hard to test

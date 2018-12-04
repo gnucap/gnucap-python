@@ -39,7 +39,7 @@ class StopIterator {};
 class WaveIterator {
   public:
     WaveIterator(WAVE::const_iterator _cur, WAVE::const_iterator _end)
-      : cur(_cur), end(_end) { untested();
+      : cur(_cur), end(_end) {
     }
     WaveIterator* __iter__()
     { untested();
@@ -74,20 +74,20 @@ public:
 %include "exception.i"
 
 // python2
-%exception WaveIterator::next { untested();
-  try { untested();
+%exception WaveIterator::next {
+  try {
     $action // calls %extend function next() below
-  } catch (StopIterator){ untested();
+  } catch (StopIterator){
     PyErr_SetString(PyExc_StopIteration, "End of iterator");
     return NULL;
   }
 }
 
 // python3
-%exception WaveIterator::__next__ { untested();
-  try { untested();
+%exception WaveIterator::__next__ {
+  try {
     $action // calls %extend function next() below
-  } catch (StopIterator){ untested();
+  } catch (StopIterator){
     PyErr_SetString(PyExc_StopIteration, "End of iterator");
     return NULL;
   }
@@ -95,27 +95,26 @@ public:
 
 %extend WaveIterator {
   DPAIR const& __next__()
-  { untested();
-    if ($self->cur != $self->end) { untested();
+  {
+    if ($self->cur != $self->end) {
       return *$self->cur++;
-    }else{ untested();
+    }else{
 		 throw StopIterator();
     }
   }
 	// python2
   DPAIR const& next()
-  { untested();
-    if ($self->cur != $self->end) { untested();
+  {
+    if ($self->cur != $self->end) {
       return *$self->cur++;
-    }else{ untested();
+    }else{
 		 throw StopIterator();
     }
   }
 }
 
 %extend WAVE {
-  WaveIterator __iter__()
-  { untested();
+  WaveIterator __iter__() {
     return WaveIterator($self->begin(), $self->end());
   }
 };

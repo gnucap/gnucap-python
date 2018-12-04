@@ -57,14 +57,14 @@ extern std::vector<CMD*> installed_commands;
 typedef DISPATCHER<CARD>::INSTALL card_install;
 typedef std::shared_ptr< card_install > shared_card_installer;
 
-shared_card_installer install_device(char const*name, CARD *card) { untested();
+shared_card_installer install_device(char const*name, CARD *card) {
    return std::make_shared<DISPATCHER<CARD>::INSTALL>(&device_dispatcher, name, card);
 }
 
 typedef DISPATCHER<CMD>::INSTALL cmd_install;
 typedef std::shared_ptr< cmd_install > shared_command_installer;
 
-shared_command_installer install_command(char *name, CMD *cmd) { untested();
+shared_command_installer install_command(char *name, CMD *cmd) {
   installed_commands.push_back(cmd);
   auto x=std::make_shared<DISPATCHER<CMD>::INSTALL>(&command_dispatcher, name, cmd);
   return x;

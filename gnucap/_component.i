@@ -72,13 +72,13 @@ protected: // CARD?
 %{ // _component.cxx
 class COMPONENT_ : public COMPONENT{
 public:
-  explicit COMPONENT_( const COMPONENT_& p) { untested();
+  explicit COMPONENT_( const COMPONENT_& p) {
   _n = _nodes;
   }
-  COMPONENT_()  { untested();
+  COMPONENT_() {
   _n = _nodes;
   }
-  virtual ~COMPONENT_() { untested(); }
+  virtual ~COMPONENT_() { }
 protected: // COMPONENT
   virtual std::string port_name(int)const { untested();  return "..."; }
   virtual bool print_type_in_spice()const {  untested(); return false; }

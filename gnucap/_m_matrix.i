@@ -89,7 +89,7 @@ private:
   void fbsub_(COMPLEX_array_t& x){
     return self->fbsub(x._t);
   }
-  inline std::string __repr__(){ untested();
+  inline std::string __repr__(){
     return "complex BSMATRIX on gnd + " + std::to_string(self->size())
                   + " nodes with " + std::to_string(self->_nzcount) + " nonzeroes,"
                   + " density " + std::to_string(self->density());
@@ -100,7 +100,8 @@ private:
 //    return self->s(p,p);
   }
 
-  double data_(){ untested();
+  double data_(){
+    incomplete();
     return self->_space[0].real();
   }
 
@@ -147,7 +148,7 @@ private:
   inline COMPLEX __getitem__(int p){
     return self->get(p);
   }
-  inline std::string __repr__(){ untested();
+  inline std::string __repr__(){
     return "complex BSMATRIX of size " + std::to_string(self->size())
                   + " density " + std::to_string(self->density());
   }
