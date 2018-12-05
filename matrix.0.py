@@ -81,6 +81,14 @@ class MyAC(gnucap.SIM):
         print("coo", coo[:5], np.shape(coo));
         assert(np.shape(coo)==(19,2));
 
+        coo_all = acx._coord(True)
+        raw_all = acx._space(True)
+        coo_allt=coo_all.transpose()
+        m_all = coo_matrix((raw_all, coo_allt))
+        print(coo_allt[0])
+        print(coo_allt[1])
+        print(m_all.todense()[0:3])
+
         if sys.version_info[0] < 3:
            print("too old")
            return

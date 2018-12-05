@@ -109,7 +109,7 @@ private:
       npy_intp dims[] = { self->_nzcount - 1 + gnd };
       return PyArray_SimpleNewFromData(1, dims, NPY_CDOUBLE, self->_space + 1 - gnd);
   }
-  PyObject* _coord(bool gnd=true) {
+  PyObject* _coord(bool gnd) {
     npy_intp dims[] = { self->_nzcount - 1 + gnd, 2 };
     trace2("coord", dims[0], dims[1]);
     PyObject* ret=PyArray_SimpleNew(2, dims, NPY_INT);
@@ -118,16 +118,11 @@ private:
     int* raw = (int*)PyArray_DATA(d);
 
     unsigned seek=0;
-    if(gnd){
-      seek+=2;
-      std::cout << "(0,0)\n";
-      raw[0] = raw[1] = 0;
-    }
+    auto pprev=self->_diaptr[1-gnd];
 
-    int prev=1;
-    for(int d=gnd; d<gnd+self->_size; ++d){
-      int delta = self->_diaptr[d+1-gnd] - self->_diaptr[d-gnd] - prev;
-      prev=delta+1;
+    for(int d=0; d<gnd+self->_size; ++d){
+      int delta = self->_diaptr[d+1-gnd] - pprev;
+      pprev += 2*delta + 1;
 
       int c=d-delta;
       for(; c<d; ++c){
