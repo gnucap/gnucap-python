@@ -86,6 +86,12 @@ public:
    CARD_LIST& expand();
    CARD_LIST& map_nodes();
    CARD_LIST& tr_iwant_matrix();
+	CARD_LIST& set_slave();
+	CARD_LIST& precalc_first();
+	CARD_LIST& expand();
+	CARD_LIST& precalc_last();
+	CARD_LIST& map_nodes();
+	CARD_LIST& tr_iwant_matrix();
    CARD_LIST& tr_begin();
    CARD_LIST& tr_restore();
    CARD_LIST& dc_advance();

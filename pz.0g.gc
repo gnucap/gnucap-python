@@ -3,6 +3,9 @@ attach d_brl.so
 loadpy pz_spice.py
 spice
 
+* demo from hspice manual. circulates for ages & considered public domain.
+* the level of invention amounts to the spice format adjustments
+
 i1 1 gnd ac 1
 
 R1 gnd 1 1

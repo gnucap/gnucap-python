@@ -10,5 +10,6 @@ EXFILES= \
 	mosfit.sp \
 	n.typ \
 	p.typ \
+	pz.9.sp \
 	pz_stub.gc \
 	pz_stub.py

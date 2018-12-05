@@ -31,7 +31,16 @@ class spice_pz(SIM):
 		self.sim_().set_command_ac()
 		self.setup(cmd)
 		self.sim_().init()
+		cl = CARD_LIST().card_list_()
+		cl.precalc_last()
 		self.sim_().alloc_vectors()
+
+		nodes = cl.nodes();
+
+		self.inn = [nodes[self._in0].matrix_number(), nodes[self._in1].matrix_number()]
+		self.out = [nodes[self._out0].matrix_number(), nodes[self._out1].matrix_number()]
+		assert(self.inn[0] != self.inn[1] ) # for now
+		assert(self.out[0] != self.out[1] ) # for now
 
 		acx = self.sim_()._acx
 		acx.reallocate()
@@ -42,19 +51,10 @@ class spice_pz(SIM):
 		self.sim_().unalloc_vectors()
 
 	def setup(self, cmd):
-		cl = CARD_LIST().card_list_()
-		in0=cmd.ctos()
-		in1=cmd.ctos()
-		out0=cmd.ctos()
-		out1=cmd.ctos()
-
-		nodes = cl.nodes();
-
-		self.inn = [nodes[in0].matrix_number(), nodes[in1].matrix_number()]
-		self.out = [nodes[out0].matrix_number(), nodes[out1].matrix_number()]
-
-		assert(self.inn[0] != self.inn[1] ) # for now
-		assert(self.out[0] != self.out[1] ) # for now
+		self._in0=cmd.ctos()
+		self._in1=cmd.ctos()
+		self._out0=cmd.ctos()
+		self._out1=cmd.ctos()
 
 		self._out = self.out_assign(IO_mstdout_get());
 		sys.stdout.flush()
@@ -72,13 +72,14 @@ class spice_pz(SIM):
 			print(' {:.6e}'.format(i))
 
 	def sweep(self):
+		self.sim_()._jomega = -1j
 		cl = CARD_LIST().card_list_()
+		cl.ac_begin()
 		n = self.sim_()._total_nodes
 		freqstart = 0.
 		freqstop = 1.
 		s = self.sim_()
 
-		cl.ac_begin()
 		self.mysolve()
 
 	def mysolve(self):
@@ -93,7 +94,6 @@ class spice_pz(SIM):
 		s.count_iterations(iTOTAL);
 
 		cl = CARD_LIST().card_list_()
-		self.sim_()._jomega = -1j
 		cl.do_ac()
 		cl.ac_load()
 
