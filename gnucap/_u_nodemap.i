@@ -47,14 +47,6 @@ public:
 };
 
 %extend NODE_MAP {
-  unsigned name2matrixnumber_hack(std::string const& n){
-    if((*self)[n]){
-      return (*self)[n]->matrix_number();
-    }else{
-      return -1u;
-    }
-  }
-
   inline NODE const& __getitem__(std::string /*const?*/ s){
     return *(*self)[s];
   }
