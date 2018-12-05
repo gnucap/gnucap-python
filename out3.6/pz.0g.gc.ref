@@ -27,6 +27,8 @@ transient: already installed, replacing
 stashing as transient:0
 transient: already installed, replacing
 stashing as transient:0
+* demo from hspice manual. circulates for ages & considered public domain. 
+* the level of invention amounts to the spice format adjustments 
 i1 ( 1 gnd )  AC  1.
 R1 ( gnd 1 )  1.
 C3 ( gnd 1 )  1.52

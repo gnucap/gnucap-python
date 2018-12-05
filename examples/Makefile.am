@@ -11,5 +11,6 @@ EXFILES= \
 	n.typ \
 	p.typ \
 	pz.9.sp \
+	pz_spice.py \
 	pz_stub.gc \
 	pz_stub.py
