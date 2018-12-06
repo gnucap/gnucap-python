@@ -83,9 +83,6 @@
 class CARD_LIST {
 public:
 	typedef std::list<CARD*>::iterator iterator;
-   CARD_LIST& expand();
-   CARD_LIST& map_nodes();
-   CARD_LIST& tr_iwant_matrix();
 	CARD_LIST& set_slave();
 	CARD_LIST& precalc_first();
 	CARD_LIST& expand();

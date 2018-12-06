@@ -87,8 +87,9 @@ EXTRA_DIST = \
 	wrap.h \
 	e_card.i
 
-CLEANFILES = *~ *.pyc u_xprobe.h
+CLEANFILES = *~ *.pyc
 
+CLEANFILES+= ${BUILT_SOURCES}
 CLEANFILES+= ${pythongc_LTLIBRARIES:_%.la=%.py}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.cxx}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.h}
