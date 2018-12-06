@@ -1,6 +1,8 @@
 // Copyright: 2009-2011 Henrik Johansson
 // Author: Henrik Johansson
 
+// this work is derived from gnucap, hence GPLv3+
+
 %module(directors="0", allprotected="1") gnucap_swig
 
 // generate directors for all classes that have virtual methods
@@ -31,12 +33,6 @@
 #include <memory>
 %}
 
-#ifdef HAS_NUMPY
-%{
-#include "numpy_interface.h"
-%}
-#endif
-
 %exception {
     try {
         $action
@@ -55,9 +51,6 @@
 #include <md.h>
 
 %}
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Major gnucap classes
@@ -79,52 +72,10 @@ protected:
         void outdata(double, int);
 };
 
-
-
-
-// STATUS status;
-
 ///////////////////////////////////////////////////////////////////////////////
 // gnucap functions
 ///////////////////////////////////////////////////////////////////////////////
 std::string command(char const*command);
 void parse(char const*command);
-
-%{
-// namespace{
-//   struct i{
-//     ~i(){
-//       trace0("this is possibly too late?\n");
-//       command("clear");
-//       trace0("goodbye\n");
-//     }
-//   }initme;
-// }
-%}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// non-gnucap utility functions
-///////////////////////////////////////////////////////////////////////////////
-#ifdef HAS_NUMPY
-void init_numpy();
-PyObject *wave_to_arrays(WAVE *wave);
-PyObject *bsmatrix_to_array_d(BSMATRIX<double> &A);
-PyObject *bsmatrix_to_array_c(BSMATRIX<COMPLEX> &A);
-PyObject *to_double_array(double *data, int len);
-PyObject *get_complex_array(COMPLEX *data, int len);
-void set_complex_array(COMPLEX *data, PyObject *srcarray);
-
-template<class T> void bsmatrix_fbsub_array(BSMATRIX<T> *A, PyObject *rhs, PyObject *dest);
-
-%template(bsmatrix_fbsub_array_double) bsmatrix_fbsub_array<double>;
-
-%init %{
-      init_numpy();
-%}
-#endif
-
-
-
 
 // vim:ts=8:sw=2:et:
