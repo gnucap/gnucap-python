@@ -133,6 +133,7 @@ $(PY_TESTS:%.py=%.log): .P
 
 EXTRA_DIST = \
 	bootstrap \
+	THANKS \
 	CONTRIBUTE \
 	gc_log_compiler \
 	py_log_compiler \
