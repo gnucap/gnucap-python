@@ -1,7 +1,10 @@
 ## Process this file with automake to produce Makefile.in
+# Author: 2018 Felix Salfelder
+# license GPLv3+
 
 pkgexamplesdir = ${docdir}/examples
-dist_pkgexamples_DATA = ${EXFILES}
+#sr/share/doc/gnucap-python/examples/
+dist_pkgexamples_DATA = ${EXFILES} README
 
 EXFILES= \
 	inv.py \

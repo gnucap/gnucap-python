@@ -1,0 +1,12 @@
+gnucap-python examples
+
+these examples should run with either
+$ gnucap $example.gc
+or
+$ python $example.py
+
+plugins uses must be available, consider adjusting LD_LIBRARY_PATH or
+GNUCAP_PLUGPATH. if you did not intend to install this package, add the top
+build directory to PYTHONPATH...
+
+see http://gnucap.org/dokuwiki/doku.php/gnucap:user:gnucap_python
