@@ -1,6 +1,6 @@
 # gnucap-python top level Makefile.am
 # Author: 2018 Felix Salfelder
-# license GPLV3
+# license GPLv3+
 #
 # (inspired by now obsolete files from Henrik Johansson)
 #

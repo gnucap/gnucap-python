@@ -1,5 +1,6 @@
 # Copyright (C) 2018 Felix Salfelder
 # Author: Felix Salfelder <felix@salfelder.org>
+# License: GPLv3+
 
 # load into gnucap with loadpy $thisfile
 

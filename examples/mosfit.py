@@ -1,6 +1,6 @@
 # ASCO replacement
 # (C) 2018 Felix Salfelder
-# GPLv3
+# GPLv3+
 
 # use gnucap to fit one mosfet against another in a dc sweep
 
