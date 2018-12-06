@@ -5,9 +5,7 @@ plotting purposes.
 
 The package also provides a command for gnucap that loads python modules, such
 as python modules implementing custom commands or components (or anything).
-
-(there is some numpy code around which i do not understand. this is currently
-experimental)
+See examples.
 
  Requirements
 -------------
@@ -51,6 +49,8 @@ Examples
 From gnucap
 ~~~~~~~~~~~
 
+This seems outdated. See examples/README
+
 ::
 
    $ gnucap -a python.so
@@ -78,7 +78,7 @@ Do the same directly from Python
    welcome to gnucap-python
    >>> gnucap.stuff
 
-stuff is not documented yet.
+stuff is not documented yet, see examples for some applications
 
 Caveats
 ~~~~~~~
