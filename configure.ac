@@ -16,7 +16,6 @@ AM_CONFIG_HEADER([config.h])
 # Checks for libraries.
 # this is a c++ program so use c++ for the tests
 AC_LANG([C++])
-AC_CHECK_LIB([dl], [dlopen])
 
 # ------------ debug switch
 AC_MSG_CHECKING([if debug code should be compiled in])
