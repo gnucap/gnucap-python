@@ -5,19 +5,19 @@ stashing as transient:0
 transient: already installed, replacing
 stashing as transient:0
 default plugins
-SIM construction refused (correct)
-install1
-install2
 myac: already installed, replacing
 stashing as myac:0
 ac: already installed, replacing
 stashing as ac:0
+SIM construction refused (correct)
+install1
+install2
 HELLOWORLD
 HELLOWORLD
 HELLOWORLD2
 HELLOWORLD
 side effects?
-bad internal command: myac:0
+got nameError bad internal command: myac:0
 ....
 HELLOWORLD
 HELLOWORLD

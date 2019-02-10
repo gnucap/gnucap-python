@@ -48,7 +48,12 @@ gnucap.command("myac 1 2 * 2")
 
 print("side effects?")
 del(d2)
-gnucap.command("myac:0 1 2 * 2") # bad command? yes. this was d2
+try:
+	gnucap.command("myac:0 1 2 * 2") # bad command? yes. this was d2
+	print("FAIL")
+except NameError as e:
+	print("got nameError", e)
+
 print("....")
 sys.stdout.flush()
 gnucap.command("myac 1 2 * 2")
