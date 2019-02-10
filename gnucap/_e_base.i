@@ -40,5 +40,31 @@ protected: // create and destroy
   explicit CKT_BASE(const CKT_BASE& p)	  :_probes(0), _label(p._label) { untested(); }
   virtual  ~CKT_BASE();
 public:
-  static WAVE* find_wave(const std::string&);
+//  static WAVE* find_wave(const std::string&);
 };
+
+%exception CKT_BASE_find_wave {
+	try{
+		$action
+	}catch(MyKeyError const& k){
+		PyErr_SetString(PyExc_KeyError, k._m);
+		return NULL;
+	}
+}
+
+%{
+struct MyKeyError{ char const* _m; };
+%}
+
+%inline %{
+WAVE* CKT_BASE_find_wave(const std::string&s)
+{ untested();
+	WAVE* w=CKT_BASE::find_wave(s);
+	if(!w){ untested();
+		MyKeyError k;
+		k._m = s.c_str();
+		throw k;
+	}
+	return w;
+}
+%}

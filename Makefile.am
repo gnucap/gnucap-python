@@ -73,6 +73,7 @@ PY_TESTS = \
 	crash.py \
 	comp.py \
 	elmt.py \
+	find_wave.py \
 	matrix.0.py \
 	param.py \
 	sim.py \
