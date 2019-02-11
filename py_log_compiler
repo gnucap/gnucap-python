@@ -13,6 +13,6 @@ if [ x$skip = xyes ]; then
 	exit 77;
 fi
 
-ref=${srcdir}/out${PYTHON_VERSION}/${base}.ref
+ref=out${PYTHON_VERSION}/${out}
 diff -rup $out $ref || exit 1
 rm $out

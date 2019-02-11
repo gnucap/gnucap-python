@@ -6,6 +6,6 @@ base=`basename $1`
 out=${base}.out
 make $out
 
-ref=${srcdir}/out${PYTHON_VERSION}/${base}.ref
+ref=out${PYTHON_VERSION}/${out}
 diff $out $ref || exit 1
 rm $out

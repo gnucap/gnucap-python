@@ -128,6 +128,7 @@ AC_OUTPUT([
 	misc/Makefile
 	gnucap/Makefile
 	examples/Makefile
+	tests/Makefile
 	gnucap/__init__.py
 	])
 
