@@ -105,5 +105,5 @@ _e_base.cxx: _m_wave.i
 _e_node.cxx: _io_.i
 _e_elemnt.cxx: _m_wave.i
 _s__.cxx _u_sim_data.cxx: _m_matrix.i _ap.i
-_gnucap_swig.cxx: e_card.i _e_base.i _m_matrix.i _m_wave.i
+_gnucap_swig.cxx: e_card.i _e_base.i _m_matrix.i _m_wave.i _s__.i
 _globals.cxx: _e_base.i

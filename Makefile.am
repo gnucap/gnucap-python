@@ -80,6 +80,7 @@ PY_TESTS = \
 	store.py
 
 GC_TESTS = \
+	err_simplugin.gc \
 	use_simplugin.gc \
 	pz.0.gc \
 	pz.0g.gc
@@ -139,6 +140,7 @@ EXTRA_DIST = \
 	gc_log_compiler \
 	py_log_compiler \
 	simplugin.py \
+	err_simplugin.py \
 	${TESTS:%=out3.6/%.ref} \
 	${TESTS:%=out2.7/%.ref} \
 	${TESTS}

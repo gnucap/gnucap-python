@@ -61,6 +61,68 @@ protected:				/* s__solve.cc */
 // or protected enums.
 // All non-status methods that are inherited from SIM should also be copied
 // here or you will get segmentation faults (really?)
+
+// %exception SIM_::do_it {
+//    try{ untested();
+//       $action
+//    }catch(...){ untested();
+//       PyErr_SetString(PyExc_KeyError, "AAA");
+//       return NULL;
+//    }
+// }
+// %exception SwigDirector_SIM_::do_it {
+//    try{ untested();
+//       $action
+//    }catch(...){ untested();
+//       PyErr_SetString(PyExc_KeyError, "AAA");
+//       return NULL;
+//    }
+// }
+
+%feature("director:except") {
+	if ($error != NULL) {
+		PyObject *exc, *val, *tb;
+		PyErr_Fetch(&exc, &val, &tb);
+		PyErr_NormalizeException(&exc, &val, &tb);
+		std::string err_msg;
+
+		if(tb){
+			PyObject* lineno = PyObject_GetAttrString(tb,"tb_lineno");
+			PyObject* str = PyObject_Str(lineno);
+
+			err_msg += "Line ";
+			err_msg += PyUnicode_AsUTF8(str);
+			err_msg += ", ";
+			Py_XDECREF(str);
+		}else{
+		}
+
+		err_msg += "in method '$symname': ";
+
+		PyObject* exc_str = PyObject_GetAttrString(exc, "__name__");
+		err_msg += PyUnicode_AsUTF8(exc_str);
+		Py_XDECREF(exc_str);
+
+		if (val != NULL) {
+			PyObject* val_str = PyObject_Str(val);
+			err_msg += ": ";
+			err_msg += PyUnicode_AsUTF8(val_str);
+			Py_XDECREF(val_str);
+		}else{
+		}
+
+
+		Py_XDECREF(exc);
+		Py_XDECREF(val);
+		Py_XDECREF(tb);
+
+		// std::cerr << err_msg << "\n";
+		// not sure if this is a good idea.
+		throw Exception(err_msg);
+		// Swig::DirectorMethodException::raise(err_msg.c_str());
+	}
+}
+
 %inline %{
 class SIM_ : public SIM {
 protected:
