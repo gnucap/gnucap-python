@@ -11,9 +11,13 @@
   - mode
 * transfer function plot example
 
-0.0.2 - WIP
+0.0.2
 =====
 * numpy cleanup
 * matrix access
 * node map access
 * pz analysis command
+
+0.0.3 - wip
+=====
+* improve error handling
