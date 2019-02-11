@@ -94,6 +94,9 @@ CLEANFILES+= ${pythongc_LTLIBRARIES:_%.la=%.py}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.cxx}
 CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.h}
 
+clean-local:
+	rm -rf __pycache__
+
 #### dep
 _e_elemnt.cxx: _e_node.i _u_xprobe.i _e_base.i
 _component.cxx: e_card.i _e_base.i _m_wave.i
