@@ -25,6 +25,7 @@
 %{
 #include <u_opt.h>
 %}
+#include "u_opt.h"
 
 #if 0
 // not yet?
@@ -43,3 +44,9 @@ class ENV {
 public:
   static RUN_MODE run_mode; // variations on handling of dot commands
 };
+
+%inline {
+  int OPT_numdgt(){
+    return OPT::numdgt;
+  }
+}

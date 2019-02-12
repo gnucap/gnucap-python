@@ -29,6 +29,7 @@ R2 3 0 1
 .print op v(nodes)
 .op
 
+.options numdgt=1
 .pz 1 0 3 0 cur pz
 
 .end

@@ -21,6 +21,8 @@ from gnucap import node_t
 from gnucap import XPROBE
 from gnucap import install_device
 from gnucap import OMSTREAM__print
+from gnucap import OPT_numdgt
+from gnucap import fixzero
 
 sigma = 0
 
@@ -62,14 +64,35 @@ class spice_pz(SIM):
 		outset(cmd, self._out)
 
 	def sort_and_output(self, E0):
+		n = OPT_numdgt()
+		self._out.setfloatwidth(n, n)
+
 		Q = []
 		for i in E0.transpose():
 			if(i[1]):
-				Q.append(i[0]/i[1])
+				q=i[0]/i[1]
+				im=np.imag(q)
+				im=fixzero(im, 1e8)
+				re=np.real(q)
+				if(abs(re)>1e8):
+					continue
+				re=fixzero(re, 1e8)
+				Q.append(re+1j*im)
 
-		Q = np.sort_complex(Q)
+		Q = np.array(Q)
+		Q = np.sort_complex(1j*Q)/1j
+		# Q = np.sort_complex(Q)
 		for i in Q:
-			print(' {:.6e}'.format(i))
+			# print(' {:.6e}'.format(i))
+
+			# use outdata...
+			OMSTREAM__print(self._out, np.real(i))
+			if(np.imag(i)<0):
+				OMSTREAM__print(self._out, "- j*")
+			else:
+				OMSTREAM__print(self._out, "+ j*")
+			OMSTREAM__print(self._out, abs(np.imag(i)))
+			OMSTREAM__print(self._out, "\n")
 
 	def sweep(self):
 		self.sim_()._jomega = -1j
@@ -109,8 +132,7 @@ class spice_pz(SIM):
 		I = I.astype(np.complex128)
 		E = eig(R, I, homogeneous_eigvals=True)
 
-		print()
-		print("poles")
+		OMSTREAM__print(self._out, "poles\n")
 		E0 = E[0]
 		self.sort_and_output(E0)
 
@@ -146,8 +168,7 @@ class spice_pz(SIM):
 		M = f.todense()
 		R = np.real(M)
 		I = np.imag(M)
-		print()
-		print("zeroes")
+		OMSTREAM__print(self._out, "zeroes\n")
 
 		E = eig(R, I, homogeneous_eigvals=True)
 		E0 = E[0]

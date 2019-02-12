@@ -27,6 +27,7 @@
 %include _u_sim_data.i
 %include _c_comand.i
 %include _ap.i
+%include _io_.i
 
 #if 0
 // does not work. some protected types confuse SWIG.

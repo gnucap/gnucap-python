@@ -50,6 +50,7 @@ pythongc_LTLIBRARIES = \
 	_e_elemnt.la \
 	_e_node.la \
 	_io_.la \
+	_l_denoise.la \
 	_u_nodemap.la \
 	_u_opt.la \
 	_u_status.la \

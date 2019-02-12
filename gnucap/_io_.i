@@ -33,4 +33,7 @@
   OMSTREAM& print(std::string const& s){
     return *self << s;
   }
+  OMSTREAM& print(double const& d){
+    return *self << d;
+  }
 }
