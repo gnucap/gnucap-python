@@ -1,0 +1,5 @@
+options trace
+attach public c_python.so
+loadpy parse_err.py
+
+end
