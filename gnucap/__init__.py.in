@@ -5,7 +5,8 @@ import ctypes
 import os
 
 def trace(*args, **kwargs):
-	   print(*args, file=sys.stderr, **kwargs)
+	return
+	print(*args, file=sys.stderr, **kwargs)
 
 ctypes.PyDLL("@LIBGNUCAP_SONAME@", mode=ctypes.RTLD_GLOBAL)
 
