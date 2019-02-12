@@ -59,6 +59,8 @@ crash.log: PY_LOG_FLAGS=SKIP
 CRASH_OUT = crash.py.out
 endif
 
+XFAIL_TESTS =
+
 CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
