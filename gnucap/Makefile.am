@@ -56,7 +56,7 @@ pythongc_LTLIBRARIES = \
 	_u_xprobe.la \
 	_s__.la
 
-all-local:
+all-local: __init__.py
 	for i in ${pythongc_LTLIBRARIES:%.la=%.so}; do \
 		rm -f $$i; \
 		${LN_S} .libs/$$i $$i; \
