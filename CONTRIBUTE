@@ -10,11 +10,12 @@ Three types of contributions make sense at the current stage
 
 - tests
   a test consists of a pair of files. one is the script (here: *.gc or *.py),
-  the other is the expected output (append .ref to the filename)
+  the other is the expected output (*.out, currently in a directory
+  corresponding to the python version)
 
 - examples/documentation
   it is possible to implement simulation commands or components in python.
   these can be shared in contrib.
 
 plase make sure to include your name with a submission. contributions can be
-made through any reasonable channel and must be licensed under GPLv3.
+made through any reasonable channel and must be licensed under GPLv3+.
