@@ -45,6 +45,18 @@
   }
 }
 
+%typemap(out) ELEMENT&
+{ untested();
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{
+		unreachable();
+	}
+	Py_INCREF($result);
+}
+
 %inline %{
 	class ELEMENT;
 	class CardListEnd {};
@@ -62,23 +74,27 @@
 				return this;
 			}
 			bool is_end(){ return _cur==_end; }
-			ELEMENT& next(){
-				// hide non-elements, for now.
-				while (!is_end()) {
-					if(ELEMENT* e=dynamic_cast<ELEMENT*>(*_cur)){
-						++_cur;
-						return *e;
-					}else{
-						++_cur;
-					}
-				}
-				throw CardListEnd();
-			}
+			ELEMENT& next();
 		private:
 			iterator _cur;
 			iterator _end;
 	};
-%}
+
+
+ELEMENT& Card_Range::next()
+{
+	// hide non-elements, for now.
+	while (!is_end()) {
+		if(ELEMENT* e=dynamic_cast<ELEMENT*>(*_cur)){
+			++_cur;
+			return *e;
+		}else{
+			++_cur;
+		}
+	}
+	throw CardListEnd();
+}
+%} // inline
 
 class CARD_LIST {
 public:
