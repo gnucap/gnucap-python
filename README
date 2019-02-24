@@ -43,6 +43,23 @@ Build python plugin for gnucap
 
 will install the python module "gnucap" and a gnucap plugin "python".
 
+ no Installation
+----------------
+
+after
+
+::
+
+	$ make
+	$ export PYTHONPATH=.
+
+it should be possible to "import gnucap" from a python interpreter, e.g.
+
+::
+
+	$ python3 -c "import gnucap"
+	$ python3 some/test_or_example.py
+
 Examples
 --------
 
