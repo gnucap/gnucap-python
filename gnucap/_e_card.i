@@ -20,7 +20,6 @@
 
 %module(directors="0", allprotected="1") e_card
 %include _e_base.i
-// %feature(nodirector) CARD;
 
 %{
 #include <e_card.h>
@@ -31,7 +30,7 @@ protected:                              // create and destroy.
   CARD();
   CARD(const CARD&);
 public:
-  virtual  ~CARD()                      {delete _subckt;}
+  virtual  ~CARD();
 
 public: // parameters
   virtual CARD*	 clone()const = 0;

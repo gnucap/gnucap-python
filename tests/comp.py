@@ -5,7 +5,7 @@ from __future__ import print_function
 
 import gnucap
 
-from gnucap import COMPONENT
+from gnucap import COMPONENT, node_array
 from gnucap import install_device
 from copy import deepcopy, copy
 from sys import stdout
@@ -14,9 +14,10 @@ try:
 	c = COMPONENT()
 	print("ERROR, component must be pure")
 	assert(False)
-except RuntimeError:
-	pass
 except AttributeError:
+	print("ignoring AttributeError")
+	pass
+except RuntimeError:
 	pass
 
 class MyAC(gnucap.SIM):
@@ -49,8 +50,6 @@ except RuntimeError:
 except AttributeError:
 	pass
 
-# trick python garbage collector
-# todo: hide in wrapper layer
 
 class somecomponent(COMPONENT):
 	def __init__(self, other=None):
@@ -61,7 +60,9 @@ class somecomponent(COMPONENT):
 			print("copyconstruct somecomponent")
 			COMPONENT.__init__(self, other) # this is required. (or do not implement __init__)
 		print("init", self.long_label())
-		self.HACK=[]
+		self.HACK = []
+		nodes = node_array(20)
+		self.set_nodes(nodes)
 
 #	def __reduce__(self):
 #		print("reducing")
@@ -69,6 +70,8 @@ class somecomponent(COMPONENT):
 
 	def clone(self):
 		x = somecomponent(self)
+		# trick python garbage collector
+		# todo: hide in wrapper layer
 		self.HACK.append(x)
 		return x
 

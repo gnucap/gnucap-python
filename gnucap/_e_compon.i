@@ -20,25 +20,21 @@
 %module(directors="0", allprotected="1") e_compon
 
 // generate directors for all classes that have virtual methods
-%feature("director") COMPONENT_;
-%feature("nodirector") CARD;
-%feature("nodirector") COMPONENT;
-%ignore COMPONENT;
+%feature("director") COMPONENT;
 
 %include stl.i
 %include std_string.i
 %include std_complex.i
 %include _m_wave.i
 %include "_e_card.i"
+%include "_e_node.i"
 %include std_shared_ptr.i
 
-
 %{
+#include "e_compon.h"
 #include "wrap.h"
-#include <e_compon.h>
 #include <e_node.h>
 %}
-
 
 %exception {
     try {
@@ -54,83 +50,61 @@
 # this will end up somewhere in component.py
 %}
 
-class COMPONENT : public CARD{
-public:
+class COMPONENT : public CARD {
+protected: // these are not private.
   explicit COMPONENT( const COMPONENT& p);
-  COMPONENT() ;
-  virtual ~COMPONENT() { untested(); }
-protected: // COMPONENT
-  virtual std::string port_name(int)const { untested();  return "..."; }
-  virtual bool print_type_in_spice()const {  untested(); return false; }
-  virtual double tr_probe_num(std::string const&) const { return 88; }
-protected: // CARD?
-  virtual std::string value_name()const { untested(); return "VN"; }
-  virtual CARD* clone()const = 0;
-};
+  explicit COMPONENT();
 
+protected:
+  virtual ~COMPONENT();
+  virtual CARD*	 clone()const = 0;
+  void set_nodes(node_t* n);
 
-%{ // _component.cxx
-class COMPONENT_ : public COMPONENT{
-public:
-  explicit COMPONENT_( const COMPONENT_& p) {
-  _n = _nodes;
-  }
-  COMPONENT_() {
-  _n = _nodes;
-  }
-  virtual ~COMPONENT_() { }
-protected: // COMPONENT
-  virtual std::string port_name(int)const { untested();  return "..."; }
-  virtual bool print_type_in_spice()const {  untested(); return false; }
-  virtual double tr_probe_num(std::string const&) const { return 88; }
-protected: // CARD?
-  virtual std::string value_name()const { untested(); return "VN"; }
-  virtual CARD* clone()const{ untested();
-        // something like
-        // hack.push_back( self.__class__(self) )?
-        // return hack.back();
-    unreachable();
-    return NULL;
-  }
-private:
-  node_t   _nodes[20];
-};
-%}
-
-// COMPONENT, as python sees it.
-class COMPONENT_ : public CARD {
-public:
-  explicit COMPONENT_( const COMPONENT_& p);
-  explicit COMPONENT_(); //  : COMPONENT();
-  virtual ~COMPONENT_();
-protected: // COMPONENT
-  virtual std::string port_name(int)const;
+public:	// ports
+  virtual std::string port_name(int)const = 0;
+  virtual void set_port_by_name(std::string& name, std::string& value);
+  virtual void set_port_by_index(int index, std::string& value);
+  bool port_exists(int i)const {return i < net_nodes();}
   const std::string port_value(int i)const;
+  void	set_port_to_ground(int index);
+
+  virtual std::string current_port_name(int)const;
+  virtual const std::string current_port_value(int)const;
+  virtual void set_current_port_by_index(int, const std::string&);
+  bool current_port_exists(int i)const;
 
 protected: // CARD
-  virtual int param_count()const;
-  virtual bool param_is_printable(int)const;
   virtual double tr_probe_num(std::string const&) const;
-  virtual std::string value_name()const = 0;
-  virtual CARD* clone()const = 0; // not "recommended"
   virtual std::string dev_type()const	{unreachable(); return "unset";}
   std::string long_label()const;
 
-  virtual int	max_nodes()const	{unreachable(); return 0;}
-  virtual int	min_nodes()const	{unreachable(); return 0;}
-  virtual int	net_nodes()const	{unreachable(); return 0;}
-  virtual int	num_current_ports()const {return 0;}
-  virtual int	tail_size()const	{return 0;}
+public: // parameters
+  void set_param_by_name(std::string, std::string);
+  void set_param_by_index(int, std::string&, int);
+  int  param_count()const
+	{return ((has_common()) ? (common()->param_count()) : (2 + CARD::param_count()));}
+  bool param_is_printable(int)const;
+  std::string param_name(int)const;
+  std::string param_name(int,int)const;
+  std::string param_value(int)const; 
 
-  node_t*	_n;
+  virtual void set_parameters(const std::string& Label, CARD* Parent,
+			      COMMON_COMPONENT* Common, double Value,
+			      int state_count, double state[],
+			      int node_count, const node_t nodes[]);
+  void	set_value(const PARAMETER<double>& v)	{_value = v;}
+  void	set_value(double v)			{_value = v;}
+  void  set_value(const std::string& v)		{untested(); _value = v;}
+  void	set_value(double v, COMMON_COMPONENT* c);
+  const PARAMETER<double>& value()const		{return _value;}
+
+  virtual bool print_type_in_spice()const = 0;
+
+  virtual int	max_nodes()const;
+  virtual int	min_nodes()const;
+  virtual int	net_nodes()const;
+  virtual int	num_current_ports()const;
+  virtual int	tail_size()const;
 };
-
-
-// later
-// DISPATCHER<CARD> device_dispatcher;
-
-%inline %{
-
-%}
 
 // vim:ts=8:sw=2:et:

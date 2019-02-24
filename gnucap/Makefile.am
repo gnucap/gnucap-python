@@ -5,13 +5,16 @@
 # (inspired by now obsolete files from Henrik Johansson)
 #
 
-BUILT_SOURCES = u_xprobe.h m_matrix_hack.h
+BUILT_SOURCES = u_xprobe.h m_matrix_hack.h e_compon.h
 u_xprobe.h: ${GC_INCLUDEDIR}/u_xprobe.h
 	cp $< $@
 	sed -i '/^  explicit.*XPROBE():$$/s/e/public:e/' $@
 m_matrix_hack.h: ${GC_INCLUDEDIR}/m_matrix.h
 	cp $< $@
 	sed -i '/^  mutable bool/s/m/public:m/' $@
+e_compon.h: ${GC_INCLUDEDIR}/e_compon.h Makefile
+	cp $< $@
+	sed -i '/INTERFACE COMPONENT/s/{/{ protected: void set_nodes(node_t*n){_n=n;}/' $@
 
 
 AM_CPPFLAGS = \
@@ -105,14 +108,14 @@ clean-local:
 
 #### dep
 _e_elemnt.cxx: _e_node.i _u_xprobe.i _e_base.i
-_e_compon.cxx: _e_card.i _e_base.i _m_wave.i
+_e_compon.cxx: _e_card.i _e_base.i _m_wave.i _e_node.i
 _globals.cxx: _m_wave.i
 _c_comand.cxx: _m_wave.i _e_base.i
 _s__.cxx: _m_wave.i _e_base.i
 _e_cardlist.cxx: _u_nodemap.i
 _e_base.cxx: _m_wave.i
 _e_node.cxx: _io_.i
-_e_elemnt.cxx: _m_wave.i
+_e_elemnt.cxx: _m_wave.i _e_compon.i
 _s__.cxx _u_sim_data.cxx: _m_matrix.i _ap.i
 _gnucap_swig.cxx: _e_card.i _e_base.i _m_matrix.i _m_wave.i _s__.i
-_globals.cxx: _e_base.i
+_globals.cxx: _e_base.i _e_card.i

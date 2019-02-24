@@ -49,12 +49,16 @@
 
 %nodefaultctor XPROBE;
 
-class ELEMENT : public CARD /* it's actually COMPONENT */ {
-  virtual ~ELEMENT() {}
+%{
+inline bool COMPONENT::print_type_in_spice() const{ return false; }
+%}
+
+class ELEMENT : public COMPONENT {
 protected:
   explicit ELEMENT();
   explicit ELEMENT(const ELEMENT& p);
-  
+  ~ELEMENT();
+
   void	   store_values()		{assert(_y[0]==_y[0]); _y1=_y[0];}
   //void   reject_values()		{ _y0 = _y1;}
 protected: // from lower down.
@@ -82,7 +86,7 @@ public:
 
   bool	   skip_dev_type(CS&);
 public: // override virtual
-  bool	   print_type_in_spice()const {return false;}
+  bool	   print_type_in_spice()const;
   // void	   precalc_last();
   //void	   tr_begin();
   void	   tr_restore();

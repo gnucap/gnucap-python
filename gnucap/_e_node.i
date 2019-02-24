@@ -69,6 +69,9 @@ public:
 %{
 
 struct nodearray_t {
+	nodearray_t(unsigned i){
+		_t=new node_t[i];
+	}
   operator node_t const*() const { return _t; }
   operator node_t*() { return _t; }
   node_t const& get(unsigned i) const{return _t[i];}
@@ -78,10 +81,15 @@ struct nodearray_t {
 
 %}
 
+// inline?
 struct nodearray_t {
+	nodearray_t(unsigned i);
   node_t* _t;
 //  node_t const& get(unsigned i) const;
 };
+
+%include "carrays.i"
+%array_class(node_t, node_array);
 
 %inline %{
 
