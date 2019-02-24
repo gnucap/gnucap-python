@@ -33,7 +33,7 @@ class mytype(ELEMENT):
 		return x
 
 s = mytype()
-a = install_device("mytype", s)
+d1 = install_device("mytype", s)
 
 command("set lang verilog")
 parse("mytype #() a();")

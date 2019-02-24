@@ -20,6 +20,8 @@
 #include <vector>
 
 class CMD;
+class PyObject;
 
 std::vector<CMD*> installed_commands;
+std::vector<PyObject*> installed_cards;
 bool have_default_plugins=false;

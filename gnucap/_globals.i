@@ -50,15 +50,23 @@
 
 %{
 extern std::vector<CMD*> installed_commands;
+extern std::vector<PyObject*> installed_cards;
 %}
 
+
+%typemap(ret) card_install&
+{ untested();
+  installed_cards.push_back($1obj);
+  Py_INCREF($1obj);
+}
 %inline %{
 
 typedef DISPATCHER<CARD>::INSTALL card_install;
-typedef std::shared_ptr< card_install > shared_card_installer;
 
-shared_card_installer install_device(char const*name, CARD *card) {
-   return std::make_shared<DISPATCHER<CARD>::INSTALL>(&device_dispatcher, name, card);
+card_install& install_device(char const*name, CARD *card)
+{  untested();
+   // handle ownership in typemap(ret)
+   return *( new card_install(&device_dispatcher, name, card) );
 }
 
 typedef DISPATCHER<CMD>::INSTALL cmd_install;
@@ -70,13 +78,6 @@ shared_command_installer install_command(char *name, CMD *cmd) {
   return x;
 }
 %}
-
-// these make destruction work
-
-class shared_card_installer{
-public:
-  ~shared_card_installer();
-};
 
 class shared_command_installer{
 public:
