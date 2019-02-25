@@ -18,7 +18,7 @@
  *------------------------------------------------------------------
  */
 %module(directors="0", allprotected="1") e_base
-%feature(nodirector) CKT_BASE;
+// %feature(nodirector) CKT_BASE;
 
 %include _m_wave.i
 %include std_string.i

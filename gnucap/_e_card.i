@@ -18,8 +18,13 @@
  *------------------------------------------------------------------
  */
 
+%module(directors="0", allprotected="1") e_card
 %include _e_base.i
-%feature(nodirector) CARD;
+// %feature(nodirector) CARD;
+
+%{
+#include <e_card.h>
+%}
 
 class CARD : public CKT_BASE {
 protected:                              // create and destroy.

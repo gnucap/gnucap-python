@@ -6,7 +6,6 @@ from __future__ import print_function
 import gnucap
 import sys
 
-from gnucap import component as c
 from gnucap import install_device
 
 try:

@@ -23,7 +23,7 @@ from .gnucap_swig import command, parse
 trace("cmd imported")
 from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
-from .component import COMPONENT_ as COMPONENT
+from .e_compon import COMPONENT_ as COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
 from .e_cardlist import CARD_LIST
 from .e_elemnt import ELEMENT

@@ -35,7 +35,6 @@ pythongc_PYTHON = \
 pythongc_LTLIBRARIES = \
 	_ap.la \
 	_gnucap_swig.la \
-	_component.la \
 	_globals.la \
 	_md.la \
 	_u_sim_data.la \
@@ -46,7 +45,9 @@ pythongc_LTLIBRARIES = \
 	_c_exp.la \
 	_c_comand.la \
 	_e_base.la \
+	_e_card.la \
 	_e_cardlist.la \
+	_e_compon.la \
 	_e_elemnt.la \
 	_e_node.la \
 	_io_.la \
@@ -56,6 +57,11 @@ pythongc_LTLIBRARIES = \
 	_u_status.la \
 	_u_xprobe.la \
 	_s__.la
+
+PY=${pythongc_LTLIBRARIES:_%.la=%.py}
+ppy:
+	echo ${PY}
+py: ${PY}
 
 all-local: __init__.py
 	for i in ${pythongc_LTLIBRARIES:%.la=%.so}; do \
@@ -85,8 +91,7 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 EXTRA_DIST = \
 	numpy.i \
 	m_wave_.h \
-	wrap.h \
-	e_card.i
+	wrap.h
 
 CLEANFILES = *~ *.pyc
 
@@ -100,7 +105,7 @@ clean-local:
 
 #### dep
 _e_elemnt.cxx: _e_node.i _u_xprobe.i _e_base.i
-_component.cxx: e_card.i _e_base.i _m_wave.i
+_e_compon.cxx: _e_card.i _e_base.i _m_wave.i
 _globals.cxx: _m_wave.i
 _c_comand.cxx: _m_wave.i _e_base.i
 _s__.cxx: _m_wave.i _e_base.i
@@ -109,5 +114,5 @@ _e_base.cxx: _m_wave.i
 _e_node.cxx: _io_.i
 _e_elemnt.cxx: _m_wave.i
 _s__.cxx _u_sim_data.cxx: _m_matrix.i _ap.i
-_gnucap_swig.cxx: e_card.i _e_base.i _m_matrix.i _m_wave.i _s__.i
+_gnucap_swig.cxx: _e_card.i _e_base.i _m_matrix.i _m_wave.i _s__.i
 _globals.cxx: _e_base.i

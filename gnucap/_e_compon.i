@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  *------------------------------------------------------------------
  */
-%module(directors="0", allprotected="1") component
+%module(directors="0", allprotected="1") e_compon
 
 // generate directors for all classes that have virtual methods
 %feature("director") COMPONENT_;
@@ -29,7 +29,7 @@
 %include std_string.i
 %include std_complex.i
 %include _m_wave.i
-%include e_card.i
+%include "_e_card.i"
 %include std_shared_ptr.i
 
 

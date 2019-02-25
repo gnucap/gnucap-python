@@ -26,8 +26,9 @@
 %include stl.i
 %include std_string.i
 %include std_complex.i
-%include e_card.i
 %include std_shared_ptr.i
+
+%include "_e_card.i"
 
 %{
 #include "wrap.h"
