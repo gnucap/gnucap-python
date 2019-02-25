@@ -45,13 +45,8 @@ GC_TESTS = \
 	pz.0g.gc
 
 err.0.gc.out: $(PWD)/parse_err.py
-parse_err.py:
-	$(LN_S) $(top_srcdir)/tests/$@
-
-pz.0.gc.out: pz_spice.py
-pz.0g.gc.out: pz_spice.py
-pz_spice.py:
-	$(LN_S) $(top_srcdir)/examples/$@
+pz.0.gc.out: | ${PWD}/pz_spice.py
+pz.0g.gc.out: | ${PWD}/pz_spice.py
 
 CLEANFILES = pz_spice.py out3.7 out3.6 out2.7
 
@@ -99,6 +94,8 @@ EXTRA_DIST = \
 	${TESTS:%=out3/%.out} \
 	${TESTS:%=out2/%.out} \
 	${TESTS} \
+	parse_err.py \
+	pz_spice.py \
 	simplugin.py \
 	err_simplugin.py
 
