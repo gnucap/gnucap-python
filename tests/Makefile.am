@@ -65,6 +65,8 @@ err_simplugin.gc.out: $(PWD)/err_simplugin.py
 if VPATH_BUILD
 $(PWD)/%.py: %.py
 	$(LN_S) $< $@
+$(PWD)/%.py: ${top_builddir}/examples/%.py
+	$(LN_S) $< $@
 endif
 
 
@@ -95,7 +97,6 @@ EXTRA_DIST = \
 	${TESTS:%=out2/%.out} \
 	${TESTS} \
 	parse_err.py \
-	pz_spice.py \
 	simplugin.py \
 	err_simplugin.py
 
