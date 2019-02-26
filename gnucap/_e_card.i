@@ -34,7 +34,7 @@ public:
   virtual  ~CARD()                      {delete _subckt;}
 
 public: // parameters
-  // virtual CARD*	 clone()const = 0;
+  virtual CARD*	 clone()const = 0;
   virtual std::string value_name()const = 0;
 
   virtual bool param_is_printable(int)const;

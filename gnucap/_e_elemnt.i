@@ -58,7 +58,6 @@ protected:
   void	   store_values()		{assert(_y[0]==_y[0]); _y1=_y[0];}
   //void   reject_values()		{ _y0 = _y1;}
 protected: // from lower down.
-  virtual CARD*	 clone()const = 0;
   virtual std::string port_name(int)const = 0;
 protected: //COMPONENT, actually unnecessary here.
   virtual std::string dev_type()const;
