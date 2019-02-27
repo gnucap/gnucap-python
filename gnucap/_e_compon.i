@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Felix Salfelder
+/* Copyright (C) 2018, 2019 Felix Salfelder
  * Author: Felix Salfelder <felix@salfelder.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -58,7 +58,6 @@ protected: // these are not private.
 protected:
   virtual ~COMPONENT();
   virtual CARD*	 clone()const = 0;
-  void set_nodes(node_t* n);
 
 public:	// ports
   virtual std::string port_name(int)const = 0;
@@ -105,6 +104,8 @@ public: // parameters
   virtual int	net_nodes()const;
   virtual int	num_current_ports()const;
   virtual int	tail_size()const;
+protected:
+  node_array* _n;
 };
 
 // vim:ts=8:sw=2:et:

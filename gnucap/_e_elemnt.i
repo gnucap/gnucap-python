@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Felix Salfelder
+/* Copyright (C) 2018, 2019 Felix Salfelder
  * Author: Felix Salfelder <felix@salfelder.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -187,9 +187,7 @@ public:
   virtual std::string value_name()const = 0;
 protected:
   int      _loaditer;	// load iteration number
-  nodearray_t	_n;
-private:
-  node_t   _nodes[NODES_PER_BRANCH]; // nodes (0,1:out, 2,3:in)
+  node_array* _n;
 public:
   CPOLY1   _m0;		// matrix parameters, new
   CPOLY1   _m1;		// matrix parameters, 1 fill ago

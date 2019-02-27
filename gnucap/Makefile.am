@@ -5,17 +5,13 @@
 # (inspired by now obsolete files from Henrik Johansson)
 #
 
-BUILT_SOURCES = u_xprobe.h m_matrix_hack.h e_compon.h
+BUILT_SOURCES = u_xprobe.h m_matrix_hack.h
 u_xprobe.h: ${GC_INCLUDEDIR}/u_xprobe.h
 	cp $< $@
 	sed -i '/^  explicit.*XPROBE():$$/s/e/public:e/' $@
 m_matrix_hack.h: ${GC_INCLUDEDIR}/m_matrix.h
 	cp $< $@
 	sed -i '/^  mutable bool/s/m/public:m/' $@
-e_compon.h: ${GC_INCLUDEDIR}/e_compon.h Makefile
-	cp $< $@
-	sed -i '/INTERFACE COMPONENT/s/{/{ protected: void set_nodes(node_t*n){_n=n;}/' $@
-
 
 AM_CPPFLAGS = \
 	-I${top_srcdir}/include \

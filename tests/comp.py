@@ -62,7 +62,7 @@ class somecomponent(COMPONENT):
 		print("init", self.long_label())
 		self.HACK = []
 		nodes = node_array(20)
-		self.set_nodes(nodes)
+		self._n = nodes
 
 #	def __reduce__(self):
 #		print("reducing")
