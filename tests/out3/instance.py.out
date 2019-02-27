@@ -9,5 +9,8 @@ somelt clone
 tst
 a ..
 .. is mytype
+.. is element
+.. is component
 r ..
 .. is element
+.. is component

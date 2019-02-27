@@ -10,7 +10,7 @@ from gnucap import command
 from gnucap import install_command
 from gnucap import SIM, CARD_LIST, outset, outreset
 from gnucap import iTOTAL
-from gnucap import ELEMENT
+from gnucap import ELEMENT, COMPONENT, CARD
 from gnucap import parse
 from gnucap import install_device
 
@@ -46,7 +46,12 @@ for a in cl:
 	if(isinstance(a, mytype)):
 		print(".. is mytype")
 		assert(42==a.custom())
-	elif(isinstance(a, ELEMENT)):
+		assert(isinstance(a, ELEMENT))
+
+	if(isinstance(a, ELEMENT)):
 		print(".. is element")
-	else:
-		print(".. is something else")
+		assert(isinstance(a, COMPONENT))
+
+	if(isinstance(a, COMPONENT)):
+		print(".. is component")
+		assert(isinstance(a, CARD))
