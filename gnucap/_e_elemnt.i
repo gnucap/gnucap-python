@@ -25,9 +25,9 @@
 %include std_string.i
 %include std_complex.i
 %include std_shared_ptr.i
-%include "_e_card.i"
+
+// look like these should be %import. but that doesn't work
 %include "_e_compon.i"
-%include "_e_node.i"
 %include "_u_xprobe.i"
 %include "_m_cpoly.i"
 
@@ -109,7 +109,6 @@ public: // override virtual
 
   TIME_PAIR tr_review();
 
-  std::string long_label()const;
   virtual void	   tr_iwant_matrix() = 0;
   virtual void	   ac_iwant_matrix() = 0;
   virtual XPROBE   ac_probe_ext(const std::string&)const;

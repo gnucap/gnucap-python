@@ -23,12 +23,13 @@ from .gnucap_swig import command, parse
 trace("cmd imported")
 from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
-# from .e_compon import COMPONENT
+from .e_compon import COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
 from .e_cardlist import CARD_LIST
-from .e_elemnt import ELEMENT, COMPONENT, CARD
-#from .e_card import CARD
+from .e_elemnt import ELEMENT
 from .e_node import node_t, node_array
+from .e_card import CARD
+
 from .m_cpoly import FPOLY1, CPOLY1
 from .md import rBATCH, rINTERACTIVE, rPRESET, rPRE_MAIN, rSCRIPT
 from .md import ENV
@@ -56,6 +57,7 @@ if(os.name=="posix"):
 # this will change
 from .globals import install_device, need_default_plugins
 from .globals import install_command
+
 # from globals import shared_command_installer as command_installer
 
 if not "GNUCAP_PLUGPATH" in os.environ:

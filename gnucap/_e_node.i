@@ -23,6 +23,8 @@
 #include <e_node.h>
 %}
 
+%include "_e_base.i"
+
 #if 0
 // not yet.
 #define INTERFACE

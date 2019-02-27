@@ -46,9 +46,6 @@
 }
 %allowexception;
 
-%pythoncode %{
-# this will end up somewhere in component.py
-%}
 
 class COMPONENT : public CARD {
 protected: // these are not private.
@@ -85,7 +82,6 @@ public:	// ports
 protected: // CARD
   virtual double tr_probe_num(std::string const&) const;
   virtual std::string dev_type()const	{unreachable(); return "unset";}
-  std::string long_label()const;
 
 public: // parameters
   void set_param_by_name(std::string, std::string);
@@ -117,5 +113,9 @@ public: // parameters
 protected:
   node_array* _n;
 };
+
+%pythoncode %{
+from .e_compon import COMPONENT
+%}
 
 // vim:ts=8:sw=2:et:

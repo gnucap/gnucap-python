@@ -104,7 +104,7 @@ clean-local:
 
 #### dep
 _c_comand.cxx: _m_wave.i _e_base.i
-_e_cardlist.cxx: _u_nodemap.i
+_e_cardlist.cxx: _u_nodemap.i _e_card.i
 _e_compon.cxx: _e_card.i _e_base.i _m_wave.i _e_node.i
 _e_base.cxx: _m_wave.i
 _e_elemnt.cxx: _e_node.i _u_xprobe.i _e_base.i _e_card.i

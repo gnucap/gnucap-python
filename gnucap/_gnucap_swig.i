@@ -8,7 +8,6 @@
 
 // generate directors for all classes that have virtual methods
 %feature(director);
-%feature(nodirector) CARD;
 
 %include stl.i
 %include std_string.i

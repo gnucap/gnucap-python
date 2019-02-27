@@ -21,12 +21,17 @@
 
 %{
 #include <e_cardlist.h>
-#include <e_elemnt.h>
+#include <e_card.h>
 #include <u_time_pair.h>
 %}
 
 %include "_u_nodemap.i"
 %include "exception.i"
+%include "_e_card.i"
+
+//  BUG
+%include "_e_compon.i"
+%include "_e_elemnt.i"
 
 %exception Card_Range::next {
   try {
@@ -45,10 +50,14 @@
   }
 }
 
-%typemap(out) ELEMENT&
-{ untested();
-	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+%typemap(out) CARD&
+{
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
+	}else if(ELEMENT* c=dynamic_cast<ELEMENT*>($1)){
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_ELEMENT, $owner);
+	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);
 	}else if($1){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
 	}else{
@@ -58,7 +67,7 @@
 }
 
 %inline %{
-	class ELEMENT;
+	class CARD;
 	class CardListEnd {};
 	class Card_Range {
 		public:
@@ -67,25 +76,25 @@
 			Card_Range(iterator c, iterator e) : _cur(c), _end(e) {}
 
 			// py3 (only?)
-			ELEMENT& __next__(){
+			CARD& __next__(){
 				return next();
 			}
 			Card_Range* __iter__(){
 				return this;
 			}
 			bool is_end(){ return _cur==_end; }
-			ELEMENT& next();
+			CARD& next();
 		private:
 			iterator _cur;
 			iterator _end;
 	};
 
 
-ELEMENT& Card_Range::next()
+CARD& Card_Range::next()
 {
 	// hide non-elements, for now.
 	while (!is_end()) {
-		if(ELEMENT* e=dynamic_cast<ELEMENT*>(*_cur)){
+		if(CARD* e=dynamic_cast<CARD*>(*_cur)){
 			++_cur;
 			return *e;
 		}else{
@@ -140,7 +149,7 @@ public:
   CARD_LIST& card_list_(){
     return self->card_list;
   }
-  Card_Range __iter__() { untested();
+  Card_Range __iter__() {
     // return a constructed Iterator object
     return Card_Range($self->begin(), $self->end());
   }

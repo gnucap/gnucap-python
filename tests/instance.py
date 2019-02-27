@@ -6,13 +6,13 @@ import sys
 import numpy as np
 from copy import deepcopy, copy
 
-from gnucap import command
-from gnucap import install_command
-from gnucap import SIM, CARD_LIST, outset, outreset
-from gnucap import iTOTAL
-from gnucap import ELEMENT, COMPONENT, CARD
+#from gnucap import install_command
+from gnucap import CARD_LIST, outset, outreset
+from gnucap import CARD
+from gnucap import ELEMENT, COMPONENT
 from gnucap import parse
 from gnucap import install_device
+from gnucap import command
 
 class mytype(ELEMENT):
 	def __init__(self, other=None):
@@ -39,6 +39,8 @@ command("set lang verilog")
 parse("mytype #() a();")
 parse("resistor #() r();")
 
+import inspect
+
 cl = CARD_LIST().card_list_()
 print("tst")
 for a in cl:
@@ -54,4 +56,10 @@ for a in cl:
 
 	if(isinstance(a, COMPONENT)):
 		print(".. is component")
-		assert(isinstance(a, CARD))
+		if(not isinstance(a, CARD)):
+			print("ERROR, should be card", inspect.getmro(a.__class__))
+
+	if(isinstance(a, CARD)):
+		print(".. is card")
+	else:
+		print("type", type(a))
