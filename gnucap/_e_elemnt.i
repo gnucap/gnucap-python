@@ -59,9 +59,21 @@ protected:
   explicit ELEMENT(const ELEMENT& p);
   ~ELEMENT();
 
+public: // hijack __init__
+  %extend {
+    %pythoncode {
+    _oldinit = __init__
+    def __init__(self, *args):
+        if self.__class__==ELEMENT:
+            raise RuntimeError("ELEMENT is pure")
+        self._patch_clone();
+        return self._oldinit(*args)
+    }
+  }
+protected: // from lower down.
   void	   store_values()		{assert(_y[0]==_y[0]); _y1=_y[0];}
   //void   reject_values()		{ _y0 = _y1;}
-protected: // from lower down.
+
   virtual std::string port_name(int)const = 0;
 protected: //COMPONENT, actually unnecessary here.
   virtual std::string dev_type()const;

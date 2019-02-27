@@ -31,7 +31,6 @@ class myvs(ELEMENT):
 			print("copyconstruct myvs")
 			ELEMENT.__init__(self, other) # this is required. (or do not implement __init__)
 		# print("init", self.long_label()) // py3?
-		self.HACK=[]
 
 #	def __reduce__(self):
 #		print("reducing")
@@ -40,7 +39,6 @@ class myvs(ELEMENT):
 	def clone(self):
 		print("somelt clone")
 		x = myvs(self)
-		self.HACK.append(x)
 		return x
 
 	def value(self):

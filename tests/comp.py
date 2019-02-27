@@ -69,11 +69,7 @@ class somecomponent(COMPONENT):
 #		return(self.__class__, ( ) )
 
 	def clone(self):
-		x = somecomponent(self)
-		# trick python garbage collector
-		# todo: hide in wrapper layer
-		self.HACK.append(x)
-		return x
+		return somecomponent(self)
 
 	def value(self):
 		return "a";

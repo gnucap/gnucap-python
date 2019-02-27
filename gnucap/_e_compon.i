@@ -55,6 +55,16 @@ protected: // these are not private.
   explicit COMPONENT( const COMPONENT& p);
   explicit COMPONENT();
 
+public: // hijack __init__
+  %extend {
+    %pythoncode {
+    _old_comp_init = __init__
+    def __init__(self, *args):
+        self._patch_clone()
+        return self._old_comp_init(*args)
+    }
+  }
+
 protected:
   virtual ~COMPONENT();
   virtual CARD*	 clone()const = 0;

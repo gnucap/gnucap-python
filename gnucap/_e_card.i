@@ -29,6 +29,23 @@ class CARD : public CKT_BASE {
 protected:                              // create and destroy.
   CARD();
   CARD(const CARD&);
+public: // hijack __init__
+  %extend {
+    %pythoncode {
+    _old_card_init = __init__
+    def _patch_clone(self):
+        self._oldclone = self.clone
+        self.clone = self._myclone
+        self.HACK = []
+    def _myclone(self):
+        c = self._oldclone()
+        self.HACK.append(c)
+        return c
+    def __init__(self, *args):
+        self._patch_clone();
+        return self._old_card_init(*args)
+    }
+  }
 public:
   virtual  ~CARD();
 
