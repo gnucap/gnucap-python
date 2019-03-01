@@ -76,7 +76,6 @@ protected: // from lower down.
 
   virtual std::string port_name(int)const = 0;
 protected: //COMPONENT, actually unnecessary here.
-  virtual std::string dev_type()const;
   virtual int	max_nodes()const;
   virtual int	min_nodes()const;
   virtual int	net_nodes()const;

@@ -81,7 +81,9 @@ public:	// ports
 
 protected: // CARD
   virtual double tr_probe_num(std::string const&) const;
-  virtual std::string dev_type()const	{unreachable(); return "unset";}
+
+public:
+  virtual std::string dev_type()const;
 
 public: // parameters
   void set_param_by_name(std::string, std::string);
