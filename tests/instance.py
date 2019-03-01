@@ -39,8 +39,6 @@ command("set lang verilog")
 parse("mytype #() a();")
 parse("resistor #() r();")
 
-import inspect
-
 cl = CARD_LIST().card_list_()
 print("tst")
 for a in cl:
@@ -57,6 +55,7 @@ for a in cl:
 	if(isinstance(a, COMPONENT)):
 		print(".. is component")
 		if(not isinstance(a, CARD)):
+			import inspect
 			print("ERROR, should be card", inspect.getmro(a.__class__))
 
 	if(isinstance(a, CARD)):

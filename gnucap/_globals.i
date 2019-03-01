@@ -56,7 +56,7 @@ extern std::vector<PyObject*> installed_cards;
 
 
 %typemap(ret) card_install&
-{ untested();
+{
   installed_cards.push_back($1obj);
   Py_INCREF($1obj);
 }
@@ -65,7 +65,7 @@ extern std::vector<PyObject*> installed_cards;
 typedef DISPATCHER<CARD>::INSTALL card_install;
 
 card_install& install_device(char const*name, CARD *card)
-{  untested();
+{
    // handle ownership in typemap(ret)
    return *( new card_install(&device_dispatcher, name, card) );
 }
