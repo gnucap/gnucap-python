@@ -1,13 +1,12 @@
-image: amd64/debian:buster
-
-before_script:
-   - apt-get update -qq && apt-get install
-
 stages:
   - build
 
-# Stage "build"
 run-build:
+  except:
+    - develop
+  image: amd64/debian:buster
+  before_script:
+    - apt-get update -qq && apt-get install
   stage: build
   script:
     - apt-get install -y python3-dev libgnucap-dev gnucap-default-plugins0 python3-scipy python3-numpy gnucap build-essential autotools-dev g++ swig libtool autoconf automake
