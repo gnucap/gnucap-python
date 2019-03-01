@@ -43,6 +43,10 @@ public:
 //  static WAVE* find_wave(const std::string&);
 };
 
+%pythoncode %{
+from .e_base import CKT_BASE
+%}
+
 %exception CKT_BASE_find_wave {
 	try{
 		$action
