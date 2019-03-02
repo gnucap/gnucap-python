@@ -66,9 +66,9 @@ err_simplugin.gc.out: $(PWD)/err_simplugin.py
 if VPATH_BUILD
 $(PWD)/%.py: %.py
 	$(LN_S) $< $@
+endif
 $(PWD)/%.py: ${top_builddir}/examples/%.py
 	$(LN_S) $< $@
-endif
 
 
 TESTS = ${PY_TESTS} ${GC_TESTS}
