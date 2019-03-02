@@ -99,11 +99,11 @@ else:
 #	attach_output(s, our_own_sink)
 
 class session:
+	def __init__(self):
+		self.command=command
 	def __del__(self):
 		# this is called *before* the library loaded by PyDLL is destroyed.
-		trace("cleaning up")
-		command("clear")
-		trace("cleanup done")
+		self.command("clear")
 
 s = None
 if(sys.version_info[0] == 3):

@@ -24,3 +24,4 @@
 * more portable tests (denoise)
 * improve python ELEMENT access
 * suspend python2 testing
+* fix session/cleanup bug
