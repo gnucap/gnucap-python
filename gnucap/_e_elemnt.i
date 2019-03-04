@@ -66,7 +66,7 @@ public: // hijack __init__
     def __init__(self, *args):
         if self.__class__==ELEMENT:
             raise RuntimeError("ELEMENT is pure")
-        self._patch_clone();
+        self._patch_card();
         return self._oldinit(*args)
     }
   }

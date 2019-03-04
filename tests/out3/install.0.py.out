@@ -1,0 +1,19 @@
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
+default plugins
+mytype #() d ();
+mytype #() a2 ();
+mytype2 #() a2 ();
+mytype3 #() a3 ();
+mytype4 #() a4 (.a(0),.b(0));
+resistor #() r (.p(0),.n(0));
+d mytype
+a2 mytype
+a2 mytype2
+a3 mytype3
+a4 mytype4
+r resistor

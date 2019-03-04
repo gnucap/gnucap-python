@@ -8,11 +8,8 @@ from gnucap.experimental import install
 
 @install()
 class mytype2(ELEMENT):
-	def __init__(self, other=None):
-		if other is None:
-			ELEMENT.__init__(self)
-		else:
-			ELEMENT.__init__(self, other)
+	def __init__(self, *argv, **args):
+		ELEMENT.__init__(self, *argv, **args)
 
 	def custom(self):
 		return 41
@@ -35,11 +32,6 @@ class mysim(SIM):
 
 @install("mytype1")
 class mytype1(ELEMENT):
-	def __init__(self, other=None):
-		if other is None:
-			ELEMENT.__init__(self)
-		else:
-			ELEMENT.__init__(self, other)
 
 	def custom(self):
 		return 42

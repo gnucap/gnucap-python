@@ -34,7 +34,11 @@ class install:
 			self.name = argv[0]
 			self.i1 = self.install_instance(argv[0], argv[1])
 		elif(len(argv)==1):
-			self.name = argv[0]
+			if(isinstance(argv[0], type)):
+				self.name = None
+				self(argv[0])
+			else:
+				self.name = argv[0]
 		elif(len(argv)==0):
 			self.name = None
 
@@ -49,7 +53,7 @@ class install:
 	def __call__(self, cls):
 		cls._hidden_instance = cls()
 		if(self.name is None):
-			self.name = cls.dev_type(None)
+			self.name = cls._hidden_instance.dev_type()
 		cls.i1 = self.install_instance(self.name, cls._hidden_instance)
 
 		return cls

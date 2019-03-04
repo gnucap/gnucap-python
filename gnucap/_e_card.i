@@ -31,20 +31,36 @@ protected:                              // create and destroy.
   CARD(const CARD&);
 public: // hijack __init__
   %extend {
-    %pythoncode {
+    %pythoncode %{
     _old_card_init = __init__
-    def _patch_clone(self):
+    def _patch_card(self):
+        if(self.__class__.dev_type == __class__.dev_type):
+            # CARD::dev_type is invalid. inject python type name
+            self.dev_type = self._default_dev_type
+
+        if(self.__class__.clone == __class__.clone):
+            # CARD::dev_type is invalid. inject python copy
+            self.clone = self._default_clone
+
+        # refcount hack.
         self._oldclone = self.clone
         self.clone = self._myclone
         self.HACK = []
+
+    def _default_dev_type(self):
+        # use the python name if not overridden.
+        return type(self).__name__
+    def _default_clone(self):
+        # make use of python class
+        return self.__class__(self)
     def _myclone(self):
         c = self._oldclone()
         self.HACK.append(c)
         return c
     def __init__(self, *args):
-        self._patch_clone();
-        return self._old_card_init(*args)
-    }
+        self._old_card_init(*args)
+        self._patch_card();
+    %}
   }
 public:
   virtual  ~CARD();
@@ -61,6 +77,7 @@ public: // parameters
   virtual void set_param_by_name(std::string, std::string);
   virtual void set_param_by_index(int, std::string&, int);
   virtual int param_count()const {return 0;}
+  virtual std::string dev_type()const;
 };
 
 %pythoncode %{

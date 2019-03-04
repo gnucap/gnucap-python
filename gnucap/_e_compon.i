@@ -57,14 +57,14 @@ public: // hijack __init__
     %pythoncode {
     _old_comp_init = __init__
     def __init__(self, *args):
-        self._patch_clone()
+        self._patch_card()
         return self._old_comp_init(*args)
     }
   }
 
 protected:
   virtual ~COMPONENT();
-  virtual CARD*	 clone()const = 0;
+//  virtual CARD*	 clone()const = 0;
 
 public:	// ports
   virtual std::string port_name(int)const = 0;
@@ -83,7 +83,7 @@ protected: // CARD
   virtual double tr_probe_num(std::string const&) const;
 
 public:
-  virtual std::string dev_type()const;
+//  virtual std::string dev_type()const;
 
 public: // parameters
   void set_param_by_name(std::string, std::string);

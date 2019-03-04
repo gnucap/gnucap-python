@@ -31,6 +31,7 @@ PY_TESTS = \
 	comp.py \
 	elmt.py \
 	find_wave.py \
+	install.0.py \
 	install.py \
 	instance.py \
 	matrix.0.py \
