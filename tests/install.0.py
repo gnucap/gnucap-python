@@ -77,4 +77,6 @@ cl = CARD_LIST().card_list_()
 for a in cl:
 	print(a.long_label(), a.dev_type())
 
+import sys
+sys.stdout.flush()
 command("list")
