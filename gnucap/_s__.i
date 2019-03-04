@@ -117,7 +117,7 @@ protected:				/* s__solve.cc */
 		Py_XDECREF(val);
 		Py_XDECREF(tb);
 
-		// std::cerr << err_msg << "\n";
+		std::cerr << err_msg << "\n";
 		// not sure if this is a good idea.
 		throw Exception(err_msg);
 		// Swig::DirectorMethodException::raise(err_msg.c_str());
@@ -161,6 +161,10 @@ public:
   OMSTREAM&   hackout(){return _out;}
 };
 
+%}
+
+%pythoncode %{
+from .s__ import SIM_
 %}
 
 %extend SIM_ {

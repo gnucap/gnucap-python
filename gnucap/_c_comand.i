@@ -35,3 +35,7 @@ public:
   static  void	command(const std::string&, CARD_LIST*);
 };
 
+%pythoncode %{
+from .c_comand import CMD
+%}
+

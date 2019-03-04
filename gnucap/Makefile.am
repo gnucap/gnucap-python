@@ -29,7 +29,9 @@ libgnucap_python_la_LDFLAGS =
 # python objects
 pythongcdir = $(pythondir)/gnucap
 pythongc_PYTHON = \
-	${pythongc_LTLIBRARIES:_%.la=%.py} __init__.py
+	${pythongc_LTLIBRARIES:_%.la=%.py} \
+	__init__.py \
+	experimental.py
 
 pythongc_LTLIBRARIES = \
 	_ap.la \
@@ -62,11 +64,16 @@ ppy:
 	echo ${PY}
 py: ${PY}
 
-all-local: __init__.py
+all-local: __init__.py ${PWD}/experimental.py
 	for i in ${pythongc_LTLIBRARIES:%.la=%.so}; do \
 		rm -f $$i; \
 		${LN_S} .libs/$$i $$i; \
 	done
+
+if VPATH_BUILD
+$(PWD)/%.py: %.py
+	$(LN_S) $< $@
+endif
 
 check: all-local
 
@@ -88,6 +95,7 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 .i.cxx:
 
 EXTRA_DIST = \
+	experimental.py \
 	numpy.i \
 	m_wave_.h \
 	wrap.h
