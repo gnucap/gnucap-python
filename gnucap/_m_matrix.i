@@ -55,6 +55,7 @@ public:
   void          reallocate();
   int           size()const;
   double        density(); // BUG: const
+  void          set_min_pivot(double x);
   void          zero();
   void          dezero(T& o);
   void          load_diagonal_point(int i, T value);
