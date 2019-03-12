@@ -105,9 +105,37 @@ CARD& Card_Range::next()
 }
 %} // inline
 
+%feature("flatnested");
 class CARD_LIST {
-public:
+public: // internal types
 	typedef std::list<CARD*>::iterator iterator;
+	// typedef std::list<CARD*>::const_iterator const_iterator;
+	class fat_iterator {
+	private:
+		CARD_LIST* _list;
+		iterator	 _iter;
+	private:
+		explicit		fat_iterator()	{unreachable();}
+	public:
+			fat_iterator(const fat_iterator& p)
+			: _list(p._list), _iter(p._iter) {}
+		explicit		fat_iterator(CARD_LIST* l, iterator i)
+			: _list(l), _iter(i) {}
+		bool		is_end()const		{return _iter == _list->end();}
+		CARD*		operator*()		{return (is_end()) ? NULL : *_iter;}
+		fat_iterator& operator++()	{assert(!is_end()); ++_iter; return *this;}
+		fat_iterator	operator++(int)
+		{assert(!is_end()); fat_iterator t(*this); ++_iter; return t;}
+		bool		operator==(const fat_iterator& x)const
+					 {unreachable(); assert(_list==x._list); return (_iter==x._iter);}
+		bool		operator!=(const fat_iterator& x)const
+			{assert(_list==x._list); return (_iter!=x._iter);}
+		// iterator		iter()const		{return _iter;}
+		// CARD_LIST*		list()const		{return _list;}
+		fat_iterator	end()const	{return fat_iterator(_list, _list->end());}
+
+		void		insert(CARD* c)	{list()->insert(iter(),c);}
+	};
 	CARD_LIST& set_slave();
 	CARD_LIST& precalc_first();
 	CARD_LIST& expand();
@@ -137,7 +165,29 @@ public:
 	iterator end()			{return _cl.end();}
 	iterator find_again(const std::string& short_name, iterator);
 	iterator find_(const std::string& short_name);
-};
+
+}; // CARD_LIST
+
+%feature("flatnested", "");
+%extend CARD_LIST::fat_iterator{
+// 	void __next__(){
+// 		incomplete();
+//    }
+	CARD& _deref(){
+		return ***self;
+	}
+	void increment_(){
+		++(*self);
+	}
+
+%pythoncode %{
+def __next__(self):
+	if self.is_end():
+		raise StopIteration
+	else:
+		return self._deref()
+%}
+}
 
 
 
@@ -154,3 +204,7 @@ public:
     return Card_Range($self->begin(), $self->end());
   }
 };
+
+CARD_LIST::fat_iterator findbranch(CS&,CARD_LIST::fat_iterator);
+CARD_LIST::fat_iterator findbranch(CS& cmd, CARD_LIST* cl);
+
