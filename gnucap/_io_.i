@@ -20,14 +20,36 @@
 %module(directors="0", allprotected="1") io_
 
 %include std_string.i
-
+%include std_complex.i
+%include numpy.i
 
 %{
 #include <io_.h>
+#include <md.h>
 %}
+
+
+
+%{
+// inline OMSTREAM& operator<<(OMSTREAM& o, COMPLEX const& c);
+inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
+{
+	o << c.real();
+	if(c.imag() <0){
+		o << "-" << -c.imag();
+	}else{
+		o << "+" << c.imag();
+	}
+	return  o	<< "* i";
+}
+%}
+
+
 
 #define INTERFACE
 %include "io_.h"
+
+%numpy_typemaps(std::complex<double>, NPY_CDOUBLE, int)
 
 %extend OMSTREAM {
   OMSTREAM& print(std::string const& s){
@@ -36,4 +58,14 @@
   OMSTREAM& print(double const& d){
     return *self << d;
   }
+  OMSTREAM& print(COMPLEX const& d){ untested();
+    return *self << d;
+  }
+  OMSTREAM& operator<<(std::complex<double> const& c){ untested();
+    return *self << c;
+  }
 }
+
+%pythoncode %{
+from .io_ import OMSTREAM
+%}
