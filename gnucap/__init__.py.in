@@ -45,6 +45,7 @@ from .mode import iTOTAL
 
 from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
 from .l_denoise import fixzero
+from .l_compar import in_order
 
 _iomstout = IO_mstdout_get()
 
