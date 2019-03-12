@@ -49,4 +49,7 @@ public:
   int OPT_numdgt(){
     return OPT::numdgt;
   }
+  double OPT_pivtol(){
+    return OPT::pivtol;
+  }
 }

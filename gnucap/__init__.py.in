@@ -25,7 +25,7 @@ from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
 from .e_compon import COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
-from .e_cardlist import CARD_LIST
+from .e_cardlist import CARD_LIST, findbranch
 from .e_elemnt import ELEMENT
 from .e_node import node_t, node_array
 from .e_card import CARD
@@ -36,12 +36,18 @@ from .md import ENV
 from .m_matrix import BSMATRIXd, BSMATRIXc
 from .m_wave import WAVE
 from .s__ import SIM_ as SIM
-from .u_opt import SET_RUN_MODE, OPT_numdgt
+from .u_opt import SET_RUN_MODE, OPT_numdgt, OPT_pivtol
+from .u_parameter import PARAMETERd, PARAMETERi, PARAMETERb
 from .u_sim_data import SIM_DATA
 from .u_xprobe import XPROBE
 from .ap import CS
+from .ap import mySet as Set_
+from .ap import myGet as Get_, Get
 from .mode import iTOTAL
 # from ._io_ import OMSTREAM
+
+from .ap import mNONE, mSCALE, mOFFSET, mINVERT, mPOSITIVE, mOCTAL, mHEX
+
 
 from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
 from .l_denoise import fixzero
