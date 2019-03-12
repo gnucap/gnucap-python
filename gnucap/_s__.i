@@ -56,6 +56,7 @@ public:
 
 %extend SIM {
   inline SIM_DATA& sim_(){
+    incomplete(); // obsolete. use _sim
     return *self->_sim;
   }
 }

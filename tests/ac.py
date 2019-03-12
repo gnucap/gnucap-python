@@ -26,16 +26,16 @@ gnucap.command("list")
 class MyAC(gnucap.SIM):
     def do_it(self, cmd, scope):
         self._scope = scope
-        self.sim_().set_command_ac()
-        self.sim_().init()
+        self._sim.set_command_ac()
+        self._sim.init()
 
-        self.sim_().alloc_vectors()
-        acx = self.sim_()._acx
+        self._sim.alloc_vectors()
+        acx = self._sim._acx
         acx.reallocate()
 
         freq = 20e3
 
-        self.sim_()._jomega = 2j * np.pi * freq
+        self._sim._jomega = 2j * np.pi * freq
         self.head(freq, freq, "Freq")
 
         card_list = gnucap.CARD_LIST().card_list_()
@@ -45,29 +45,29 @@ class MyAC(gnucap.SIM):
         self.outdata(freq, 2)
 
         acx.unallocate();
-        self.sim_().unalloc_vectors()
+        self._sim.unalloc_vectors()
 
     def mysolve(self):
-        acx = self.sim_()._acx
+        acx = self._sim._acx
         acx.zero()
         card_list = gnucap.CARD_LIST().card_list_()
 
-        n = self.sim_()._total_nodes
+        n = self._sim._total_nodes
         print("numnodes: "+ str(n))
 
 #        gnucap.set_complex_array(gnucap.cvar.SIM_ac, np.zeros(n, dtype=np.complex))
 
         for a in range(3):
            for b in range(3):
-              assert(self.sim_()._acx[a][b]==0.)
+              assert(self._sim._acx[a][b]==0.)
 
 
         card_list.do_ac()
         card_list.ac_load()
-        print(self.sim_()._acx)
-        # print("M", self.sim_()._acx[0][0], self.sim_()._acx[0][1], self.sim_()._acx[0][2])
-        # print("M", self.sim_()._acx[1][0], self.sim_()._acx[1][1], self.sim_()._acx[1][2])
-        # print("M", self.sim_()._acx[2][0], self.sim_()._acx[2][1], self.sim_()._acx[2][2])
+        print(self._sim._acx)
+        # print("M", self._sim._acx[0][0], self._sim._acx[0][1], self._sim._acx[0][2])
+        # print("M", self._sim._acx[1][0], self._sim._acx[1][1], self._sim._acx[1][2])
+        # print("M", self._sim._acx[2][0], self._sim._acx[2][1], self._sim._acx[2][2])
 
         print("Loaded AC-matrix") # , gnucap.get_complex_array(gnucap.cvar.SIM_ac, n)
 
@@ -76,10 +76,10 @@ class MyAC(gnucap.SIM):
         ## Solve
         acx.lu_decomp()
         print("decomp")
-        acx.fbsub_(self.sim_()._ac)
+        acx.fbsub_(self._sim._ac)
         print("fbsubt")
 
-        # print("rhs after", self.sim_()._ac[0])
+        # print("rhs after", self._sim._ac[0])
         # print "rhs after", gnucap.get_complex_array(gnucap.cvar.SIM_ac, n)
 
 

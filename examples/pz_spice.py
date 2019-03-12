@@ -30,12 +30,12 @@ sigma = 0
 class spice_pz(SIM):
 	def do_it(self, cmd, scope):
 		self._scope = scope
-		self.sim_().set_command_ac()
+		self._sim.set_command_ac()
 		self.setup(cmd)
-		self.sim_().init()
+		self._sim.init()
 		cl = CARD_LIST().card_list_()
 		cl.precalc_last()
-		self.sim_().alloc_vectors()
+		self._sim.alloc_vectors()
 
 		nodes = cl.nodes();
 
@@ -44,13 +44,13 @@ class spice_pz(SIM):
 		assert(self.inn[0] != self.inn[1] ) # for now
 		assert(self.out[0] != self.out[1] ) # for now
 
-		acx = self.sim_()._acx
+		acx = self._sim._acx
 		acx.reallocate()
 
 		self._scope = scope
 		self.sweep()
 		acx.unallocate();
-		self.sim_().unalloc_vectors()
+		self._sim.unalloc_vectors()
 
 	def setup(self, cmd):
 		self._in0=cmd.ctos()
@@ -95,19 +95,19 @@ class spice_pz(SIM):
 			OMSTREAM__print(self._out, "\n")
 
 	def sweep(self):
-		self.sim_()._jomega = -1j
+		self._sim._jomega = -1j
 		cl = CARD_LIST().card_list_()
 		cl.ac_begin()
-		n = self.sim_()._total_nodes
+		n = self._sim._total_nodes
 		freqstart = 0.
 		freqstop = 1.
-		s = self.sim_()
+		s = self._sim
 
 		self.mysolve()
 
 	def mysolve(self):
-		n = self.sim_()._total_nodes
-		s = self.sim_()
+		n = self._sim._total_nodes
+		s = self._sim
 		acx = s._acx
 		acx.zero()
 		ac = s._ac

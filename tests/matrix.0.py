@@ -34,25 +34,25 @@ gnucap.command("list")
 class MyAC(gnucap.SIM):
     def do_it(self, cmd, scope):
         self._scope = scope
-        self.sim_().set_command_ac()
-        self.sim_().init()
+        self._sim.set_command_ac()
+        self._sim.init()
 
-        self.sim_().alloc_vectors()
-        acx = self.sim_()._acx
+        self._sim.alloc_vectors()
+        acx = self._sim._acx
         acx.reallocate()
 
         freq = 20e3
 
-        self.sim_()._jomega = 2j * np.pi * freq
+        self._sim._jomega = 2j * np.pi * freq
         self.head(freq, freq, "Freq")
 
         card_list = gnucap.CARD_LIST().card_list_()
         card_list.ac_begin()
-        acx = self.sim_()._acx
+        acx = self._sim._acx
         acx.zero()
         card_list = gnucap.CARD_LIST().card_list_()
 
-        n = self.sim_()._total_nodes
+        n = self._sim._total_nodes
 
         card_list.do_ac()
         card_list.ac_load()
@@ -125,7 +125,7 @@ class MyAC(gnucap.SIM):
         print(b[:3,:3])
 
         acx.unallocate(); # invalidates M
-        self.sim_().unalloc_vectors()
+        self._sim.unalloc_vectors()
 
 
     def setup(self, cmd):
