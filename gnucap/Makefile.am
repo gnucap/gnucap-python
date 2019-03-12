@@ -56,6 +56,7 @@ pythongc_LTLIBRARIES = \
 	_l_denoise.la \
 	_u_nodemap.la \
 	_u_opt.la \
+	_u_parameter.la \
 	_u_status.la \
 	_u_xprobe.la \
 	_s__.la
