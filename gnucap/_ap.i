@@ -25,6 +25,16 @@
 
 %include std_string.i
 
+enum AP_MOD{
+  mNONE,       /* nothing special */
+  mSCALE,      /* scale it after reading */
+  mOFFSET,     /* add an offset */
+  mINVERT,     /* save 1 / the number */
+  mPOSITIVE,   /* store absolute value */
+  mOCTAL,      /* read the number in octal */
+  mHEX         /* read the number in hex */
+};
+
 class CS {
 public:
   enum STRING {_STRING};
