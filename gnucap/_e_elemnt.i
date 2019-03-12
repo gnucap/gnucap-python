@@ -31,6 +31,8 @@
 %include "_u_xprobe.i"
 %include "_m_cpoly.i"
 
+%include "_md.i"
+
 %{
 #include <e_elemnt.h>
 #include <e_compon.h>
