@@ -12,5 +12,4 @@ run-build:
     - apt-get install -y python3-dev libgnucap-dev gnucap-default-plugins0 python3-scipy python3-numpy gnucap build-essential autotools-dev g++ swig libtool autoconf automake coreutils
     - ./bootstrap
     - ./configure PYTHON=python3
-    - make distcheck PYTHON=python3 || \
-      /bin/cat gnucap-python-0.0.3-wip/_build/sub/tests/*.log
+    - make distcheck PYTHON=python3 || cat gnucap-python-0.0.3-wip/_build/sub/tests/*.log
