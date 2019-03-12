@@ -82,23 +82,25 @@ public:
   card_install* _i;
 };
 
+class install_command {
+public:
+  typedef DISPATCHER<CMD>::INSTALL card_install;
 
-typedef DISPATCHER<CMD>::INSTALL cmd_install;
-typedef std::shared_ptr< cmd_install > shared_command_installer;
+private:
+  install_command(const install_command&){unreachable(); }
+public:
+  install_command(char const*name, CMD &card){
+    _i=new card_install(&command_dispatcher, name, &card);
+  }
+  ~install_command(){
+    delete _i;
+  }
 
-shared_command_installer install_command(char *name, CMD *cmd)
-{
-  installed_commands.push_back(cmd);
-  auto x=std::make_shared<DISPATCHER<CMD>::INSTALL>(&command_dispatcher, name, cmd);
-  return x;
-}
+public:
+  card_install* _i;
+};
 %}
 
-class shared_command_installer{
-public:
-  // shared_command_installer(DISPATCHER<CMD>*, char *name, CMD *cmd); // ..
-  ~shared_command_installer();
-};
 
 // later
 //DISPATCHER<CMD> command_dispatcher;

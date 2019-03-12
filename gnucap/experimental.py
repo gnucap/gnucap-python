@@ -32,7 +32,7 @@ class install:
 	def __init__(self, *argv, **args):
 		if(len(argv)>1):
 			self.name = argv[0]
-			self.i1 = self.install_instance(argv[0], argv[1])
+			self.i1 = self._install_instance(argv[0], argv[1])
 		elif(len(argv)==1):
 			if(isinstance(argv[0], type)):
 				self.name = None
@@ -42,7 +42,7 @@ class install:
 		elif(len(argv)==0):
 			self.name = None
 
-	def install_instance(self, name, what):
+	def _install_instance(self, name, what):
 		if(isinstance(what, COMPONENT)):
 			return install_device(name, what)
 		elif(isinstance(what, CMD)):
@@ -54,6 +54,6 @@ class install:
 		cls._hidden_instance = cls()
 		if(self.name is None):
 			self.name = cls._hidden_instance.dev_type()
-		cls.i1 = self.install_instance(self.name, cls._hidden_instance)
+		cls.i1 = self._install_instance(self.name, cls._hidden_instance)
 
 		return cls
