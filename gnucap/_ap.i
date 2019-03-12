@@ -56,4 +56,8 @@ public:
   double      ctopf()			 {return std::abs(ctof());}
 };
 
+%pythoncode %{
+from .ap import CS
+%}
+
 // vim:ts=8:sw=2
