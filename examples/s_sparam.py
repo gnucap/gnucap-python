@@ -174,14 +174,14 @@ class SPARAM(SIM):
 #*--------------------------------------------------------------------------*#
 def _SP_do_it(self, Cmd : CS, Scope : CARD_LIST) -> None:
 	self._scope = Scope;
-	self.sim_().set_command_ac()
+	self._sim.set_command_ac()
 	# self.reset_timers();
 	#::status.ac.reset().start();
 
-	self.sim_().init();
-	self.sim_().alloc_vectors();
-	self.sim_()._acx.reallocate();
-	self.sim_()._acx.set_min_pivot(OPT_pivtol());
+	self._sim.init();
+	self._sim.alloc_vectors();
+	self._sim._acx.reallocate();
+	self._sim._acx.set_min_pivot(OPT_pivtol());
 
 	self.setup(Cmd);
 	# ::status.set_up.stop();
@@ -197,8 +197,8 @@ def _SP_do_it(self, Cmd : CS, Scope : CARD_LIST) -> None:
 		# BUG
 		self.sweep()
 
-	self.sim_()._acx.unallocate()
-	self.sim_().unalloc_vectors()
+	self._sim._acx.unallocate()
+	self._sim.unalloc_vectors()
 
 	#::status.ac.stop();
 	#::status.total.stop();
@@ -325,24 +325,24 @@ def _SP_setup(self, Cmd):
 
 #*--------------------------------------------------------------------------*#
 def _SP_solve(self):
-	self.sim_()._acx.zero();
-	n = self.sim_()._total_nodes
-	ac = self.sim_()._ac
+	self._sim._acx.zero();
+	n = self._sim._total_nodes
+	ac = self._sim._ac
 	for i in range(n+1):
 		ac[i] = 0;
 
 	# ::status.load.start();
-	self.sim_().count_iterations(iTOTAL)
+	self._sim.count_iterations(iTOTAL)
 	CARD_LIST.card_list_(None).do_ac()
 	CARD_LIST.card_list_(None).ac_load()
   # ::status.load.stop();
 
   #if (_dump_matrix){
   #  _out.setfloatwidth(0,0);
-  #  _out << sim_()->_acx << "\n" ;
+  #  _out << _sim->_acx << "\n" ;
   #}
   #::status.lud.start();
-	self.sim_()._acx.lu_decomp()
+	self._sim._acx.lu_decomp()
   #::status.lud.stop();
 
 	return
@@ -386,7 +386,7 @@ def _SP_sweep(self):
 
 	while True:
 		self._out << "." << self._sim._freq << "\n";
-		self.sim_()._jomega = 1.j * self._sim._freq * 2.*pi
+		self._sim._jomega = 1.j * self._sim._freq * 2.*pi
 		self.solve();
 		i = 0;
 		n = self._sim._total_nodes
@@ -397,7 +397,7 @@ def _SP_sweep(self):
 			inp.stamp_rhs()
 			
 			#::status.back.start();
-			self.sim_()._acx.fbsub_(ac)
+			self._sim._acx.fbsub_(ac)
 			#::status.back.stop();
 			
 			for j, out in enumerate(self._ports):
@@ -446,7 +446,7 @@ def _SP_sweep(self):
 
 #*--------------------------------------------------------------------------*#
 def _SP_first(self):
-	self.sim_()._freq = self._start.float_()
+	self._sim._freq = self._start.float_()
 #*--------------------------------------------------------------------------*#
 def _SP_next_freq(self):
 	if self._linswp:
@@ -454,15 +454,15 @@ def _SP_next_freq(self):
 	else:
 		realstop = self._stop / pow(self._step.float_(),.01)
 
-	if (not in_order(self._start.float_(), self.sim_()._freq, realstop)):
+	if (not in_order(self._start.float_(), self._sim._freq, realstop)):
 		return False;
 
 	if self._linswp:
-		self.sim_()._freq += self._step.float_()
+		self._sim._freq += self._step.float_()
 	else:
-		self.sim_()._freq = self._step * self.sim_()._freq
+		self._sim._freq = self._step * self._sim._freq
 
-	if (in_order(self.sim_()._freq, self._start.float_(), self._stop.float_())):
+	if (in_order(self._sim._freq, self._start.float_(), self._stop.float_())):
 		return False;
 	else:
 		return True;

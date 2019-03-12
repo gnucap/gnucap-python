@@ -49,6 +49,8 @@ protected:
   virtual void	store_results(double);
 protected:				/* s__solve.cc */
   void	advance_time();
+public:
+  SIM_DATA* _sim;
 };
 #endif
 
