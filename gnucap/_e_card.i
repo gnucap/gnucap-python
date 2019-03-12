@@ -78,7 +78,17 @@ public: // parameters
   virtual void set_param_by_index(int, std::string&, int);
   virtual int param_count()const {return 0;}
   virtual std::string dev_type()const;
-};
+
+public:        // state, aux data
+//  virtual char id_letter()const;
+// not yet  virtual int  net_nodes()const;
+//  virtual bool is_device()const;
+//  virtual void set_slave();
+         bool evaluated()const;
+
+//  void set_constant(bool c);
+  bool is_constant()const;
+}; // CARD
 
 %pythoncode %{
 from .e_card import CARD

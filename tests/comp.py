@@ -52,15 +52,9 @@ except AttributeError:
 
 
 class somecomponent(COMPONENT):
-	def __init__(self, other=None):
-		if other is None:
-			print("construct somecomponent", self)
-			COMPONENT.__init__(self) # this is required. (or do not implement __init__)
-		else:
-			print("copyconstruct somecomponent")
-			COMPONENT.__init__(self, other) # this is required. (or do not implement __init__)
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 		print("init", self.long_label())
-		self.HACK = []
 		nodes = node_array(20)
 		self._n = nodes
 

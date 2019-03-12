@@ -79,6 +79,11 @@ public:	// ports
   virtual void set_current_port_by_index(int, const std::string&);
   bool current_port_exists(int i)const;
 
+public:	// state, aux data
+// not yet  bool	is_device()const;
+// // not yet void	set_slave();
+  void  map_nodes();
+
 protected: // CARD
   virtual double tr_probe_num(std::string const&) const;
 
