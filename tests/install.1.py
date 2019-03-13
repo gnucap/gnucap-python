@@ -4,14 +4,15 @@
 from gnucap import ELEMENT, CARD_LIST, SIM
 from gnucap import parse
 from gnucap import command
-from gnucap import install_device
+from gnucap.pending import install
 
-class mytype(ELEMENT):
+@install
+class mytype2(ELEMENT):
 	def custom(self):
 		return 41
 
-	def ddev_type(self):
-		return "mytype_"
+	def dev_type(self):
+		return "mytype2"
 
 	def clone(self):
 		return __class__(self)
@@ -22,24 +23,25 @@ class mytype(ELEMENT):
 		pass
 
 	def tr_probe_num(self, s):
-		return 1.
+		return 2.
 
-d1 = mytype()
-a = install_device("mytype", d1)
-
-class dummy(ELEMENT):
+@install
+class mytype3(ELEMENT):
 	def custom(self):
 		return 41
 
-	def dev_type(self):
-		return "not_reached"
-
 	def clone(self):
-		return mytype(self)
+		return __class__(self)
 
-d2 = dummy()
-b = install_device("dummy", d2)
+	def ac_iwant_matrix(self):
+		pass
+	def tr_iwant_matrix(self):
+		pass
 
+	def tr_probe_num(self, s):
+		return 3.
+
+@install
 class mytype4(ELEMENT):
 
 	def port_name(self, i):
@@ -62,14 +64,10 @@ class mytype4(ELEMENT):
 	# def clone(self):
 	#	return __class__(self)
 
-d4=mytype4()
-b2=install_device("mytype4", d4)
-
 command("set lang verilog")
-parse("dummy #() d();")
-parse("mytype #() a1();")
+parse("mytype2 #() a2();")
+parse("mytype3 #() a3();")
 parse("mytype4 #() a4(0, 0);")
-parse("resistor #() r(0,0);")
 
 cl = CARD_LIST().card_list_()
 for a in cl:
