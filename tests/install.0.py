@@ -4,7 +4,7 @@
 from gnucap import ELEMENT, CARD_LIST, SIM
 from gnucap import parse
 from gnucap import command
-from gnucap.experimental import install
+from gnucap.pending import install
 
 class mytype(ELEMENT):
 	def custom(self):
