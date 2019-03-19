@@ -86,7 +86,9 @@ Do the same directly from Python
    welcome to gnucap-python
    >>> gnucap.stuff
 
-stuff is not documented much, see examples for some applications
+stuff is not documented much, but closely resembles the libgnucap interface.
+Exceptions are additional Pythonicity, and some usability hacks. see examples
+for some applications
 
 Caveats
 ~~~~~~~
@@ -108,7 +110,8 @@ Caveats
     swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
     return (CARD *) c_result;
 
-  maybe a future swig will allow a better approach.
+  maybe a future swig will allow a better approach. NB: the clone override is
+  now optional, and a default is taking care of this.
 
 * python sometimes generates .pyc files containing cached bytecode in random
   places. these may lead to weird error messages, if they are outdated. delete
