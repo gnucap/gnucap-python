@@ -42,7 +42,7 @@ from gnucap import install_device
 from gnucap import OMSTREAM__print
 from gnucap import OPT_numdgt, OPT_pivtol
 from gnucap import fixzero
-from gnucap.experimental import install
+from gnucap.pending import install
 from gnucap import ENV
 from gnucap import CS
 from gnucap import SIM
@@ -209,6 +209,7 @@ def _SP_setup(self, Cmd):
 	self._out = self.out_assign(IO_mstdout_get());
 	self._out.reset(); ##BUG// don't know why this is needed
 	self._ports = []
+	self._type = 0
 
 	here = Cmd.cursor();
 
@@ -267,7 +268,7 @@ def _SP_setup(self, Cmd):
 		sip = [self._step_in]
 		stp = [self._start]
 		endp = [self._stop]
-		tp = [0]
+		tp = [self._type]
 
 		0 \
 		or (Get_(Cmd, "*",        sip) and stm(self.stepmode_t.TIMES)) \
@@ -281,8 +282,7 @@ def _SP_setup(self, Cmd):
 		or Get_(Cmd, "sta{rt}",   stp) \
 		or Get_(Cmd, "sto{p}",    endp) \
 		or (Cmd.umatch("paramtype {=}") and \
-		    (0 \
-		     or Set_(Cmd, "z", tp, int(self.paramtype_t.tZ)) \
+		    (   Set_(Cmd, "z", tp, int(self.paramtype_t.tZ)) \
 		     or Set_(Cmd, "y", tp, int(self.paramtype_t.tY)) \
 		     or Set_(Cmd, "s", tp, int(self.paramtype_t.tS)) \
 		     or Cmd.warn(bWARNING, "need z, y, s") \
@@ -293,8 +293,7 @@ def _SP_setup(self, Cmd):
 		self._step_in = sip[0]
 		self._start = stp[0]
 		self._stop = endp[0]
-		self._type = self.paramtype_t(tp[0]) # not yet
-		self._type = self.paramtype_t.tS
+		self._type = self.paramtype_t(tp[0])
 
 		ph=[here]
 		if not Cmd.more() and not Cmd.stuck_(ph):
@@ -349,6 +348,8 @@ def _SP_solve(self):
 
 #*--------------------------------------------------------------------------*#
 def _SP_outmatrix(self, m):
+	n = OPT_numdgt()
+	self._out.setfloatwidth(n, n)
 	for i in range(m.shape[0]):
 		for j in range (m.shape[1]):
 			x = m[i, j]
@@ -403,13 +404,17 @@ def _SP_sweep(self):
 			for j, out in enumerate(self._ports):
 				v = out.ac_involts();
 				self._Z[i, j] = v
+				n = OPT_numdgt()
+				self._out.setfloatwidth(n, n)
 				if(self._type==self.paramtype_t.tZ):
-					self._out << v.real << v.imag << " "
+					self._out << v
+			if(self._type==self.paramtype_t.tZ):
+				self._out << "\n"
 
-			self._out << "\n"
-	
 		if(self._type==self.paramtype_t.tY):
-			incomplete() # see .cc
+			self._out << "Y incomplete\n" # see .cc
+		elif(self._type==self.paramtype_t.tZ):
+			pass # above
 		elif(self._type==self.paramtype_t.tS):
 			size = len(self._ports)
 			sy0 = np.zeros(size)
@@ -438,8 +443,9 @@ def _SP_sweep(self):
 			S = A.dot(B)
 
 			self.outmatrix(S.transpose());
+
 		else:
-			incomplete();
+			unreachable()
 
 		if not self.next_freq():
 			break

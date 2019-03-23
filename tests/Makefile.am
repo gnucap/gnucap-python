@@ -45,7 +45,8 @@ GC_TESTS = \
 	err_simplugin.gc \
 	use_simplugin.gc \
 	pz.0.gc \
-	pz.0g.gc
+	pz.0g.gc \
+	s_sparam.3.gc
 
 err.0.gc.out: $(PWD)/parse_err.py
 pz.0.gc.out: | ${PWD}/pz_spice.py
@@ -64,6 +65,7 @@ CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
 err_simplugin.gc.out: $(PWD)/err_simplugin.py
+s_sparam.3.gc.out: $(PWD)/s_sparam.py
 
 if VPATH_BUILD
 $(PWD)/%.py: %.py
