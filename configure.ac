@@ -17,6 +17,8 @@ AM_CONFIG_HEADER([config.h])
 # this is a c++ program so use c++ for the tests
 AC_LANG([C++])
 
+AC_PROG_SWIG([3.0.0])
+
 # ------------ debug switch
 AC_MSG_CHECKING([if debug code should be compiled in])
 AC_ARG_ENABLE([debug],
