@@ -62,13 +62,14 @@ struct MyKeyError{ char const* _m; };
 
 %inline %{
 WAVE* CKT_BASE_find_wave(const std::string&s)
-{ untested();
+{
 	WAVE* w=CKT_BASE::find_wave(s);
-	if(!w){ untested();
+	if(!w){
 		MyKeyError k;
 		k._m = s.c_str();
 		throw k;
+	}else{
+		return w;
 	}
-	return w;
 }
 %}

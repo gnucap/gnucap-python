@@ -86,13 +86,13 @@ from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
 	inline double __mul__(PARAMETER<double> const&x){ untested();
 		return *self * x;
 	}
-	inline double __mul__(double const&x){ untested();
+	inline double __mul__(double const&x){
 		return *self * x;
 	}
 	inline double __div__(PARAMETER<double> const& x){ untested();
 		return *self / x;
 	}
-	inline double __truediv__(double const& x){ untested();
+	inline double __truediv__(double const& x){
 		return *self / x;
 	}
 }
@@ -123,7 +123,7 @@ from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
 }
 %enddef
 
-%typemap(argout) PARAMETER<double> *INOUT { untested();
+%typemap(argout) PARAMETER<double> *INOUT {
   $result=SWIG_Python_AppendOutput($result, obj2);
   Py_INCREF(obj2);
 }
@@ -141,13 +141,13 @@ bool Get(CS& cmd, const std::string& key, PARAMETER<int>* INOUT);
 bool Get(CS& cmd, const std::string& key, PARAMETER<double>* INOUT);
  
 
-%typemap(argout) PARAMETER<double> &INOUT { untested();
+%typemap(argout) PARAMETER<double> &INOUT {
   $result=SWIG_Python_AppendOutput($result, obj1);
   Py_INCREF(obj1);
 }
 %inline %{
 
-CS& somefunction(CS& a,  PARAMETER<double>& INOUT){ untested();
+CS& _para_rshift(CS& a,  PARAMETER<double>& INOUT){
 	return a >> INOUT;
 }
 
@@ -159,7 +159,7 @@ _getD[PARAMETERi] = Get
 _getD[PARAMETERd] = Get
 _getD[PARAMETERb] = Get
 from .ap import _CS_rshift
-_CS_rshift[PARAMETERd] = somefunction
+_CS_rshift[PARAMETERd] = _para_rshift
 %}
 
 
