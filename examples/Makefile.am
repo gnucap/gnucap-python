@@ -16,4 +16,5 @@ EXFILES= \
 	pz.9.sp \
 	pz_spice.py \
 	pz_stub.gc \
-	pz_stub.py
+	pz_stub.py \
+	s_sparam.py
