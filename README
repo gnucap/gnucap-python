@@ -12,11 +12,10 @@ See examples.
 
 requirements are:
   * gnucap >= oct '17
-  * Python >= 2.4
+  * Python >= 3.6 (testing for 2.7 suspended)
   * Swig
   * Numpy (with development headers/libraries)
-  * c++11 (pass -std=c++11 to your compiler,
-           if 11 is supported but the default is <11)
+  * c++11 compiler
 
  Installation
 -------------
@@ -92,6 +91,9 @@ for some applications
 
 Caveats
 ~~~~~~~
+
+* Python interface functions ending with _ are "under construction". These
+  may be replaced or superseded by a more Pythonic approach later on.
 
 * Generally you are advised to use gnucap packages from your distribution.
   If Gnucap is installed manually and with a custom prefix, you might have to pass

@@ -25,3 +25,6 @@
 * improve python ELEMENT access
 * suspend python2 testing
 * fix session/cleanup bug
+* install decorator (pending)
+* findbranch stub
+* more ap and sparam example
