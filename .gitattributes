@@ -1,2 +1,0 @@
-#tell github language detector to skip some files
-m4/*.m4 linguist-vendored

@@ -1,9 +1,0 @@
-attach public c_python.so
-
-loadpy err_simplugin.py
-mysim error
-mysim error
-mysim error
-mysim error
-
-end
