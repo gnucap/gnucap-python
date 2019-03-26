@@ -66,6 +66,9 @@ AC_SUBST([gnucap_plugpath])
 AC_PROG_LIBTOOL
 AC_CONFIG_MACRO_DIR([m4])
 
+# c++ standard
+CXXFLAGS=-std=c++11
+
 # export symbols to plugins
 LDFLAGS="$LDFLAGS -rdynamic $GC_LDFLAGS"
 
