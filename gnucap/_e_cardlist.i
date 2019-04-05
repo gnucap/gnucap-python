@@ -123,9 +123,9 @@ public: // internal types
 			: _list(l), _iter(i) {}
 		bool		is_end()const		{return _iter == _list->end();}
 		CARD*		operator*()		{return (is_end()) ? NULL : *_iter;}
-		fat_iterator& operator++()	{assert(!is_end()); ++_iter; return *this;}
-		fat_iterator	operator++(int)
-		{assert(!is_end()); fat_iterator t(*this); ++_iter; return t;}
+		// fat_iterator& operator++()	{assert(!is_end()); ++_iter; return *this;}
+		// fat_iterator	operator++(int)
+		// {assert(!is_end()); fat_iterator t(*this); ++_iter; return t;}
 		bool		operator==(const fat_iterator& x)const
 					 {unreachable(); assert(_list==x._list); return (_iter==x._iter);}
 		bool		operator!=(const fat_iterator& x)const

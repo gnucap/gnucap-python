@@ -41,7 +41,7 @@ public:
   bool	has_good_value()const {return (_v != NOT_INPUT);}
   //bool has_soft_value()const {untested(); return (has_good_value() && !has_hard_value());}
 
-  operator T()const {return _v;}
+  // operator T()const {return _v;}
   T	e_val(const T& def, const CARD_LIST* scope)const;
   void	parse(CS& cmd);
 
@@ -56,13 +56,13 @@ public:
   }
   void	print(OMSTREAM& o)const		{o << string();}
   void	set_default(const T& v)		{_v = v; _s = "";}
-  void	operator=(const PARAMETER& p)	{_v = p._v; _s = p._s;}
-  void	operator=(const T& v)		{_v = v; _s = "#";}
+  // void	operator=(const PARAMETER& p)	{_v = p._v; _s = p._s;}
+  // void	operator=(const T& v)		{_v = v; _s = "#";}
   //void	operator=(const std::string& s)	{untested();_s = s;}
 
-  void	operator=(const std::string& s);
+  // void	operator=(const std::string& s);
   bool  operator==(const PARAMETER& p)const;
-  bool  operator==(const T& v)const;
+  // bool  operator==(const T& v)const;
 };
 
 %template(PARAMETERd) PARAMETER<double>;
