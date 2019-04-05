@@ -18,7 +18,7 @@
 * node map access
 * pz analysis command
 
-0.0.3 - wip
+0.0.3
 =====
 * improve error handling
 * more portable tests (denoise)
