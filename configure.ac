@@ -64,6 +64,8 @@ AC_SUBST([GC_PKGLIBDIR])
 AC_SUBST([LIBGNUCAP_SONAME])
 AC_SUBST([gnucap_plugpath])
 
+AC_SUBST([nothing])
+
 ## Libtool init
 AC_PROG_LIBTOOL
 AC_CONFIG_MACRO_DIR([m4])

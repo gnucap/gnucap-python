@@ -52,7 +52,14 @@ err.0.gc.out: $(PWD)/parse_err.py
 pz.0.gc.out: | ${PWD}/pz_spice.py
 pz.0g.gc.out: | ${PWD}/pz_spice.py
 
-CLEANFILES = pz_spice.py out3.7 out3.6 out2.7
+CLEANFILES = \
+	inv.sp \
+	out3.7 out3.6 out2.7 \
+	opt.log \
+	pz_spice.py \
+	p.typ n.typ \
+	s_sparam.py
+
 
 if PY2
 crash.log: PY_LOG_FLAGS=SKIP
@@ -71,7 +78,7 @@ if VPATH_BUILD
 $(PWD)/%.py: %.py
 	$(LN_S) $< $@
 endif
-$(PWD)/%.py: ${top_builddir}/examples/%.py
+@nothing@$(PWD)/%.py: ${top_builddir}/examples/%.py
 	$(LN_S) $< $@
 
 
