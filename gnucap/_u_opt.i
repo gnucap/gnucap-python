@@ -38,12 +38,6 @@ class SET_RUN_MODE {
 public:
       SET_RUN_MODE(RUN_MODE rm);
 };
-// ENV::run_mode;
-
-class ENV {
-public:
-  static RUN_MODE run_mode; // variations on handling of dot commands
-};
 
 %inline {
   int OPT_numdgt(){
