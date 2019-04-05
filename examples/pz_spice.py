@@ -20,7 +20,6 @@ from gnucap import ELEMENT
 from gnucap import node_t
 from gnucap import XPROBE
 from gnucap import install_device
-from gnucap import OMSTREAM__print
 from gnucap import OPT_numdgt
 from gnucap import fixzero
 
@@ -86,13 +85,13 @@ class spice_pz(SIM):
 			# print(' {:.6e}'.format(i))
 
 			# use outdata...
-			OMSTREAM__print(self._out, np.real(i))
+			self._out << np.real(i)
 			if(np.imag(i)<0):
-				OMSTREAM__print(self._out, "- j*")
+				self._out << "- j*"
 			else:
-				OMSTREAM__print(self._out, "+ j*")
-			OMSTREAM__print(self._out, abs(np.imag(i)))
-			OMSTREAM__print(self._out, "\n")
+				self._out << "+ j*"
+			self._out << abs(np.imag(i))
+			self._out << "\n"
 
 	def sweep(self):
 		self._sim._jomega = -1j
@@ -132,7 +131,7 @@ class spice_pz(SIM):
 		I = I.astype(np.complex128)
 		E = eig(R, I, homogeneous_eigvals=True)
 
-		OMSTREAM__print(self._out, "poles\n")
+		self._out << "poles\n"
 		E0 = E[0]
 		self.sort_and_output(E0)
 
@@ -168,7 +167,7 @@ class spice_pz(SIM):
 		M = f.todense()
 		R = np.real(M)
 		I = np.imag(M)
-		OMSTREAM__print(self._out, "zeroes\n")
+		self._out << "zeroes\n"
 
 		E = eig(R, I, homogeneous_eigvals=True)
 		E0 = E[0]

@@ -56,7 +56,7 @@ from .l_compar import in_order
 _iomstout = IO_mstdout_get()
 
 def out(s):
-	OMSTREAM__print(_iomstout, s)
+	_iomstout << s
 
 if(os.name=="posix"):
 	sys.setdlopenflags(oldflags)

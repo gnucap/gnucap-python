@@ -53,12 +53,18 @@ inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
 
 %extend OMSTREAM {
   OMSTREAM& print(std::string const& s){
+    std::cerr << "deprecated OMSTREAM__print\n";
     return *self << s;
   }
-  OMSTREAM& print(double const& d){
+  OMSTREAM& operator<<(double const& d){
+    std::cerr << "deprecated OMSTREAM__print\n";
     return *self << d;
   }
-  OMSTREAM& print(COMPLEX const& d){ untested();
+
+  OMSTREAM& operator<<(std::string const& s){
+    return *self << s;
+  }
+  OMSTREAM& operator<<(double const& d){
     return *self << d;
   }
   OMSTREAM& operator<<(std::complex<double> const& c){ untested();

@@ -39,7 +39,6 @@ from gnucap import ELEMENT, CKT_BASE
 from gnucap import node_t
 from gnucap import XPROBE
 from gnucap import install_device
-from gnucap import OMSTREAM__print
 from gnucap import OPT_numdgt, OPT_pivtol
 from gnucap import fixzero
 from gnucap.pending import install
