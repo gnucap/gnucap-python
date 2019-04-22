@@ -7,6 +7,7 @@ pkgexamplesdir = ${docdir}/examples
 dist_pkgexamples_DATA = ${EXFILES} README
 
 EXFILES= \
+	dataparse.py \
 	inv.py \
 	inv.sp \
 	mosfit.py \
