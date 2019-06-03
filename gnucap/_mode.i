@@ -19,9 +19,11 @@
  */
 %module(directors="0", allprotected="1") mode
 
-// %include "mode.h"
+%{
+#include "mode.h"
+%}
 
-%inline %{
+enum smode_t   {moUNKNOWN=0, moANALOG=1, moDIGITAL, moMIXED};
 
 enum SIM_MODE { // simulation types
   s_NONE,	/* not doing anything, reset by cmd interpreter	*/
@@ -56,5 +58,3 @@ enum PROBE_INDEX { // iter probes (continue after SIM_MODE)
   iTOTAL		/* total iterations since startup		*/
 };
 const int iCOUNT = iTOTAL + 1;	/* number of iteration counters		*/
-
-%}

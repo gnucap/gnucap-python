@@ -46,7 +46,7 @@ from .u_xprobe import XPROBE
 from .ap import CS
 from .ap import mySet as Set_
 from .ap import myGet as Get_, Get
-from .mode import iTOTAL
+from .mode import iTOTAL, moANALOG, moDIGITAL
 # from ._io_ import OMSTREAM
 
 from .ap import mNONE, mSCALE, mOFFSET, mINVERT, mPOSITIVE, mOCTAL, mHEX
