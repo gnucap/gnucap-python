@@ -211,9 +211,6 @@ public: // commons
   inline void element_precalc_last(){
     return self->ELEMENT::precalc_last();
   }
-  inline SIM_DATA& sim_(){
-    return *self->_sim;
-  }
   inline std::string typeNameHack(){
     return typeid(self).name();
   }

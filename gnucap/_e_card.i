@@ -90,6 +90,12 @@ public:        // state, aux data
   bool is_constant()const;
 }; // CARD
 
+%extend CARD{
+  inline SIM_DATA& sim_(){ untested();
+    return *self->_sim;
+  }
+}
+
 %pythoncode %{
 from .e_card import CARD
 %}
