@@ -59,6 +59,7 @@ pythongc_LTLIBRARIES = \
 	_u_opt.la \
 	_u_parameter.la \
 	_u_status.la \
+	_u_time_pair.la \
 	_u_xprobe.la \
 	_s__.la
 

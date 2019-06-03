@@ -19,6 +19,9 @@ if(os.name=="posix"):
 else:
 	untested()
 
+# BUG: need to import first (why?)
+from .u_time_pair import TIME_PAIR
+
 from .gnucap_swig import command, parse
 trace("cmd imported")
 from .c_comand import CMD, CMD_cmdproc, CMD_command
