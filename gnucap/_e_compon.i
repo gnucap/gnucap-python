@@ -117,9 +117,18 @@ public: // parameters
   virtual int	net_nodes()const;
   virtual int	num_current_ports()const;
   virtual int	tail_size()const;
+  virtual void  precalc_last();
+  virtual void  tr_begin();
+  virtual void  tr_load();
+  virtual void  tr_unload();
+
+  virtual void  ac_begin();
+  virtual void  do_ac();
+  virtual void  ac_load();
+
 protected:
   node_array* _n;
-};
+}; // COMPONENT
 
 %pythoncode %{
 from .e_compon import COMPONENT

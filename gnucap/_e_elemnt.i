@@ -77,21 +77,7 @@ protected: // from lower down.
   //void   reject_values()		{ _y0 = _y1;}
 
   virtual std::string port_name(int)const = 0;
-protected: //COMPONENT, actually unnecessary here.
-  virtual int	max_nodes()const;
-  virtual int	min_nodes()const;
-  virtual int	net_nodes()const;
-  virtual int	matrix_nodes()const;
-  virtual int	num_current_ports()const;
-  virtual int	tail_size()const;
-  virtual void  precalc_last();
-  virtual void  tr_begin();
-  virtual void  tr_load();
-  virtual void  tr_unload();
 
-  virtual void  ac_begin();
-  virtual void  do_ac();
-  virtual void  ac_load();
 protected: // CARD
   void	set_constant(bool c);
 public:
