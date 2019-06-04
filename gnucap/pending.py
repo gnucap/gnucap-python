@@ -36,7 +36,7 @@ class install:
 		elif(len(argv)==1):
 			if(isinstance(argv[0], type)):
 				self.name = None
-				self(argv[0])
+				self.i1 = self(argv[0])
 			else:
 				self.name = argv[0]
 		elif(len(argv)==0):
