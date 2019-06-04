@@ -33,6 +33,10 @@
 %include "_e_compon.i"
 %include "_e_elemnt.i"
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %exception Card_Range::next {
   try {
     $action
