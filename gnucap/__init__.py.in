@@ -47,7 +47,7 @@ from .mode import iTOTAL
 # from ._io_ import OMSTREAM
 
 from .ap import mNONE, mSCALE, mOFFSET, mINVERT, mPOSITIVE, mOCTAL, mHEX
-
+from .io_trace import untested, itested, incomplete, unreachable
 
 from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
 from .l_denoise import fixzero

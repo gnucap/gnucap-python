@@ -31,7 +31,8 @@ pythongcdir = $(pythondir)/gnucap
 pythongc_PYTHON = \
 	${pythongc_LTLIBRARIES:_%.la=%.py} \
 	__init__.py \
-	pending.py
+	pending.py \
+	io_trace.py
 
 pythongc_LTLIBRARIES = \
 	_ap.la \
@@ -66,7 +67,7 @@ ppy:
 	echo ${PY}
 py: ${PY}
 
-all-local: __init__.py ${PWD}/pending.py
+all-local: __init__.py ${PWD}/pending.py ${PWD}/io_trace.py
 	for i in ${pythongc_LTLIBRARIES:%.la=%.so}; do \
 		rm -f $$i; \
 		${LN_S} .libs/$$i $$i; \
