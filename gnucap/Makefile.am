@@ -126,3 +126,5 @@ _s__.cxx: _m_wave.i _e_base.i
 _gnucap_swig.cxx: _e_card.i _e_base.i _m_matrix.i
 _gnucap_swig.cxx: _m_wave.i _s__.i _io_.i
 _globals.cxx: _e_base.i _e_card.i
+# BUG
+_e_cardlist.cxx: _e_elemnt.i _e_compon.i
