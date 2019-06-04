@@ -85,6 +85,8 @@ endif
 TESTS = ${PY_TESTS} ${GC_TESTS}
 SED_OUT = sed -e '/^default plugins/s/:.*//' \
 	           -e '/^core-lib version/s/:.*//' \
+				  -e '/^gnucap-python version:/d' \
+				  -e '/^python plugin version:/d' \
 	           -e '/^main version/s/:.*//'
 
 ${PY_TESTS:%.py=%.py.out}: %.py.out: %.py

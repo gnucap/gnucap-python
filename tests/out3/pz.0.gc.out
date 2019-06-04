@@ -9,8 +9,12 @@ See the file "COPYING" for details.
 main version
 core-lib version
 default plugins
->>>>>attach public c_python.so 
->>>>>attach d_brl.so 
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
 K: already installed, replacing
 stashing as K:0
 mutual_inductor: already installed, replacing
@@ -23,13 +27,6 @@ L: already installed, replacing
 stashing as L:1
 inductor: already installed, replacing
 stashing as inductor:1
->>>>>loadpy pz_spice.py 
-generator: already installed, replacing
-stashing as generator:0
-transient: already installed, replacing
-stashing as transient:0
-transient: already installed, replacing
-stashing as transient:0
 >>>>>spice 
 >>>>>.list 
 * demo from hspice manual. circulates for ages & considered public domain. 

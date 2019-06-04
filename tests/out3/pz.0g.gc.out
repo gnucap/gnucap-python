@@ -9,6 +9,12 @@ See the file "COPYING" for details.
 main version
 core-lib version
 default plugins
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
 K: already installed, replacing
 stashing as K:0
 mutual_inductor: already installed, replacing
@@ -21,12 +27,6 @@ L: already installed, replacing
 stashing as L:1
 inductor: already installed, replacing
 stashing as inductor:1
-generator: already installed, replacing
-stashing as generator:0
-transient: already installed, replacing
-stashing as transient:0
-transient: already installed, replacing
-stashing as transient:0
 * demo from hspice manual. circulates for ages & considered public domain. 
 * the level of invention amounts to the spice format adjustments 
 i1 ( 1 gnd )  AC  1.

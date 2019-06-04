@@ -4,6 +4,9 @@ import sys
 import ctypes
 import os
 
+print("gnucap-python version: @PACKAGE_VERSION@")
+sys.stdout.flush()
+
 def trace(*args, **kwargs):
 	return
 	print(*args, file=sys.stderr, **kwargs)
@@ -60,7 +63,11 @@ from .l_compar import in_order
 _iomstout = IO_mstdout_get()
 
 def out(s):
+#	_iomstout.flush()
+	sys.stdout.flush()
 	_iomstout << s
+
+out("gnucap-python version: @PACKAGE_VERSION@\n")
 
 if(os.name=="posix"):
 	sys.setdlopenflags(oldflags)

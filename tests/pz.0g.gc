@@ -1,6 +1,6 @@
 attach public c_python.so
-attach d_brl.so
 loadpy pz_spice.py
+attach d_brl.so
 spice
 
 * demo from hspice manual. circulates for ages & considered public domain.

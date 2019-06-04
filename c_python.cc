@@ -13,8 +13,17 @@ extern bool have_default_plugins;
 
 /*--------------------------------------------------------------------------*/
 namespace {
-  static int python_loaded = 0;
-
+/*--------------------------------------------------------------------------*/
+static class SIGN_ON {
+public:
+	SIGN_ON() {
+		std::cout.flush(); // BUG
+		IO::mstdout << "python plugin version: " PACKAGE_VERSION "\n";
+		std::cout.flush(); // BUG
+	}
+} sign_on;
+/*--------------------------------------------------------------------------*/
+static int python_loaded = 0;
 /*--------------------------------------------------------------------------*/
 void load_file(CS& cmd, OMSTREAM out, CARD_LIST* scope)
 {
