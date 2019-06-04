@@ -24,12 +24,51 @@
 %}
 
 %include "_e_base.i"
+%include "_mode.i"
 
 #if 0
 // not yet.
 #define INTERFACE
 %include "e_node.h"
 #else
+
+enum _LOGICVAL {lvSTABLE0,lvRISING,lvFALLING,lvSTABLE1,lvUNKNOWN};
+
+class LOGICVAL {
+private:
+  _LOGICVAL _lv;
+  static const _LOGICVAL or_truth[lvNUM_STATES][lvNUM_STATES];
+  static const _LOGICVAL xor_truth[lvNUM_STATES][lvNUM_STATES];
+  static const _LOGICVAL and_truth[lvNUM_STATES][lvNUM_STATES];
+  static const _LOGICVAL not_truth[lvNUM_STATES];
+public:
+  LOGICVAL() :_lv(lvUNKNOWN)			{}
+  LOGICVAL(const LOGICVAL& p)	:_lv(p._lv)	{}
+  LOGICVAL(_LOGICVAL p)		:_lv(p)		{}
+  ~LOGICVAL() {}
+
+  operator _LOGICVAL()const {return static_cast<_LOGICVAL>(_lv);}
+  
+  LOGICVAL& operator=(_LOGICVAL p)	 {_lv=p; return *this;}
+  LOGICVAL& operator=(const LOGICVAL& p) {_lv=p._lv; return *this;}
+
+  LOGICVAL& operator&=(LOGICVAL p)
+	{ _lv = and_truth[_lv][p._lv]; return *this;}
+  LOGICVAL& operator|=(LOGICVAL p)
+	{_lv = or_truth[_lv][p._lv]; return *this;}
+  LOGICVAL  operator^=(LOGICVAL p)
+	{untested(); _lv = xor_truth[_lv][p._lv]; return *this;}
+  LOGICVAL  operator~()const	{return not_truth[_lv];}
+  
+  bool is_unknown()const	{return _lv == lvUNKNOWN;}
+  bool lv_future()const		{assert(_lv!=lvUNKNOWN); return _lv & 1;}
+  bool lv_old()const		{assert(_lv!=lvUNKNOWN); return _lv & 2;}
+
+  bool is_rising() const	{return _lv == lvRISING;}
+  bool is_falling()const	{return _lv == lvFALLING;}
+
+//  LOGICVAL& set_in_transition(LOGICVAL newval);
+};
 class node_t {
 public:
   int	m_()const;
@@ -154,6 +193,29 @@ public: // virtuals
   }
 };
 
+%extend node_t {
+	inline void set_mode(smode_t t){
+		(*self)->set_mode(t);
+	}
+	inline void set_d_iter(){
+		(*self)->set_d_iter();
+	}
+	inline void propagate(){
+		(*self)->propagate();
+	}
+	inline void set_lv(LOGICVAL const& x){
+		(*self)->set_lv(x);
+	}
+	inline void force_initial_value(LOGICVAL const& x){
+		(*self)->force_initial_value(x);
+	}
+	void	      set_event(double delay, LOGICVAL v){
+		(*self)->set_event(delay, v);
+	}
+	double	      final_time(){
+		return (*self)->final_time();
+	}
+}
 
 
 %extend nodearray_t {
