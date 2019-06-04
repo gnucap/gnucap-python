@@ -92,6 +92,10 @@ for some applications
 Caveats
 ~~~~~~~
 
+* For debugging Python extensions with valgrind, you should set
+  PYTHONMALLOC=malloc. The built-in default allocator, pymalloc, confuses
+  valgrind.
+
 * Python interface functions ending with _ are "under construction". These
   may be replaced or superseded by a more Pythonic approach later on.
 
