@@ -68,7 +68,18 @@ public:
   bool is_falling()const	{return _lv == lvFALLING;}
 
 //  LOGICVAL& set_in_transition(LOGICVAL newval);
-};
+}; // LOGICVAL
+
+%extend LOGICVAL {
+	std::string __repr__(){
+		if( self->lv_future()){
+			return "1";
+		}else{
+			return "0";
+		}
+	}
+}
+
 class node_t {
 public:
   int	m_()const;
@@ -205,6 +216,18 @@ public: // virtuals
 	}
 	inline void set_lv(LOGICVAL const& x){
 		(*self)->set_lv(x);
+	}
+	inline void store_old_last_change_time(){ untested();
+		(*self)->store_old_last_change_time();
+	}
+	inline void store_old_lv(){ untested();
+		(*self)->store_old_lv();
+	}
+	inline LOGICVAL lv(){ untested();
+		return (*self)->lv();
+	}
+	inline void	restore_lv(){
+		(*self)->restore_lv();
 	}
 	inline void force_initial_value(LOGICVAL const& x){
 		(*self)->force_initial_value(x);
