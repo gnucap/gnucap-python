@@ -34,6 +34,7 @@ struct SIM_DATA{
   int _total_nodes;
   int _iter[iCOUNT];
 
+  double _time0;	/* time now */
   COMPLEX _jomega;	/* AC frequency to analyze at (radians) */
   double _freq;      /* AC frequency to analyze at (Hertz) */
   bool _limiting;	/* flag: node limiting */
