@@ -30,6 +30,7 @@
 #include <s_tr.h>
 #include <u_time_pair.h>
 #include <u_sim_data.h>
+#include <io_error.h>
 #include <memory>
 %}
 
@@ -78,9 +79,12 @@ protected:
 void parse(char const*command);
 
 %exception command {
-  try{
+  try{ untested();
     $action
-  }catch(MyBadCommand const& k){
+  }catch(Exception const& k){ untested();
+    PyErr_SetString(PyExc_NameError, k.message().c_str());
+    return NULL;
+  }catch(MyBadCommand const& k){ untested();
     PyErr_SetString(PyExc_NameError, k._s.c_str());
     return NULL;
   }
