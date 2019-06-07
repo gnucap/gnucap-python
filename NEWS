@@ -28,3 +28,10 @@
 * install decorator (pending)
 * findbranch stub
 * more ap and sparam example
+
+0.0.4 WIP
+=====
+* more error reporting/exception handling
+* memory fix in pending.install
+* cleanup CARD/COMPONENT/ELEMENT hierarchy
+* print package version on sign on
