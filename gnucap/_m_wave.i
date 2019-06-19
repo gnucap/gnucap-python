@@ -28,9 +28,10 @@
 
 %include std_pair.i
 %include std_deque.i
+%include _md.i
 
-typedef std::pair<double, double> DPAIR; // swig says this is redundant
-                                         // but it's not!
+// typedef std::pair<double, double> DPAIR; // swig says this is redundant
+//                                          // but it's not!
 %template() std::pair<double,double>;
 %template(PairDeque) std::deque<std::pair<double,double> >;
 

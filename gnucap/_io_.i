@@ -44,12 +44,15 @@ inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
 }
 %}
 
+#define INTERFACE // bug in io_.h?
 
-
-#define INTERFACE
+%warnfilter(314) OMSTREAM;
+%ignore OMSTREAM::operator=;
 %include "io_.h"
 
 %numpy_typemaps(std::complex<double>, NPY_CDOUBLE, int)
+
+#pragma SWIG nowarn=314
 
 %extend OMSTREAM {
   OMSTREAM& print(std::string const& s){
@@ -61,12 +64,12 @@ inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
     return *self << d;
   }
 
-  OMSTREAM& operator<<(std::string const& s){
-    return *self << s;
-  }
-  OMSTREAM& operator<<(double const& d){
-    return *self << d;
-  }
+  // OMSTREAM& operator<<(std::string const& s){
+  //   return *self << s;
+  // }
+  // OMSTREAM& operator<<(double const& d){
+  //   return *self << d;
+  // }
   OMSTREAM& operator<<(std::complex<double> const& c){ untested();
     return *self << c;
   }

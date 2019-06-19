@@ -26,6 +26,9 @@
 %include "_e_base.i"
 %include "_mode.i"
 
+%ignore LOGICVAL::operator=;
+%ignore LOGICVAL::operator _LOGICVAL;
+
 #if 0
 // not yet.
 #define INTERFACE

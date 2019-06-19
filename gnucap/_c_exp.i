@@ -38,9 +38,9 @@
   //   std::cout << e << '=' << r << '\n';
   // }
 
-  double eval(std::string what)
-  {
-	CS cmd(CS::_STRING, what);
+  // TODO: replace. (how?)
+  double eval(std::string what) {
+    CS cmd(CS::_STRING, what);
     Expression e(cmd);
     cmd.check(bDANGER, "syntax error");
     Expression r(e, &CARD_LIST::card_list);
