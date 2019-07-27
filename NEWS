@@ -36,3 +36,4 @@
 * cleanup CARD/COMPONENT/ELEMENT hierarchy
 * print package version on sign on
 * fix memory leak in clone
+* fix ELEMENT::_y access (breaks workaround)

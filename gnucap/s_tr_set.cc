@@ -144,7 +144,11 @@ void TRANSIENT::setup(CS& Cmd)
   }
   _tstrobe.e_val(_tstop-_tstart, _scope);
 
-  if  (_cold || _tstart < _sim->_last_time  ||  _sim->_last_time <= 0.) {
+  if (_cont && !_cold){
+    // user input, don't touch
+    // (avoid reset if  _sim->_last_time <= 0.)
+    _time1 = _sim->_time0 = _sim->_last_time;
+  }else if  (_cold || _tstart < _sim->_last_time  ||  _sim->_last_time <= 0.) {
     _cont = false;
     _time1 = _sim->_time0 = 0.;
   }else{
@@ -185,6 +189,7 @@ void TRANSIENT::options(CS& Cmd)
   do{
     ONE_OF
       || Get(Cmd, "c{old}",	   &_cold)
+      || Get(Cmd, "cont",	   &_cont)
       || Get(Cmd, "dte{mp}",	   &_sim->_temp_c,  mOFFSET, OPT::temp_c)
       || Get(Cmd, "dtma{x}",	   &_dtmax_in)
       || Get(Cmd, "dtmi{n}",	   &_dtmin_in)

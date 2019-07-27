@@ -1,0 +1,22 @@
+* Felix Salfelder 2019
+* GPLv3+
+
+attach public c_python.so
+loadpy c_nodeset.py
+
+verilog
+
+resistor #(1) r1(1,2);
+capacitor #(1) r1(1,2);
+
+nodeset 1 1
+nodeset 2 -1
+
+list
+print dc v(nodes)
+list
+
+
+dc
+print tran v(nodes)
+tran uic

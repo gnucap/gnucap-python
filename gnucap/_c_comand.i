@@ -19,6 +19,8 @@
  */
 %module(directors="0", allprotected="1") c_comand
 
+%feature("director") CMD;
+
 // .h?
 %include _e_base.i
 
@@ -37,6 +39,8 @@
 %}
 
 class CMD : public CKT_BASE {
+protected:
+  explicit CMD();
 public:
   std::string value_name()const {return "";}
   virtual void do_it(CS&, CARD_LIST*) = 0;

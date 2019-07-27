@@ -52,6 +52,7 @@ pythongc_LTLIBRARIES = \
 	_e_compon.la \
 	_e_elemnt.la \
 	_e_node.la \
+	_e_subckt.la \
 	_io_.la \
 	_l_compar.la \
 	_l_denoise.la \
@@ -123,6 +124,7 @@ _e_base.cxx: _m_wave.i
 _e_elemnt.cxx: _e_node.i _u_xprobe.i _e_base.i _e_card.i
 _e_elemnt.cxx: _m_wave.i _e_compon.i
 _e_node.cxx: _io_.i
+_e_subckt.cxx: _e_compon.i
 _globals.cxx: _m_wave.i
 _s__.cxx _u_sim_data.cxx: _m_matrix.i _ap.i _io_.i
 _s__.cxx: _m_wave.i _e_base.i

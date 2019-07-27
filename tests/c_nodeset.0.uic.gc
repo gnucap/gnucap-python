@@ -1,0 +1,20 @@
+* Felix Salfelder 2019
+* GPLv3+
+
+attach public c_python.so
+loadpy c_nodeset.py
+
+options numdgt=10
+
+verilog
+
+resistor #(.r(1)) r1(0,1);
+capacitor #(.c(1)) c2(1,0);
+nodesetter #(.ic1(1.7)) ns(1,0);
+
+print dc v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
+print tran v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
+
+dc
+* seems to be incomplete
+transient 1 uic

@@ -70,12 +70,12 @@ class myvs(ELEMENT):
 		self.element_tr_begin()
 #		super(ELEMENT, self).tr_begin()
 		# self._y[0].x  = 0.; // not yet
-		self._y_(0).x = 0.;
-		self._y_(0).f1 = 2.111; # value.
-		self._y1.f0 = self._y_(0).f0 = 0.	#BUG// override
+		self._y[0].x = 0.;
+		self._y[0].f1 = 2.111; # value.
+		self._y1.f0 = self._y[0].f0 = 0.	#BUG// override
 		self._loss1 = self._loss0 = 1./ 10e-6 # OPT::shortckt
 		self._m0.x  = 0.
-		self._m0.c0 = -self._loss0 * self._y_(0).f1;
+		self._m0.c0 = -self._loss0 * self._y[0].f1;
 		self._m0.c1 = 0.
 		self._m1 = self._m0
 	def do_tr(self):
@@ -105,7 +105,7 @@ class myvs(ELEMENT):
 s = myvs()
 
 # s._y[0] not yet. how to do that?
-s._y_(0)
+s._y[0]
 
 
 print("mtest", s.max_nodes(), s.long_label())

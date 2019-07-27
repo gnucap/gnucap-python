@@ -46,7 +46,17 @@ GC_TESTS = \
 	use_simplugin.gc \
 	pz.0.gc \
 	pz.0g.gc \
-	s_sparam.3.gc
+	s_sparam.3.gc \
+	${NODESET_TESTS}
+
+NODESET_TESTS = \
+	c_nodeset.0.gc \
+	c_nodeset.0.cont.gc \
+	c_nodeset.0.nob.gc \
+	c_nodeset.0.uic.gc
+
+# not yet c_nodeset.1.gc
+nodeset_check: ${NODESET_TESTS:%.gc=%.log}
 
 err.0.gc.out: $(PWD)/parse_err.py
 pz.0.gc.out: | ${PWD}/pz_spice.py
@@ -73,6 +83,8 @@ CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
 use_simplugin.gc.out: $(PWD)/simplugin.py
 err_simplugin.gc.out: $(PWD)/err_simplugin.py
 s_sparam.3.gc.out: $(PWD)/s_sparam.py
+c_nodeset.0.gc.out c_nodeset.1.gc.out: $(PWD)/c_nodeset.py
+c_nodeset.0.nob.gc.out c_nodeset.0.uic.gc.out: $(PWD)/c_nodeset.py
 
 if VPATH_BUILD
 $(PWD)/%.py: %.py

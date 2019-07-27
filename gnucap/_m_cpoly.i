@@ -23,6 +23,7 @@
 #include <m_cpoly.h>
 %}
 
+
 struct FPOLY1{		/* first order polynomial	*/
   double   x;		/* the argument			*/
   double   f0;		/* the function (c0 + x*f1)	*/
@@ -45,6 +46,16 @@ struct FPOLY1{		/* first order polynomial	*/
   double   c0()const		
   {assert(f0==f0); assert(f1==f1); assert(x==x); assert(f0!=LINEAR); return (f0 - x * f1);}
 };
+/*--------------------------------------------------------------------------*/
+%include "carrays.i"
+%array_class(FPOLY1, FPOLY1_array);
+
+%inline %{
+FPOLY1& get_FPOLY1(FPOLY1* y, unsigned x)
+{
+return y[x];
+}
+%}
 /*--------------------------------------------------------------------------*/
 struct CPOLY1{		/* first order polynomial	*/
   double   x;		/* the argument			*/

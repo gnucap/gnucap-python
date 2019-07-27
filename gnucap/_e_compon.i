@@ -19,8 +19,8 @@
  */
 %module(directors="0", allprotected="1") e_compon
 
-// generate directors for all classes that have virtual methods
 %feature("director") COMPONENT;
+%feature("director") COMMON_COMPONENT;
 
 %include stl.i
 %include std_string.i
@@ -46,7 +46,57 @@
 }
 %allowexception;
 
+%typemap(in) COMMON_COMPONENT*(KEEPREF)
+{ untested();
+   void *argp2 = 0 ;
+   int res2 = 0 ;
 
+       // BUG: memory leak
+  Py_INCREF(obj1 /*HERE*/ );
+
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_COMMON_COMPONENT, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "COMPONENT_attach_common" "', argument " "2"" of type '" "COMMON_COMPONENT *""'"); 
+  }
+  arg2 = reinterpret_cast< COMMON_COMPONENT * >(argp2);
+}
+
+class node_t;
+%typemap(in) (int node_count, const node_t nodes[])
+{
+  /* Check if is a list */
+  if (PyTuple_Check($input)) { untested();
+    incomplete();
+  }else if (PyList_Check($input)){
+    int i;
+    $1 = PyList_Size($input);
+    $2 = (node_t*) malloc(($1)*sizeof(node_t));
+    for (i = 0; i < $1; i++) { untested();
+      PyObject *o = PyList_GetItem($input, i);
+      if (1 || PyString_Check(o)) {
+        auto it = PyList_GetItem($input, i);
+        void* argp2;
+        res2 = SWIG_ConvertPtr(it, &argp2,SWIGTYPE_p_node_t, 0 |  0 );
+        if (!SWIG_IsOK(res2)) {
+          SWIG_exception_fail(SWIG_ArgError(res2), "must be node");
+        }
+        $2[i] = * ((node_t*) argp2);
+      } else { untested();
+        PyErr_SetString(PyExc_TypeError, "list must contain nodes");
+        SWIG_fail;
+      }
+    }
+  } else { untested();
+    PyErr_SetString(PyExc_TypeError, "not a list");
+    SWIG_fail;
+  }
+}
+%typemap(freearg) (int node_count, const node_t nodes[])
+{ untested();
+free((node_t *) $2);
+}
+
+#if 1 // not yet.
 class COMPONENT : public CARD {
 protected: // these are not private.
   explicit COMPONENT( const COMPONENT& p);
@@ -65,6 +115,25 @@ public: // hijack __init__
 protected:
   virtual ~COMPONENT();
 //  virtual CARD*	 clone()const = 0;
+public: // common
+  COMMON_COMPONENT* mutable_common()	  {return _common;}
+  const COMMON_COMPONENT* common()const	  {return _common;}
+  bool	has_common()const		  {return _common;}
+  void	attach_common(COMMON_COMPONENT*KEEPREF) {COMMON_COMPONENT::attach_common(c,&_common);}
+  void	detach_common()			  {COMMON_COMPONENT::detach_common(&_common);}
+  void	deflate_common();
+  //--------------------------------------------------------------------
+public:	// type
+  void  set_dev_type(const std::string& new_type);
+  //--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  // list and queue management
+  bool	is_q_for_eval()const	 {return (_q_for_eval >= _sim->iteration_tag());}
+  void	mark_q_for_eval()	 {_q_for_eval = _sim->iteration_tag();}
+  void	mark_always_q_for_eval() {_q_for_eval = INT_MAX;}
+  void	q_eval();
+  void	q_load()		 {_sim->_loadq.push_back(this);}
+  void	q_accept()		 {_sim->_acceptq.push_back(this);}
 
 public:	// ports
   virtual std::string port_name(int)const = 0;
@@ -82,6 +151,10 @@ public:	// ports
 public:	// state, aux data
 // not yet  bool	is_device()const;
 // // not yet void	set_slave();
+  bool	converged()const		{return _converged;}
+  void	set_converged(bool s=true)	{_converged = s;}
+  void	set_not_converged()		{_converged = false;}
+
   void  map_nodes();
 
 protected: // CARD
@@ -140,6 +213,10 @@ public: // should come from card..?
 protected:
   node_array* _n;
 }; // COMPONENT
+
+#else
+#endif
+%include "e_compon.h"
 
 %pythoncode %{
 from .e_compon import COMPONENT

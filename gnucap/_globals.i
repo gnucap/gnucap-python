@@ -29,6 +29,8 @@
 %include std_shared_ptr.i
 
 %include "_e_card.i"
+%include "_c_comand.i" // bug?
+%include "_e_elemnt.i" // bug?
 
 %{
 #include "wrap.h"
@@ -36,6 +38,29 @@
 #include <e_node.h>
 #include <globals.h>
 %}
+
+%ignore DISPATCHER_BASE;
+// TODO: extend
+%ignore DISPATCHER_BASE::operator[];
+%ignore DISPATCHER::operator[];
+
+%typemap(out) CARD*
+{
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
+		$result = d->swig_get_self();
+	}else if(ELEMENT* c=dynamic_cast<ELEMENT*>($1)){
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_ELEMENT, $owner);
+	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{
+		unreachable();
+	}
+	Py_INCREF($result);
+}
+
+%include l_dispatcher.h
 
 
 %exception {
@@ -61,8 +86,11 @@ extern std::vector<PyObject*> installed_cards;
 // //  Py_INCREF($1obj);
 // }
 
-%inline %{
+%pythoncode %{
+from .c_comand import CMD
+%}
 
+%inline %{
 
 class install_device {
 public:
@@ -102,11 +130,13 @@ public:
 %}
 
 
+%template(DISPATCHER_CARD) DISPATCHER<CARD>;
+%template() DISPATCHER<CARD>;
 // later
 //DISPATCHER<CMD> command_dispatcher;
 //DISPATCHER<COMMON_COMPONENT> bm_dispatcher;
 //DISPATCHER<MODEL_CARD> model_dispatcher;
-//DISPATCHER<CARD> device_dispatcher;
+extern DISPATCHER<CARD> device_dispatcher;
 //DISPATCHER<LANGUAGE> language_dispatcher;
 //DISPATCHER<FUNCTION> function_dispatcher;
 
@@ -119,5 +149,6 @@ bool need_default_plugins(){
   return !have_default_plugins;
 }
 %}
+
 
 // vim:ts=8:sw=2:et:

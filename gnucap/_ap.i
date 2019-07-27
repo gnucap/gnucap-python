@@ -126,6 +126,8 @@ _CS_rshift[int] = CS.myshift
 
 %extend CS{
 %pythoncode %{
+	def __repr__(self):
+		return "CS("+self.fullstring()+")"
 	def stuck_(self, L):
 		a, b=self.stuck(L[0])
 		L[0]=b

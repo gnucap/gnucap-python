@@ -142,6 +142,12 @@ struct nodearray_t {
 
 %}
 
+
+/////////////////////
+///////////////////////
+
+
+
 // inline?
 struct nodearray_t {
 	nodearray_t(unsigned i);
@@ -212,6 +218,23 @@ public: // virtuals
     return _sim->_ac[m_()];
   }
 };
+
+extern NODE ground_node;
+%inline %{
+struct NODE_ref{
+	NODE_ref(NODE&x): _p(x){}
+	NODE& _p;
+};
+NODE_ref get_ground_node_(){
+	return NODE_ref(ground_node);
+}
+
+node_t make_node_(NODE_ref x){
+return node_t(&x._p);
+}
+%}
+
+
 
 %extend node_t {
 	inline void set_mode(smode_t t){

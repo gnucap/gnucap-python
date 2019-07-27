@@ -175,6 +175,8 @@ public: // internal types
 	iterator find_again(const std::string& short_name, iterator);
 	iterator find_(const std::string& short_name);
 
+	CARD_LIST& push_back(CARD* c);
+	CARD_LIST& push_front(CARD* c);
 }; // CARD_LIST
 
 %feature("flatnested", "");

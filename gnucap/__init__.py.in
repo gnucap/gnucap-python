@@ -46,13 +46,15 @@ from .gnucap_swig import command, parse
 trace("cmd imported")
 from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
-from .e_compon import COMPONENT
+from .e_compon import COMPONENT, COMMON_COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
 from .e_elemnt import ELEMENT # HACK
 from .e_cardlist import CARD_LIST, findbranch
+from .e_node import NODE
 from .e_node import node_t, node_array, LOGICVAL
 from .e_node import lvSTABLE0, lvSTABLE1, lvFALLING, lvRISING
 from .e_card import CARD
+from .e_subckt import BASE_SUBCKT
 
 from .m_cpoly import FPOLY1, CPOLY1
 from .md import rBATCH, rINTERACTIVE, rPRESET, rPRE_MAIN, rSCRIPT
@@ -90,6 +92,17 @@ if(os.name=="posix"):
 # this will change
 from .globals import install_device, need_default_plugins
 from .globals import install_command
+
+from .globals import cvar
+device_dispatcher = cvar.device_dispatcher
+del cvar
+
+# from .e_node import cvar
+# ground_node = cvar.ground_node # does not work. why!?
+# del cvar
+
+from .e_node import get_ground_node_, make_node_
+ground_node = get_ground_node_()
 
 # BUG? direct import seems broken
 from .pending import install as pending_install

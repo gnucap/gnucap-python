@@ -93,4 +93,6 @@ public:
 
   void reset_iteration_counter(int i) {assert(up_order(0,i,iCOUNT-1)); _iter[i] = 0;}
   void count_iterations(int i)	{assert(up_order(0,i,iCOUNT-1)); ++_iter[i];}
+  bool uic_now() {return _uic && analysis_is_static() && _time0==0.;}
+  SIM_MODE has_op()const {return _has_op;}
 };

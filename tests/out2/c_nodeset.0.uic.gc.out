@@ -1,0 +1,31 @@
+Gnucap : The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2013, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+main version
+core-lib version
+default plugins
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
+MODELNAME nodesetter
+node??
+try
+#                v(1)            iter(0)         df(ns.vs0)      f(ns.vs0)      tr_load
+
+ 0.             -1.699983        3.              1.7             1.             
+#Time            v(1)            iter(0)         df(ns.vs0)      f(ns.vs0)      
+NE
+uic now 1.7
+ 0.              0.              0.              1.7             1.             tr_load
+
+ 0.01            0.              3.              1.7             1.             
+ 1.              0.              3.              1.7             1.             
+

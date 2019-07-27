@@ -28,6 +28,11 @@
 #include <e_base.h>
 %}
 
+%feature("pythonappend") CKT_BASE %{
+    # this is a test
+	a=1
+%}
+
 class CKT_BASE {
 private:
   mutable int	_probes;		/* number of probes set */
@@ -43,6 +48,7 @@ protected: // create and destroy
   virtual  ~CKT_BASE();
 public:
 //  static WAVE* find_wave(const std::string&);
+  void	set_label(const std::string& s) {_label = s;}
 };
 
 %pythoncode %{

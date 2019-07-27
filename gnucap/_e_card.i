@@ -25,6 +25,11 @@
 #include <e_card.h>
 %}
 
+%feature("pythonappend") CARD() %{
+    # this is a test
+	a=1
+%}
+
 class CARD : public CKT_BASE {
 protected:                              // create and destroy.
   CARD();
@@ -100,12 +105,13 @@ public:        // state, aux data
 //  virtual void set_slave();
          bool evaluated()const;
 
-//  void set_constant(bool c);
+  void set_constant(bool c);
   bool is_constant()const;
 }; // CARD
 
 %extend CARD{
-  inline SIM_DATA& sim_(){ untested();
+  //  access directly?
+  inline SIM_DATA& sim_(){ itested();
     return *self->_sim;
   }
 }

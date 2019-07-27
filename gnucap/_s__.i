@@ -168,6 +168,7 @@ public:
 
 %pythoncode %{
 from .s__ import SIM_
+from .c_comand import CMD
 %}
 
 %extend SIM_ {

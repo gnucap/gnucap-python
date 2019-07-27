@@ -56,6 +56,40 @@
 inline bool COMPONENT::print_type_in_spice() const{ return false; }
 %}
 
+%inline %{
+template <typename Type, size_t N>
+struct wrapped_array{
+     Type _d[N];
+
+     operator Type* const&() const;
+};
+%}
+
+%extend wrapped_array {
+  inline size_t __len__() const { return N; }
+
+  inline const Type& __getitem__(size_t i) const throw(std::out_of_range) {
+    if (i >= N || i < 0)
+      throw std::out_of_range("out of bounds access");
+    return self->_d[i];
+  }
+
+  inline void __setitem__(size_t i, const Type& v) throw(std::out_of_range) {
+    if (i >= N || i < 0)
+      throw std::out_of_range("out of bounds access");
+    self->_d[i] = v;
+  }
+}
+
+%typemap(memberin) FPOLY1 [OPT::_keep_time_steps] {
+incomplete();
+//   memmove($1, $input, 4*sizeof(int));
+}
+%typemap(memberin) wrapped_array<FPOLY1, OPT::_keep_time_steps> {
+incomplete();
+//   memmove($1, $input, 4*sizeof(int));
+}
+
 class ELEMENT : public COMPONENT {
 protected:
   explicit ELEMENT();
@@ -80,7 +114,7 @@ protected: // from lower down.
   virtual std::string port_name(int)const = 0;
 
 protected: // CARD
-  void	set_constant(bool c);
+//  void	set_constant(bool c);
 public:
 //  double*  set__value()			{return _value.pointer_hack();}
 
@@ -199,13 +233,18 @@ public: // commons
 
   double   _time[OPT::_keep_time_steps];
   FPOLY1   _y1;		// iteration parameters, 1 iter ago
-//  FPOLY1_array_t   _y;
+  //FPOLY1   _y[OPT::_keep_time_steps];
+
+  ///FPOLY1*   _y;
+  wrapped_array<FPOLY1, OPT::_keep_time_steps> _y;
 };
 
+%template (FPOLY1_k) wrapped_array<FPOLY1, OPT::_keep_time_steps>;
+
 %extend ELEMENT {
-  inline FPOLY1& _y_(unsigned i){
-    return self->_y[i];
-  }
+  // inline FPOLY1& _y_(unsigned i){
+  //   return self->_y[i];
+  // }
   inline void element_tr_begin(){
     return self->ELEMENT::tr_begin();
   }
