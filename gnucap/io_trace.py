@@ -25,6 +25,7 @@ def untested():
 	a = s.pop()
 	print("@@#", file=_s.stderr)
 	print("@@@", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
+	_s.stderr.flush()
 
 def itested():
 	return
@@ -33,6 +34,7 @@ def itested():
 	a = s.pop()
 	print("@@#", file=_s.stderr)
 	print("@@@: ", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
+	_s.stderr.flush()
 
 def incomplete():
 	s = _t.extract_stack(limit=2)
@@ -41,6 +43,7 @@ def incomplete():
 	print("@@#", file=_s.stderr)
 	print("@@@:", file=_s.stderr)
 	print("incomplete", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
+	_s.stderr.flush()
 
 def unreachable():
 	s = _t.extract_stack(limit=2)
@@ -49,6 +52,7 @@ def unreachable():
 	print("@@#", file=_s.stderr)
 	print("@@@:", file=_s.stderr)
 	print("unreachable", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
+	_s.stderr.flush()
 
 # how to do this properly?!
 def trace(string, *args):
@@ -61,3 +65,4 @@ def trace(string, *args):
 	for k,i in enumerate(args):
 		print(" %s=%s" % (s[k],i), end="", file=_s.stderr)
 	print(file=_s.stderr)
+	_s.stderr.flush()

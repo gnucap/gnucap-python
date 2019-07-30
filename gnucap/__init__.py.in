@@ -23,8 +23,6 @@ import sys
 import ctypes
 import os
 
-print("gnucap-python version: @PACKAGE_VERSION@")
-sys.stdout.flush()
 
 def trace(*args, **kwargs):
 	return
@@ -86,8 +84,6 @@ def out(s):
 	sys.stdout.flush()
 	_iomstout << s
 
-out("gnucap-python version: @PACKAGE_VERSION@\n")
-
 if(os.name=="posix"):
 	sys.setdlopenflags(oldflags)
 
@@ -95,13 +91,18 @@ if(os.name=="posix"):
 from .globals import install_device, need_default_plugins
 from .globals import install_command
 
+# BUG? direct import seems broken
+from .pending import install as pending_install
+
 # from globals import shared_command_installer as command_installer
+sys.stdout.flush()
+out("gnucap-python version: @PACKAGE_VERSION@\n")
+sys.stdout.flush()
 
 if not "GNUCAP_PLUGPATH" in os.environ:
 	os.environ["GNUCAP_PLUGPATH"] = "@GC_PKGLIBDIR@"
 
 if hasattr(sys, 'ps1'):
-	trace("welcome to gnucap-python")
 	run_mode = SET_RUN_MODE(rINTERACTIVE)
 else:
 	run_mode = SET_RUN_MODE(rBATCH)

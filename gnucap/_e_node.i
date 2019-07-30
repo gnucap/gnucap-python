@@ -74,6 +74,12 @@ public:
 }; // LOGICVAL
 
 %extend LOGICVAL {
+	bool operator==(_LOGICVAL const& l){ untested();
+		return _LOGICVAL(*self) == l;
+	}
+	bool operator!=(_LOGICVAL const& l){ untested();
+		return _LOGICVAL(*self) != l;
+	}
 	std::string __repr__(){
 		if( self->lv_future()){
 			return "1";
@@ -214,7 +220,7 @@ public: // virtuals
 	inline void set_d_iter(){
 		(*self)->set_d_iter();
 	}
-	inline void propagate(){
+	inline void propagate(){ untested();
 		(*self)->propagate();
 	}
 	inline void set_lv(LOGICVAL const& x){

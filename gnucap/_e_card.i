@@ -79,6 +79,22 @@ public: // parameters
   virtual int param_count()const {return 0;}
   virtual std::string dev_type()const;
 
+public:	// dc-tran
+//  virtual void	 tr_iwant_matrix()	{}
+  virtual void	 tr_begin()		{}
+//  virtual void	 tr_restore()		{}
+//  virtual void	 dc_advance()		{}
+  virtual void	 tr_advance()		{}
+  virtual void	 tr_regress()		{}
+  virtual bool	 tr_needs_eval()const	{return false;}
+//  virtual void	 tr_queue_eval()	{}
+//  virtual bool	 do_tr()		{return true;}
+//  virtual bool	 do_tr_last()		{return true;}
+//  virtual void	 tr_load()		{}
+//  virtual TIME_PAIR tr_review();	//{return TIME_PAIR(NEVER,NEVER);}
+//  virtual void	 tr_accept()		{}
+//  virtual void	 tr_unload()		{untested();}
+
 public:        // state, aux data
 //  virtual char id_letter()const;
 // not yet  virtual int  net_nodes()const;

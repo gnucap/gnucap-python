@@ -92,7 +92,7 @@ public: // override virtual
   void	   dc_advance();
   void	   tr_advance();
   void	   tr_regress();
-  bool	   tr_needs_eval()const {/*assert(!is_q_for_eval());*/ return !is_constant();}
+//  bool	   tr_needs_eval()const {/*assert(!is_q_for_eval());*/ return !is_constant();}
 
   TIME_PAIR tr_review();
 

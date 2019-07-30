@@ -90,6 +90,8 @@ protected: // CARD
 public:
 //  virtual std::string dev_type()const;
 
+  void	q_accept()		 {_sim->_acceptq.push_back(this);}
+
 public: // parameters
   void set_param_by_name(std::string, std::string);
   void set_param_by_index(int, std::string&, int);
@@ -118,13 +120,22 @@ public: // parameters
   virtual int	num_current_ports()const;
   virtual int	tail_size()const;
   virtual void  precalc_last();
-  virtual void  tr_begin();
   virtual void  tr_load();
   virtual void  tr_unload();
 
   virtual void  ac_begin();
   virtual void  do_ac();
   virtual void  ac_load();
+
+public: // should come from card..?
+  virtual bool	 tr_needs_eval()const;
+  virtual void	 tr_begin();
+  virtual void	 tr_restore()		{}
+  virtual void	 tr_advance()		{}
+  virtual void	 tr_regress()		{}
+  virtual bool	 do_tr();
+  virtual void  tr_accept();
+  virtual TIME_PAIR  tr_review();
 
 protected:
   node_array* _n;
