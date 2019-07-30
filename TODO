@@ -1,16 +1,13 @@
 todo, easy
 - get rid of compiler warnings
-- make numpy optional
-- need to figure out what to do with interactive output
+- use swig to create dependencies (-MM)
 
 later
 - OUTPUT support
-- use swig to create dependencies (-MM)
-
-hacks
-- cleanup does not work in pyton2.
+- figure out what to do with interactive output
 
 bugs
 - takes ages to compile
 - error messages in loadpy...
 - swig generated code is hard to test
+- io_trace.trace is not quite right

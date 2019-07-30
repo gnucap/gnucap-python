@@ -49,3 +49,15 @@ def unreachable():
 	print("@@#", file=_s.stderr)
 	print("@@@:", file=_s.stderr)
 	print("unreachable", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
+
+# how to do this properly?!
+def trace(string, *args):
+	s = _t.extract_stack(limit=2)
+	s.pop()
+	a = s.pop()
+	s=a[3][:-1].split(',')[1:]
+
+	print("@#@%s"% string, file=_s.stderr , end="")
+	for k,i in enumerate(args):
+		print(" %s=%s" % (s[k],i), end="", file=_s.stderr)
+	print(file=_s.stderr)
