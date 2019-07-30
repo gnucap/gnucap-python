@@ -16,36 +16,36 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 #---------------------------------------------------------------------
-import sys
-import traceback
+import sys as _s
+import traceback as _t
 
 def untested():
-	s = traceback.extract_stack(limit=2)
+	s = _t.extract_stack(limit=2)
 	s.pop()
 	a = s.pop()
-	print("@@#", file=sys.stderr)
-	print("@@@", a[0]+ ":"+str(a[1])+":"+a[2], file=sys.stderr)
+	print("@@#", file=_s.stderr)
+	print("@@@", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
 
 def itested():
 	return
-	s = traceback.extract_stack(limit=2)
+	s = _t.extract_stack(limit=2)
 	s.pop()
 	a = s.pop()
-	print("@@#", file=sys.stderr)
-	print("@@@: ", a[0]+ ":"+str(a[1])+":"+a[2], file=sys.stderr)
+	print("@@#", file=_s.stderr)
+	print("@@@: ", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
 
 def incomplete():
-	s = traceback.extract_stack(limit=2)
+	s = _t.extract_stack(limit=2)
 	s.pop()
 	a = s.pop()
-	print("@@#", file=sys.stderr)
-	print("@@@:", file=sys.stderr)
-	print("incomplete", a[0]+ ":"+str(a[1])+":"+a[2], file=sys.stderr)
+	print("@@#", file=_s.stderr)
+	print("@@@:", file=_s.stderr)
+	print("incomplete", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
 
 def unreachable():
-	s = traceback.extract_stack(limit=2)
+	s = _t.extract_stack(limit=2)
 	s.pop()
 	a = s.pop()
-	print("@@#", file=sys.stderr)
-	print("@@@:", file=sys.stderr)
-	print("unreachable", a[0]+ ":"+str(a[1])+":"+a[2], file=sys.stderr)
+	print("@@#", file=_s.stderr)
+	print("@@@:", file=_s.stderr)
+	print("unreachable", a[0]+ ":"+str(a[1])+":"+a[2], file=_s.stderr)
