@@ -15,12 +15,12 @@ transient: already installed, replacing
 stashing as transient:0
 transient: already installed, replacing
 stashing as transient:0
-#                v(1)            iter(0)         df(ns.vs0)      f(ns.vs0)      
- 0.              3.299967        3.              3.3             1.             
-#Time            v(1)            iter(0)         df(ns.vs0)      f(ns.vs0)      
- 0.              3.299967        2.              3.3             0.             
- 0.01            3.26729406      3.              3.3             0.             
- 0.0925          3.008420821     3.              3.3             0.             
- 0.395           2.217934568     3.              3.3             0.             
- 1.              1.187723118     3.              3.3             0.             
+#                v(1)            v(2)            iter(0)         df(ns.vs0)      f(ns.vs0)      
+ 0.             -3.299967       -5.              3.              3.3             1.             
+#Time            v(1)            v(2)            iter(0)         df(ns.vs0)      f(ns.vs0)      
+ 0.             -3.299967       -5.              2.              3.3             0.             
+ 0.01           -3.26729406      0.              3.              3.3             0.             
+ 0.0925         -3.008420821     0.              3.              3.3             0.             
+ 0.395          -2.217934568     0.              3.              3.3             0.             
+ 1.             -1.187723118     0.              3.              3.3             0.             
 

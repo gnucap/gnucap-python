@@ -10,7 +10,7 @@ verilog
 
 resistor #(.r(1)) r1(0,1);
 capacitor #(.c(1)) c2(0,1);
-nodesetter #(.ic1(3.3)) ns(0,1);
+nodesetter #(.ic0(3.3), .ic1(5)) ns(1, 2);
 
 print dc v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
 print tran v(nodes) iter(0) df(ns.vs0) f(ns.vs0)

@@ -4,7 +4,7 @@
 import gnucap
 from gnucap.pending import install
 from gnucap import node_array, TIME_PAIR, FPOLY1
-from gnucap import untested, incomplete
+from gnucap.io_trace import *
 from gnucap import findbranch, CMD, CARD_LIST, CS
 from gnucap import ground_node, node_t, NODE
 import sys
@@ -87,39 +87,40 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 		self.new_subckt()
 		sc = self.subckt()
 
-		VS = gnucap.device_dispatcher.clone("V")
+		ng = node_t()
+		ng.set_to_ground(self)
 
-# none of this works. how to get the ground node?
-#		gnd = node_t("0",0)
-#		self._n[17].new_model_node(".gndhack", self)
-#		self._n[17].set_to_ground(self)
-#		print(type(ground_node))
-#		some_node = gnucap.make_node_(ground_node)
+#		n = self.net_nodes() ??
+		for i in range(20):
+			VS = gnucap.device_dispatcher.clone("V")
 
-		# hack just one pair of nodes, for now
-		nodes = [ self._n[1], self._n[0] ]
+			trace("expand", i)
+			if not self.port_exists(i):
+				break
 
-		try:
-			sc.push_back(VS)
-		except e:
-			print(e)
+			nodes = [ ng, self._n[i] ]
 
-		VS.set_constant(False)
+			try:
+				sc.push_back(VS)
+			except e:
+				print(e)
 
-		ic = 1.
-		try:
-			untested()
-			icp = self._param["ic1"]
-			untested()
-			ic = float(icp)
-			untested()
-		except IndexError:
-			untested()
-		except e:
-			untested()
-			throw
+			VS.set_constant(False)
 
-		VS.set_parameters("vs0", self, nsc, ic, 0, None, nodes)
+			ic = 1.
+			try:
+				untested()
+				icp = self._param["ic"+str(i)]
+				untested()
+				ic = float(icp)
+				untested()
+			except IndexError:
+				untested()
+			except e:
+				untested()
+				throw
+
+			VS.set_parameters("vs"+str(i), self, nsc, ic, 0, None, nodes)
 
 		sc.expand()
 		assert(not self.is_constant())
