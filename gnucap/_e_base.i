@@ -22,6 +22,8 @@
 
 %include _m_wave.i
 %include std_string.i
+%include "director_except.i"
+
 %{
 #include <e_base.h>
 %}

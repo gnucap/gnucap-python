@@ -99,6 +99,7 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 .i.cxx:
 
 EXTRA_DIST = \
+	director_except.i \
 	pending.py \
 	numpy.i \
 	m_wave_.h \
