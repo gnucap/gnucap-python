@@ -48,8 +48,8 @@ from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
 from .e_compon import COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
+from .e_elemnt import ELEMENT # HACK
 from .e_cardlist import CARD_LIST, findbranch
-from .e_elemnt import ELEMENT
 from .e_node import node_t, node_array, LOGICVAL
 from .e_node import lvSTABLE0, lvSTABLE1, lvFALLING, lvRISING
 from .e_card import CARD

@@ -31,7 +31,6 @@
 
 //  BUG
 %include "_e_compon.i"
-%include "_e_elemnt.i"
 
 %pythoncode %{
 from .io_trace import untested
@@ -54,12 +53,18 @@ from .io_trace import untested
   }
 }
 
+%{
+#include "e_elemnt.h"
+PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p);
+%}
+
 %typemap(out) CARD&
 {
 	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
-	}else if(ELEMENT* c=dynamic_cast<ELEMENT*>($1)){
-		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_ELEMENT, $owner);
+	}else if(auto c=dynamic_cast<ELEMENT const*>($1)){ untested();
+		assert(!$owner);
+		$result = _wrap_SWIGTYPE_p_ELEMENT($1);
 	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);
 	}else if($1){ untested();

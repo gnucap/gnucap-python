@@ -35,9 +35,10 @@
 
 %{
 #include <e_elemnt.h>
-#include <e_compon.h>
 #include <typeindex>
 %}
+
+#include <e_elemnt.h>
 
 %exception {
     try {
@@ -259,6 +260,19 @@ namespace swig {
   template<>
   struct traits_info<ELEMENT*> {
   };
+}
+
+PyObject* _wrap_SWIGTYPE_pc_ELEMENT(CARD const* p){ untested();
+        assert(dynamic_cast<ELEMENT const*>(p));
+	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, 0);
+	assert(r);
+	return r;
+}
+PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p){ untested();
+        assert(dynamic_cast<ELEMENT*>(p));
+	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, 0);
+	assert(r);
+	return r;
 }
 %}
 
