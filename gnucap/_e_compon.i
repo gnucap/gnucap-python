@@ -96,6 +96,47 @@ class node_t;
 free((node_t *) $2);
 }
 
+// %include "_e_paramlist.i" # HACK 
+
+%{
+#include "e_paramlist.h" # better hack
+PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(COMMON_COMPONENT const*);
+PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(COMMON_COMPONENT*);
+%}
+
+%typemap(out) COMMON_COMPONENT*
+{
+incomplete();
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if(auto c=dynamic_cast<COMMON_PARAMLIST*>($1)){ untested();
+                assert(!$owner);
+		$result = _wrap_SWIGTYPE_p_COMMON_PARAMLIST($1);
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{ untested();
+		unreachable();
+	}
+	Py_INCREF($result); //BUG
+}
+
+
+%typemap(out) COMMON_COMPONENT const*
+{
+incomplete();
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if(auto c=dynamic_cast<COMMON_PARAMLIST const*>($1)){ untested();
+                assert(!$owner);
+		$result = _wrap_SWIGTYPE_pc_COMMON_PARAMLIST($1);
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{ untested();
+		unreachable();
+	}
+	Py_INCREF($result); // BUG
+}
+
 #if 1 // not yet.
 class COMPONENT : public CARD {
 protected: // these are not private.
@@ -163,8 +204,6 @@ protected: // CARD
 public:
 //  virtual std::string dev_type()const;
 
-  void	q_accept()		 {_sim->_acceptq.push_back(this);}
-
 public: // parameters
   void set_param_by_name(std::string, std::string);
   void set_param_by_index(int, std::string&, int);
@@ -216,6 +255,10 @@ protected:
 
 #else
 #endif
+
+
+
+
 %include "e_compon.h"
 
 %pythoncode %{

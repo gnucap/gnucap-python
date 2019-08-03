@@ -53,6 +53,7 @@ NODESET_TESTS = \
 	c_nodeset.0.gc \
 	c_nodeset.0.cont.gc \
 	c_nodeset.0.nob.gc \
+	c_nodeset.0.p.gc \
 	c_nodeset.0.uic.gc
 
 # not yet c_nodeset.1.gc

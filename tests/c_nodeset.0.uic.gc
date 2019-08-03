@@ -10,10 +10,10 @@ verilog
 
 resistor #(.r(1)) r1(0,1);
 capacitor #(.c(1)) c2(1,0);
-nodesetter #(.ic0(1.7)) ns(1);
+nodesetter #(.v_1(1.7)) ns(1);
 
-print dc v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
-print tran v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
+print dc v(nodes) iter(0) df(ns.1) f(ns.1)
+print tran v(nodes) iter(0) df(ns.1) f(ns.1)
 
 dc
 * seems to be incomplete

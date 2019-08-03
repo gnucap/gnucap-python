@@ -46,6 +46,7 @@ from .gnucap_swig import command, parse
 trace("cmd imported")
 from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
+from .e_paramlist import COMMON_PARAMLIST # HACK
 from .e_compon import COMPONENT, COMMON_COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
 from .e_elemnt import ELEMENT # HACK
@@ -64,6 +65,7 @@ from .m_wave import WAVE
 from .s__ import SIM_ as SIM
 from .u_opt import SET_RUN_MODE, OPT_numdgt, OPT_pivtol
 from .u_parameter import PARAMETERd, PARAMETERi, PARAMETERb
+from .u_parameter import PARAM_LIST
 from .u_sim_data import SIM_DATA
 from .u_xprobe import XPROBE
 from .ap import CS

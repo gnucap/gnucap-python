@@ -18,7 +18,6 @@
  *------------------------------------------------------------------
  */
 %module(directors="0", allprotected="1") e_base
-// %feature(nodirector) CKT_BASE;
 
 %include _m_wave.i
 %include std_string.i
@@ -49,7 +48,10 @@ protected: // create and destroy
 public:
 //  static WAVE* find_wave(const std::string&);
   void	set_label(const std::string& s) {_label = s;}
-};
+//  bool operator!=(const std::string& n)const {return strcasecmp(_label.c_str(),n.c_str())!=0;}
+//  virtual const std::string long_label()const;
+  const std::string&  short_label()const {return _label;}
+}; // CKT_BASE
 
 %pythoncode %{
 from .e_base import CKT_BASE

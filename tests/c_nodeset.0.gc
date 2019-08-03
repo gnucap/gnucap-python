@@ -10,10 +10,10 @@ verilog
 
 resistor #(.r(1)) r1(0,1);
 capacitor #(.c(1)) c2(0,1);
-nodesetter #(.ic0(3.3), .ic1(5)) ns(1, 2);
+nodesetter #(.extra(19), .v_1(3.3), .v_2(5), .v_a(3)) ns(1, 2, a);
 
-print dc v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
-print tran v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
+print dc v(nodes) iter(0)
+print tran v(nodes) iter(0)
 
 * does not work, see s_tr_swp.cc+83 ?
 * transient 1 uic
@@ -21,3 +21,10 @@ print tran v(nodes) iter(0) df(ns.vs0) f(ns.vs0)
 * but this does
 dc
 transient 1
+
+list
+nodeset
+
+nodeset v_x=5 v_y=6
+
+list

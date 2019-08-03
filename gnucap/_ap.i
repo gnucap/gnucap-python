@@ -108,6 +108,18 @@ public:
   int	      ctox();
   double      ctopf()			 {return std::abs(ctof());}
 
+  CS&	      skip(int c=1) 
+    {_cnt=static_cast<unsigned>(static_cast<int>(_cnt)+c); _ok=_cnt<=_length; return *this;}
+  CS&	      skipbl();
+  CS&	      skip1b(char);
+  CS&	      skip1(char);
+  CS&	      skip1b(const std::string&);
+  CS&	      skip1(const std::string&);
+  CS&	      skiparg();
+  CS&	      skipto1(const std::string&);
+  CS&	      skipto1(char);
+  CS&	      skipcom()			{return skip1b(",");}
+
   %rename(myshift) operator>>;
   CS&	      operator>>(bool& INOUT)	 {x=ctob();return *this;}
   CS&	      operator>>(char& INOUT)	 {untested(); x=ctoc();return *this;}

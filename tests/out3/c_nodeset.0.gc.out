@@ -15,12 +15,25 @@ transient: already installed, replacing
 stashing as transient:0
 transient: already installed, replacing
 stashing as transient:0
-#                v(1)            v(2)            iter(0)         df(ns.vs0)      f(ns.vs0)      
- 0.             -3.299967       -5.              3.              3.3             1.             
-#Time            v(1)            v(2)            iter(0)         df(ns.vs0)      f(ns.vs0)      
- 0.             -3.299967       -5.              2.              3.3             0.             
- 0.01           -3.26729406      0.              3.              3.3             0.             
- 0.0925         -3.008420821     0.              3.              3.3             0.             
- 0.395          -2.217934568     0.              3.              3.3             0.             
- 1.             -1.187723118     0.              3.              3.3             0.             
+#                v(1)            v(2)            v(a)            iter(0)        
+ 0.              3.299967        5.              3.              3.             
+#Time            v(1)            v(2)            v(a)            iter(0)        
+ 0.              3.299967        5.              3.              2.             
+ 0.01            3.26729406      0.              0.              3.             
+ 0.0925          3.008420821     0.              0.              3.             
+ 0.395           2.217934568     0.              0.              3.             
+ 1.              1.187723118     0.              0.              3.             
+resistor #(.r(1)) r1 (.p(0),.n(1));
+capacitor #(.c(1)) c2 (.p(0),.n(1));
+nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) ns (.p0(1),.p1(2),.p2(a));
+//* does not work, see s_tr_swp.cc+83 ? 
+//* transient 1 uic 
+//* but this does 
+nodeset v_1= 3.3 v_2= 5. v_a= 3.
+resistor #(.r(1)) r1 (.p(0),.n(1));
+capacitor #(.c(1)) c2 (.p(0),.n(1));
+nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) ns (.p0(1),.p1(2),.p2(a));
+//* does not work, see s_tr_swp.cc+83 ? 
+//* transient 1 uic 
+//* but this does 
 

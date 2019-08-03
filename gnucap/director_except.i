@@ -7,7 +7,7 @@
 %}
 
 %feature("director:except") {
-	if( $error != NULL ) { untested();
+	if( $error != NULL ) { itested();
 		PyObject *ptype, *pvalue, *ptraceback;
 		PyErr_Fetch( &ptype, &pvalue, &ptraceback );
 		PyErr_Restore( ptype, pvalue, ptraceback );

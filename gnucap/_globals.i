@@ -40,7 +40,6 @@
 %}
 
 %ignore DISPATCHER_BASE;
-// TODO: extend
 %ignore DISPATCHER_BASE::operator[];
 %ignore DISPATCHER::operator[];
 
@@ -60,8 +59,25 @@
 	Py_INCREF($result);
 }
 
+%typemap(out) COMMON_COMPONENT*
+{
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{ untested();
+		unreachable();
+	}
+}
+
 %include l_dispatcher.h
 
+// does not compile. why?
+/// %extend DISPATCHER{ untested();
+///   inline CARD const& __getitem__(std::string /*const?*/ s){
+///     return *(*self)[s];
+///   }
+/// }
 
 %exception {
     try {
@@ -129,9 +145,10 @@ public:
 };
 %}
 
-
+// need both?
 %template(DISPATCHER_CARD) DISPATCHER<CARD>;
 %template() DISPATCHER<CARD>;
+
 // later
 //DISPATCHER<CMD> command_dispatcher;
 //DISPATCHER<COMMON_COMPONENT> bm_dispatcher;

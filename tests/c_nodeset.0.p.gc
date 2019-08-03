@@ -1,0 +1,24 @@
+* Felix Salfelder 2019
+* GPLv3+
+
+attach public c_python.so
+loadpy c_nodeset.py
+
+options numdgt=10
+
+verilog
+
+parameter v1=3.3
+parameter v2=5
+
+nodesetter #(.v_1(v1), .v_2(v2)) ns(1, 2);
+
+print dc v(nodes)
+dc
+list
+nodeset v_1=5 v_2=6
+dc
+delete ns
+list
+nodeset
+list

@@ -26,6 +26,7 @@
 %}
 
 %include "_u_nodemap.i"
+%include "_e_paramlist.i"
 %include "exception.i"
 %include "_e_card.i"
 
@@ -169,6 +170,10 @@ public: // internal types
    CARD_LIST& ac_load();
 
 	NODE_MAP*   nodes()const {assert(_nm); return _nm;}
+	PARAM_LIST* params();
+	PARAM_LIST* params()const;
+  // more complex stuff
+	void attach_params(PARAM_LIST* p, const CARD_LIST* scope);
 
 	iterator begin()			{return _cl.begin();}
 	iterator end()			{return _cl.end();}

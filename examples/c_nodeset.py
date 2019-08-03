@@ -7,20 +7,34 @@ from gnucap import node_array, TIME_PAIR, FPOLY1
 from gnucap.io_trace import *
 from gnucap import findbranch, CMD, CARD_LIST, CS
 from gnucap import ground_node, node_t, NODE
+from gnucap import PARAM_LIST
 import sys
 
 HACK=[]
+_nodesetter_name = "ns"
 
-class COMMON_NODESETTER(gnucap.COMMON_COMPONENT):
+COMMON_NODESETTER = gnucap.COMMON_PARAMLIST
+
+class BM_NODESET(gnucap.COMMON_PARAMLIST): # BUG. COMMON_COMPONENT...
 	def __init__(self, other=None):
+		super().__init__()
+		return
+
 		if other is None:
+			untested()
 			super().__init__()
 		else:
+			untested()
+			print("other", type(other))
 			super().__init__(other)
+			print("other", type(other))
 
 	# TODO: default clone for COMMON_COMPONENT
 	def clone(self):
-		tmp = COMMON_NODESETTER(self)
+		import inspect
+		trace("cloning cns", type(self))
+# 		trace("cloning cns", inspect.getmro(self)) BUG
+		tmp = BM_NODESET(self)
 		HACK.append(tmp)
 		return tmp
 
@@ -57,6 +71,9 @@ class COMMON_NODESETTER(gnucap.COMMON_COMPONENT):
 nsc = COMMON_NODESETTER(27342)
 nsc.set_modelname("nodesetter_m")
 
+bmns = BM_NODESET(27342)
+bmns.set_modelname("bm_nodeset")
+
 @install("nodesetter")
 class NODESETTER(gnucap.BASE_SUBCKT):
 	def __init__(self, other=None):
@@ -66,75 +83,99 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 		else:
 			untested()
 			super().__init__(other)
-		self.attach_common(nsc)
+		self.attach_common(nsc) # .__disown__()) # check
+
+		sys.stdout.flush()
 		nodes = node_array(20)
 		self._n = nodes
 		self._param = {}
+		self._ic_values = {}
 			
-	def param_count(self):
+	def __param_count(self):
 		return 0
 
 	def clone(self):
+		itested()
 		n = NODESETTER(self)
 		HACK.append(n)
 		return n
 
-	def precalc_first(self):
-		incomplete()
+	def params(self):
+		return self.subckt().params()
+
+	def value_raw(self, i):
+		key = "v_"+self.port_value(i)
+		ps = self.subckt().params()
+
+		# why deep?
+		return ps.deep_lookup(key)
+
+	def precalc_last(self):
+		super().precalc_last()
+
+		for i in self.subckt():
+			key = i.short_label()
+
+			P = gnucap.PARAMETERd()
+			P.assign(key)
+			P.e_val(1e99, self.subckt())
+			i.set_value(P.float_())
+
 
 	def expand(self):
+
 		super().expand()
 		self.new_subckt()
+
 		sc = self.subckt()
+		sc.attach_params(self.common()._params, self.scope());
+
 
 		ng = node_t()
 		ng.set_to_ground(self)
 
-#		n = self.net_nodes() ??
-		for i in range(20):
-			VS = gnucap.device_dispatcher.clone("V")
+		# not yet
+		# VS = gnucap.device_dispatcher["V"]
 
-			trace("expand", i)
+		n = 20 # self.net_nodes()
+		for i in range(n):
+			VS = gnucap.device_dispatcher.clone("V")
+			key = "v_"+self.port_value(i)
+
+			trace("expand", i, self.port_value(i))
 			if not self.port_exists(i):
+				untested()
 				break
 
-			nodes = [ ng, self._n[i] ]
+			nodes = [ self._n[i], ng ]
 
 			try:
+				untested()
 				sc.push_back(VS)
 			except e:
+				untested()
 				print(e)
 
 			VS.set_constant(False)
 
-			ic = 1.
-			try:
-				untested()
-				icp = self._param["ic"+str(i)]
-				untested()
-				ic = float(icp)
-				untested()
-			except IndexError:
-				untested()
-			except e:
-				untested()
-				throw
-
-			VS.set_parameters("vs"+str(i), self, nsc, ic, 0, None, nodes)
+			ic = 1e99
+			untested()
+			VS.set_parameters(key, self, bmns, ic, 0, None, nodes)
 
 		sc.expand()
 		assert(not self.is_constant())
 		sc.set_slave()
-		return
+
 
 	def set_param_by_name(self, n, v):
 		self._param[n] = v
+		super().set_param_by_name(n, v)
 
 	def min_nodes(self):
 		return 0
 	def max_nodes(self):
 		# TODO: proper error message if this is too small!!
-		return 2
+		return 20
 
 	def tr_needs_eval(self):
 		return True
@@ -144,6 +185,8 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 		super().tr_load()
 
 	def port_name(self, i):
+		
+
 		return "p"+str(i)
 
 	def is_device(self):
@@ -177,22 +220,18 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 
 a = None
 
-
-# NS = NODESETTER()
-# print("DEVTYPE", NS.dev_type())
-# dd = gnucap.install_device("nodesetter", NS)
-
 def get_nodesetter():
-	Cmd = CS(gnucap._ap.CS__STRING, "nodesetter0")
+	Cmd = CS(gnucap._ap.CS__STRING, _nodesetter_name)
 	cii = findbranch(Cmd, CARD_LIST.card_list_(None));
 	try:
 		n = next(cii)
 		return n
 	except StopIteration:
+		untested()
 		global a
 		assert(a is None)
 		a = NODESETTER()
-		a.set_label("nodesetter0")
+		a.set_label(_nodesetter_name)
 		CARD_LIST.card_list_(None).push_back(a.__disown__())
 		b = get_nodesetter()
 		assert(a is b)
@@ -204,8 +243,37 @@ class NODESET(gnucap.CMD):
 		super().__init__() #?
 		pass
 
-	def do_it(self, args, scope):
-		incomplete()
+	def list(self):
+		g = get_nodesetter()
+		ii=0
+		
+		print("nodeset", end="")
+		while(True):
+			if g.port_exists(ii):
+				p = "v_"+g.port_value(ii)
+				ic = g.value_raw(ii)
+				print(" %s=%s"%( p,ic), end="")
+			else:
+				break
+			ii += 1
 
-		get_nodesetter()
+		print()
+		sys.stdout.flush()
+
+	def parse(self, args, scope):
+		g = get_nodesetter()
+		pl = g.params()
+		pl.parse(args)
+
+	def do_it(self, args, scope):
+		# get_nodesetter()
 		# TODO: modify/delete nodesetter, also do ic command.
+
+		args.skip1("nodeset")
+		if args.is_end():
+			self.list()
+		# elif "clear"
+		#  ...
+		else:
+			self.parse(args, scope)
+			incomplete()

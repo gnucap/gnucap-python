@@ -27,6 +27,7 @@
 // #include <_ap.i>
 
 %include "std_string.i"
+%include "std_pair.i"
 
 
 template<class T>
@@ -65,9 +66,35 @@ public:
   // bool  operator==(const T& v)const;
 };
 
+%inline %{
+class ExceptionEOPL {};
+class PARAM_LIST_RANGE {
+public:
+	typedef std::pair< std::string, PARAMETER<double> > value_type;
+	// typedef value_type& ref_type;
+	typedef value_type ref_type; // BUG
+public:
+	PARAM_LIST_RANGE(PARAM_LIST::iterator cur, PARAM_LIST::iterator end) : _cur(cur), _end(end) {}
+	PARAM_LIST_RANGE* __iter__() {
+		return this;
+	}
+	PARAM_LIST::iterator _cur;
+	PARAM_LIST::iterator _end;
+};
+%}
+
+#define INTERFACE
+%include "u_parameter.h"
+
 %template(PARAMETERd) PARAMETER<double>;
 %template(PARAMETERi) PARAMETER<int>;
 %template(PARAMETERb) PARAMETER<bool>;
+
+
+// %feature("valuewrapper") std::pair<const std::string, PARAMETER<double> >;
+// %template(testtype) std::pair<const std::string, PARAMETERd >;
+%template(testtype) std::pair<std::string, PARAMETER<double> >;
+
 
 %pythoncode %{
 from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
@@ -75,6 +102,10 @@ from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
 
 %extend PARAMETER<double> {
 	double float_(){
+		return *self;
+	}
+	inline PARAMETER<double>& assign(std::string const& s){ untested();
+		*self = s;
 		return *self;
 	}
 	inline double __sub__(double const&x){ untested();
@@ -139,7 +170,7 @@ from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
 bool Get(CS& cmd, const std::string& key, PARAMETER<bool>* INOUT);
 bool Get(CS& cmd, const std::string& key, PARAMETER<int>* INOUT);
 bool Get(CS& cmd, const std::string& key, PARAMETER<double>* INOUT);
- 
+
 
 %typemap(argout) PARAMETER<double> &INOUT {
   $result=SWIG_Python_AppendOutput($result, obj1);
@@ -167,3 +198,31 @@ PAR_OPS(PARAMETER<int>)
 PAR_OPS(PARAMETER<double>)
 PAR_OPS(PARAMETER<bool>)
 
+%include "exception.i"
+%exception PARAM_LIST_RANGE::__next__ {
+  try {
+    $action
+  } catch (ExceptionEOPL) {
+    PyErr_SetString(PyExc_StopIteration, "End of PARAM_LIST");
+    return NULL;
+  }
+}
+
+%extend PARAM_LIST_RANGE {
+	PARAM_LIST_RANGE::ref_type __next__() {
+		PARAM_LIST::iterator& p = $self->_cur;
+		if (p != $self->_end) { untested();
+			PARAM_LIST_RANGE::value_type r = *p;
+			++p;
+			return r;
+		}else{ untested();
+			throw ExceptionEOPL();
+		}
+	}
+}
+
+%extend PARAM_LIST {
+  PARAM_LIST_RANGE __iter__() {
+    return PARAM_LIST_RANGE($self->begin(), $self->end());
+  }
+};

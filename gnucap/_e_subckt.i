@@ -18,7 +18,7 @@
  *------------------------------------------------------------------
  */
 %module e_subckt
-%feature("director") BASE_SUBCKT;
+%feature("director", allprotected=1) BASE_SUBCKT;
 
 %include "_e_base.i"
 %include "_e_card.i" // expand
@@ -31,7 +31,33 @@
 #include "e_subckt.h"
 %}
 
-%ignore BASE_SUBCKT::dev_type; // confuses SWIG
+// these confuse SWIG
+%ignore BASE_SUBCKT::dev_type;
+// %ignore BASE_SUBCKT::net_nodes;
+
+%typemap(out) COMMON_COMPONENT*
+{
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{ untested();
+		unreachable();
+	}
+//	Py_INCREF($result);
+}
+
+%typemap(out) COMMON_COMPONENT const*
+{
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{ untested();
+		unreachable();
+	}
+//	Py_INCREF($result);
+}
 
 // needed?
 class BASE_SUBCKT : public COMPONENT {
@@ -51,9 +77,9 @@ protected: // override virtual
   int     matrix_nodes()const		{return 0;}
   int     net_nodes()const		{return _net_nodes;}
   //CARD* clone()const			//CARD/null
-  //void  precalc_first()	{assert(subckt()); subckt()->precalc();}
+  virtual void  precalc_first();
   virtual void  expand();			//COMPONENT
-  //void  precalc_last()	{assert(subckt()); subckt()->precalc();}
+  virtual void  precalc_last();
   //void  map_nodes();
   virtual void	  tr_begin()	{assert(subckt()); subckt()->tr_begin();}
   virtual void	  tr_restore()	{assert(subckt()); subckt()->tr_restore();}
@@ -85,6 +111,9 @@ public: // actually card. why here?
   void	  new_subckt();
   void	  new_subckt(const CARD* model, PARAM_LIST* p);
   void	  renew_subckt(const CARD* model, PARAM_LIST* p);
+  /*virtual*/ CARD_LIST*	   scope();
+  /*virtual*/ const CARD_LIST* scope()const;
+  /*virtual*/ bool		   makes_own_scope()const  {return false;}
 protected:
   node_array* _n;
 }; // BASE_SUBCKT
