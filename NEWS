@@ -35,3 +35,4 @@
 * memory fix in pending.install
 * cleanup CARD/COMPONENT/ELEMENT hierarchy
 * print package version on sign on
+* fix memory leak in clone

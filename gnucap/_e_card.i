@@ -45,7 +45,6 @@ public: // hijack __init__
         # refcount hack.
         self._oldclone = self.clone
         self.clone = self._myclone
-        self.HACK = []
 
     def _default_dev_type(self):
         # use the python name if not overridden.
@@ -55,8 +54,7 @@ public: // hijack __init__
         return self.__class__(self)
     def _myclone(self):
         c = self._oldclone()
-        self.HACK.append(c)
-        return c
+        return c.__disown__()
     def __init__(self, *args):
         self._old_card_init(*args)
         self._patch_card();
