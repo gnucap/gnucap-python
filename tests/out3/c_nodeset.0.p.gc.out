@@ -18,8 +18,9 @@ stashing as transient:0
 #                v(1)            v(2)           
  0.              3.3             5.             
 nodesetter #(.v_1(v1),.v_2(v2)) ns (.p0(1),.p1(2));
+nodesetter #(.v_1( 5.),.v_2( 6.)) nodesetter (.p0(1),.p1(2));
 #                v(1)            v(2)           
  0.              5.              6.             
 nodeset
-nodesetter_m #() ns ();
 
+nodesetter #() nodesetter ();

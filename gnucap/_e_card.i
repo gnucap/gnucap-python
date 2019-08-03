@@ -30,6 +30,36 @@
 	a=1
 %}
 
+%{
+#include "e_paramlist.h"
+// PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(CKT_BASE const*, int owner);
+PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE*, int owner);
+
+#include "e_elemnt.h"
+// PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner);
+PyObject* (*_wrap_SWIGTYPE_p_ELEMENT_p)(CARD* p, int owner);
+// PyObject* _wrap_SWIGTYPE_cp_ELEMENT(CARD const* p, int owner);
+%}
+
+%typemap(out) CARD*
+{
+	assert(_wrap_SWIGTYPE_p_ELEMENT_p);
+  if($owner == SWIG_POINTER_NEW){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else if(auto c=_wrap_SWIGTYPE_p_COMMON_PARAMLIST($1, $owner)){ untested();
+		$result = c;
+	}else if(auto c= (*_wrap_SWIGTYPE_p_ELEMENT_p)($1, $owner)){ untested();
+		$result = c;
+	}else if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{
+		unreachable();
+	}
+	Py_INCREF($result); // BUG
+}
+
 class CARD : public CKT_BASE {
 protected:                              // create and destroy.
   CARD();

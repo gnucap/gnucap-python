@@ -215,7 +215,7 @@ PAR_OPS(PARAMETER<bool>)
 			PARAM_LIST_RANGE::value_type r = *p;
 			++p;
 			return r;
-		}else{ untested();
+		}else{
 			throw ExceptionEOPL();
 		}
 	}

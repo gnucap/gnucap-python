@@ -25,15 +25,11 @@ stashing as transient:0
  1.              1.187723118     0.              0.              3.             
 resistor #(.r(1)) r1 (.p(0),.n(1));
 capacitor #(.c(1)) c2 (.p(0),.n(1));
-nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) ns (.p0(1),.p1(2),.p2(a));
+nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) nodesetter (.p0(1),.p1(2),.p2(a));
 //* does not work, see s_tr_swp.cc+83 ? 
 //* transient 1 uic 
 //* but this does 
 nodeset v_1= 3.3 v_2= 5. v_a= 3.
-resistor #(.r(1)) r1 (.p(0),.n(1));
-capacitor #(.c(1)) c2 (.p(0),.n(1));
-nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) ns (.p0(1),.p1(2),.p2(a));
-//* does not work, see s_tr_swp.cc+83 ? 
-//* transient 1 uic 
-//* but this does 
+
+nodeset v_1= 3.3 v_2= 5. v_1= 3.3 v_2= 5. v_a= 3. v_x=NA( NA) v_y=NA( NA)
 

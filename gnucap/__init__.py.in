@@ -39,17 +39,20 @@ if(os.name=="posix"):
 else:
 	untested()
 
+from .e_paramlist import COMMON_PARAMLIST # HACK
+from .e_elemnt import ELEMENT # HACK
+
+
 # BUG: need to import first (why?)
 from .u_time_pair import TIME_PAIR
 
 from .gnucap_swig import command, parse
 trace("cmd imported")
+
 from .c_comand import CMD, CMD_cmdproc, CMD_command
 from .c_exp import eval
-from .e_paramlist import COMMON_PARAMLIST # HACK
 from .e_compon import COMPONENT, COMMON_COMPONENT
 from .e_base import CKT_BASE_find_wave, CKT_BASE
-from .e_elemnt import ELEMENT # HACK
 from .e_cardlist import CARD_LIST, findbranch
 from .e_node import NODE
 from .e_node import node_t, node_array, LOGICVAL

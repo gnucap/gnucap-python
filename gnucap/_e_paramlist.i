@@ -81,22 +81,36 @@ private:
   static int	_count;
 public:
   PARAM_LIST	_params;
-};
+}; // COMMON_PARAMLIST
 #endif
+
+%extend COMMON_PARAMLIST {
+  PARAM_LIST& params(){
+    return $self->_params;
+  }
+};
 
 %pythoncode %{
 # from .e_paramlist import COMMON_PARAMLIST
 %}
 
 %{
-PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(COMMON_COMPONENT const* p){
-	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_COMMON_PARAMLIST, 0);
-	assert(r);
-	return r;
+PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(CKT_BASE const* p, int mode=0){
+	if(dynamic_cast<COMMON_PARAMLIST const*>(p)){
+		PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_COMMON_PARAMLIST, mode);
+		assert(r);
+		return r;
+	}else{ untested();
+		return NULL;
+	}
 }
-PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(COMMON_COMPONENT* p){
-	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_COMMON_PARAMLIST, 0);
-	assert(r);
-	return r;
+PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE* p, int mode=0){
+	if(dynamic_cast<COMMON_PARAMLIST*>(p)){ untested();
+		PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_COMMON_PARAMLIST, mode);
+		assert(r);
+		return r;
+	}else{ untested();
+		return NULL;
+	}
 }
 %}

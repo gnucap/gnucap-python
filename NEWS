@@ -37,3 +37,4 @@
 * print package version on sign on
 * fix memory leak in clone
 * fix ELEMENT::_y access (breaks workaround)
+* better type bridge (stub)

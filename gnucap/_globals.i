@@ -42,13 +42,24 @@
 %ignore DISPATCHER_BASE;
 %ignore DISPATCHER_BASE::operator[];
 %ignore DISPATCHER::operator[];
+%ignore DISPATCHER_CARD::DISPATCHER_CARD;
 
+// card.i??
+%{
+#include "e_elemnt.h"
+// PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner);
+extern PyObject* (*_wrap_SWIGTYPE_p_ELEMENT_p)(CARD* p, int owner);
+PyObject* _wrap_SWIGTYPE_cp_ELEMENT(CARD const* p, int owner);
+%}
+
+#if 1
 %typemap(out) CARD*
 {
+assert(_wrap_SWIGTYPE_p_ELEMENT_p);
 	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
-	}else if(ELEMENT* c=dynamic_cast<ELEMENT*>($1)){
-		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_ELEMENT, $owner);
+	}else if(auto c=(*_wrap_SWIGTYPE_p_ELEMENT_p)($1, $owner)){
+		$result = c; // SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_ELEMENT, $owner);
 	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);
 	}else if($1){ untested();
@@ -57,6 +68,23 @@
 		unreachable();
 	}
 	Py_INCREF($result);
+}
+#endif
+
+%typemap(out) CARD const*
+{
+	if(auto c=_wrap_SWIGTYPE_p_COMMON_PARAMLIST($1, $owner)){ untested();
+		$result = c;
+	}else if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+		$result = d->swig_get_self();
+	}else if(auto c=_wrap_SWIGTYPE_cp_ELEMENT($1, $owner)){ untested();
+		$result = c;
+	}else if($1){ untested();
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+	}else{
+		unreachable();
+	}
+	Py_INCREF($result); // BUG
 }
 
 %typemap(out) COMMON_COMPONENT*
@@ -70,14 +98,32 @@
 	}
 }
 
+#if 1
 %include l_dispatcher.h
+#else
+template <class TT>
+class INTERFACE DISPATCHER : public DISPATCHER_BASE {
+public:
+  void install(const std::string& s, TT* p);
+
+  TT* operator[](std::string s);
+  TT* operator[](CS& cmd);
+  TT* clone(std::string s);
+
+  class INSTALL;
+};
+#endif
 
 // does not compile. why?
-/// %extend DISPATCHER{ untested();
-///   inline CARD const& __getitem__(std::string /*const?*/ s){
-///     return *(*self)[s];
-///   }
-/// }
+%extend DISPATCHER{
+  inline CARD const* __getitem__(std::string const& s){
+    return (*self)[s];
+  }
+}
+
+// need both?
+%template(DISPATCHER_CARD) DISPATCHER<CARD>;
+%template() DISPATCHER<CARD>;
 
 %exception {
     try {
@@ -145,9 +191,6 @@ public:
 };
 %}
 
-// need both?
-%template(DISPATCHER_CARD) DISPATCHER<CARD>;
-%template() DISPATCHER<CARD>;
 
 // later
 //DISPATCHER<CMD> command_dispatcher;

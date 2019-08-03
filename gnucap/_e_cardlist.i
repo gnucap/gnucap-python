@@ -56,16 +56,15 @@ from .io_trace import untested
 
 %{
 #include "e_elemnt.h"
-PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p);
+PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner);
 %}
 
 %typemap(out) CARD&
 {
 	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
-	}else if(auto c=dynamic_cast<ELEMENT const*>($1)){ untested();
-		assert(!$owner);
-		$result = _wrap_SWIGTYPE_p_ELEMENT($1);
+	}else if(auto c=_wrap_SWIGTYPE_p_ELEMENT($1, $owner)){ untested();
+		$result = c;
 	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);
 	}else if($1){ untested();

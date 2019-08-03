@@ -71,7 +71,7 @@ class node_t;
     int i;
     $1 = PyList_Size($input);
     $2 = (node_t*) malloc(($1)*sizeof(node_t));
-    for (i = 0; i < $1; i++) { untested();
+    for (i = 0; i < $1; i++) {
       PyObject *o = PyList_GetItem($input, i);
       if (1 || PyString_Check(o)) {
         auto it = PyList_GetItem($input, i);
@@ -92,26 +92,26 @@ class node_t;
   }
 }
 %typemap(freearg) (int node_count, const node_t nodes[])
-{ untested();
+{
 free((node_t *) $2);
 }
 
 // %include "_e_paramlist.i" # HACK 
 
 %{
-#include "e_paramlist.h" # better hack
-PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(COMMON_COMPONENT const*);
-PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(COMMON_COMPONENT*);
+#include "e_paramlist.h"
+PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(CKT_BASE const*, int owner);
+PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE*, int owner);
 %}
 
 %typemap(out) COMMON_COMPONENT*
 {
-incomplete();
-	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+        if($owner == SWIG_POINTER_NEW){
+		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
+        }else if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
 		$result = d->swig_get_self();
-	}else if(auto c=dynamic_cast<COMMON_PARAMLIST*>($1)){ untested();
-                assert(!$owner);
-		$result = _wrap_SWIGTYPE_p_COMMON_PARAMLIST($1);
+	}else if(auto c=_wrap_SWIGTYPE_p_COMMON_PARAMLIST($1, $owner)){
+                return c;
 	}else if($1){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
 	}else{ untested();
@@ -123,12 +123,11 @@ incomplete();
 
 %typemap(out) COMMON_COMPONENT const*
 {
-incomplete();
-	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
+	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
-	}else if(auto c=dynamic_cast<COMMON_PARAMLIST const*>($1)){ untested();
+	}else if(auto c=dynamic_cast<COMMON_PARAMLIST const*>($1)){
                 assert(!$owner);
-		$result = _wrap_SWIGTYPE_pc_COMMON_PARAMLIST($1);
+		$result = _wrap_SWIGTYPE_pc_COMMON_PARAMLIST($1, $owner);
 	}else if($1){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
 	}else{ untested();
@@ -257,8 +256,7 @@ protected:
 #endif
 
 
-
-
+// BUG: typemap leaks into constructor here.
 %include "e_compon.h"
 
 %pythoncode %{

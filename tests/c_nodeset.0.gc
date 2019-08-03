@@ -10,7 +10,7 @@ verilog
 
 resistor #(.r(1)) r1(0,1);
 capacitor #(.c(1)) c2(0,1);
-nodesetter #(.extra(19), .v_1(3.3), .v_2(5), .v_a(3)) ns(1, 2, a);
+nodesetter #(.extra(19), .v_1(3.3), .v_2(5), .v_a(3)) nodesetter(1, 2, a);
 
 print dc v(nodes) iter(0)
 print tran v(nodes) iter(0)
@@ -24,7 +24,7 @@ transient 1
 
 list
 nodeset
-
 nodeset v_x=5 v_y=6
+nodeset
 
-list
+end

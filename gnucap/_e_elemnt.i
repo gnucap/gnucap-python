@@ -300,19 +300,34 @@ namespace swig {
   struct traits_info<ELEMENT*> {
   };
 }
+%}
 
-PyObject* _wrap_SWIGTYPE_pc_ELEMENT(CARD const* p){ untested();
-        assert(dynamic_cast<ELEMENT const*>(p));
-	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, 0);
-	assert(r);
-	return r;
+%{
+PyObject* _wrap_SWIGTYPE_cp_ELEMENT(CARD const* p, int owner){ untested();
+  if(dynamic_cast<ELEMENT const*>(p)){
+    PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, owner);
+    assert(r);
+    return r;
+  }else{
+    return NULL;
+  }
 }
-PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p){ untested();
-        assert(dynamic_cast<ELEMENT*>(p));
-	PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, 0);
-	assert(r);
-	return r;
+PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner){ untested();
+  if(dynamic_cast<ELEMENT*>(p)){
+    PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, owner);
+    assert(r);
+    return r;
+  }else{
+    return NULL;
+  }
 }
+extern PyObject* (*_wrap_SWIGTYPE_p_ELEMENT_p)(CARD* p, int owner);
+
+struct install_element_cast{
+        install_element_cast(){
+                _wrap_SWIGTYPE_p_ELEMENT_p = &_wrap_SWIGTYPE_p_ELEMENT;
+        }
+}a;
 %}
 
 

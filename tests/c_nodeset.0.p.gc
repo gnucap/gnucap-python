@@ -16,9 +16,19 @@ nodesetter #(.v_1(v1), .v_2(v2)) ns(1, 2);
 print dc v(nodes)
 dc
 list
-nodeset v_1=5 v_2=6
-dc
+
 delete ns
+
+nodeset v_1=5 v_2=6
+print dc v(nodes)
+
+list
+
+dc
+
+delete nodesetter
 list
 nodeset
 list
+
+end

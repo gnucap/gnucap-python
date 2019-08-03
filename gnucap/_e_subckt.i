@@ -25,7 +25,7 @@
 %include "_e_compon.i"
 %include "_e_node.i"
 %include stl.i
-%include std_string.i
+%include <std_string.i>
 
 %{
 #include "e_subckt.h"
@@ -117,6 +117,20 @@ public: // actually card. why here?
 protected:
   node_array* _n;
 }; // BASE_SUBCKT
+
+%extend BASE_SUBCKT {
+	void set_port_by_index_(int i, std::string const& b){
+                untested();
+                std::string B(b);
+		return self->set_port_by_index(i, B);
+	}
+	void set_port_by_name_(std::string const& a, std::string const& b){
+                untested();
+                std::string A(a);
+                std::string B(b);
+		return self->set_port_by_name(A, B);
+	}
+}
 
 // not yet %include "e_subckt.h"
 
