@@ -71,10 +71,10 @@ AC_PROG_LIBTOOL
 AC_CONFIG_MACRO_DIR([m4])
 
 # c++ standard
-CXXFLAGS=-std=c++11
+AC_SUBST([AM_CXXFLAGS], [-std=c++11])
 
 # export symbols to plugins
-LDFLAGS="$LDFLAGS -rdynamic $GC_LDFLAGS"
+AC_SUBST([AM_LDFLAGS], [-rdynamic $GC_LDFLAGS])
 
 AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [help_dispatcher], [],
 		    [AC_MSG_WARN(["cannot find SONAME in -lgnucap, using fallback"])
