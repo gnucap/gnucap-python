@@ -8,7 +8,7 @@
 # $Id$
 
 AC_PREREQ(2.69)
-AC_INIT([gnucap-python], [0.0.3~develop], [gnucap-devel@gnu.org])
+AC_INIT([gnucap-python], [0.0.4], [gnucap-devel@gnu.org])
 AC_CONFIG_SRCDIR([c_python.cc])
 AM_INIT_AUTOMAKE([foreign])
 AM_CONFIG_HEADER([config.h])
