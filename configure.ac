@@ -151,6 +151,7 @@ AC_MSG_RESULT([
    LDFLAGS:                  $LDFLAGS
    LIBS:                     $LIBS
    PYTHON:                   $PYTHON
+   SWIG:                     $SWIG
 
 ])
 

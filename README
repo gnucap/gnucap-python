@@ -13,7 +13,7 @@ See examples.
 requirements are:
   * gnucap >= oct '17
   * Python >= 3.6 (testing for 2.7 suspended)
-  * Swig >= 3.0.0 (tested with 3.0.12)
+  * Swig >= 3.0.0 (tested with 3.0.12, not tested with Swig4)
   * Numpy (with development headers/libraries)
   * c++11 compiler
 
@@ -26,6 +26,7 @@ Build python plugin for gnucap
 
    $ ./bootstrap
    $ ./configure  # pass PYTHON=some_other_python, to select
+                  # pass SWIG=/path/to/some/swig3.0, if needed
    $ make
    $ make check   # runs tests
    $ make install # optional. may require root privileges
