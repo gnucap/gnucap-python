@@ -37,7 +37,7 @@ d1 = install_device("mytype", s)
 
 command("set lang verilog")
 parse("mytype #() a();")
-parse("resistor #() r();")
+parse("resistor #() r(0,0);")
 
 cl = CARD_LIST().card_list_()
 print("tst")

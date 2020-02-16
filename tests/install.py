@@ -69,7 +69,7 @@ command("set lang verilog")
 parse("mytype0 #() a0();")
 parse("mytype1 #() a1();")
 parse("mytype2 #() a2();")
-parse("resistor #() r();")
+parse("resistor #() r(0,0);")
 
 cl = CARD_LIST().card_list_()
 for a in cl:
