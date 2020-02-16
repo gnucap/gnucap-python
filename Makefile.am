@@ -12,8 +12,8 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = \
 	examples \
 	gnucap \
-	tests \
-	misc
+	misc \
+	tests
 
 all-local:
 	rm -f c_python.so
