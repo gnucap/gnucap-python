@@ -29,7 +29,6 @@
         $action
     } catch (Exception& e) {
       PyErr_SetString(PyExc_Exception, e.message().c_str());
-      return NULL;
     }
 }
 %allowexception;
