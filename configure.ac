@@ -17,7 +17,11 @@ AM_CONFIG_HEADER([config.h])
 # this is a c++ program so use c++ for the tests
 AC_LANG([C++])
 
-AC_PROG_SWIG([3.0.0])
+AX_PKG_SWIG(3.0.0, [], [ AC_MSG_ERROR([SWIG is required to build..]) ])
+AX_SWIG_ENABLE_CXX
+AX_SWIG_MULTI_MODULE_SUPPORT
+AX_SWIG_PYTHON
+
 
 # ------------ debug switch
 AC_MSG_CHECKING([if debug code should be compiled in])
@@ -127,8 +131,6 @@ CPPFLAGS=$save_CPPFLAGS
 
 AM_CONDITIONAL(NUMPY, test "x$HAS_NUMPY" = "xyes")
 AM_CONDITIONAL(PY2, test "x$PYTHON_VERSION" = "x2.7")
-
-AC_PROG_SWIG()
 
 AC_OUTPUT([
 	Makefile
