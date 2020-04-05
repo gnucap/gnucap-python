@@ -13,9 +13,9 @@ See examples.
 requirements are:
   * gnucap >= oct '17
   * Python >= 3.6 (testing for 2.7 suspended)
-  * Swig >= 3.0.0 (tested with 3.0.12, not tested with Swig4)
+  * Swig >= 3.0.0 (tested with 3.0.12, issue with Swig4 [1])
   * Numpy (with development headers/libraries)
-  * c++11 compiler
+  * c++11 compiler (known issue with gcc 9, param.py)
 
  Installation
 -------------
@@ -93,6 +93,9 @@ for some applications
 Caveats
 ~~~~~~~
 
+* Sometimes tests fail because of stream buffer races. don't know how to
+  synchronize Python output with library output. Check manually...
+
 * For debugging Python extensions with valgrind, you should set
   PYTHONMALLOC=malloc. The built-in default allocator, pymalloc, confuses
   valgrind.
@@ -123,3 +126,5 @@ Caveats
 * python sometimes generates .pyc files containing cached bytecode in random
   places. these may lead to weird error messages, if they are outdated. delete
   them.
+
+[1] https://github.com/swig/swig/issues/1642.
