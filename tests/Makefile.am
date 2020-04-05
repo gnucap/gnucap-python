@@ -64,8 +64,9 @@ pz.0.gc.out: | ${PWD}/pz_spice.py
 pz.0g.gc.out: | ${PWD}/pz_spice.py
 
 CLEANFILES = \
+	c_python.so \
 	inv.sp \
-	out3.7 out3.6 out2.7 \
+	out3.8 out3.7 out3.6 out2.7 \
 	opt.log \
 	pz_spice.py \
 	p.typ n.typ \
@@ -79,7 +80,7 @@ endif
 
 XFAIL_TESTS =
 
-CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
+CLEANFILES += ${CRASH_OUT}
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
 err_simplugin.gc.out: $(PWD)/err_simplugin.py
@@ -118,6 +119,7 @@ all-local:
 	-${LN_S} ${srcdir}/out2 out2.7
 	-${LN_S} ${srcdir}/out3 out3.6
 	-${LN_S} ${srcdir}/out3 out3.7
+	-${LN_S} ${srcdir}/out3 out3.8
 
 EXTRA_DIST = \
 	${TESTS:%=out3/%.out} \
