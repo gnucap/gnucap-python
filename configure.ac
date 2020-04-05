@@ -80,7 +80,10 @@ AC_SUBST([AM_CXXFLAGS], [-std=c++11])
 # export symbols to plugins
 AC_SUBST([AM_LDFLAGS], ["-rdynamic $GC_LDFLAGS"])
 
-AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [help_dispatcher], [],
+# portability issue. need to use mangled symbol name.
+# upstream issue: generic symbol name in library...
+# (there is a fallback, hence this is less important)
+AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [_Z11lib_versionv], [],
 		    [AC_MSG_WARN(["cannot find SONAME in -lgnucap, using fallback"])
 		     LIBGNUCAP_SONAME=libgnucap.so ],
 		    [AC_MSG_ERROR(["cannot link -lgnucap"])])
@@ -146,6 +149,7 @@ AC_MSG_RESULT([
 
    prefix:                   $prefix
    plugpath:                 $gnucap_plugpath
+   gnucap SONAME:            $LIBGNUCAP_SONAME
    CPPFLAGS:                 $CPPFLAGS
    GC_CPPFLAGS:              $GC_CPPFLAGS
    CFLAGS:                   $CFLAGS
