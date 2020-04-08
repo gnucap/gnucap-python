@@ -177,6 +177,7 @@ def mySet(cmd, s, L, *args):
 
 //%include "typemaps.i"
 bool Get(CS& cmd, const std::string&, bool* INOUT);
+bool Get(CS& cmd, const std::string&, std::string* INOUT);
 bool Get(CS& cmd, const std::string&, int* INOUT,    AP_MOD=mNONE, int=0);
 bool Get(CS& cmd, const std::string&, double* INOUT, AP_MOD, double=0.);
 
@@ -187,8 +188,12 @@ _getD = dict()
 _getD[int] = Get
 _getD[float] = Get
 _getD[bool] = Get
+_getD[str] = Get
 
 def _chooseGet(*args):
+   if args[2] is None:
+       untested()
+       raise ValueError("cannot resolve type")
    return _getD[type(args[2])](*args)
 
 def myGet(cmd, s, L, *args):

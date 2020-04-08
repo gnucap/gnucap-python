@@ -37,6 +37,7 @@
 #include <e_compon.h>
 #include <e_node.h>
 #include <globals.h>
+#include <u_function.h>
 %}
 
 %ignore DISPATCHER_BASE;
@@ -141,13 +142,6 @@ extern std::vector<CMD*> installed_commands;
 extern std::vector<PyObject*> installed_cards;
 %}
 
-
-// %typemap(ret) card_install&
-// {
-//   installed_cards.push_back($1obj);
-// //  Py_INCREF($1obj);
-// }
-
 %pythoncode %{
 from .c_comand import CMD
 %}
@@ -157,17 +151,15 @@ from .c_comand import CMD
 class install_device {
 public:
   typedef DISPATCHER<CARD>::INSTALL card_install;
-
 private:
   install_device(const install_device&){unreachable(); }
 public:
   install_device(char const*name, CARD &card){
-    _i=new card_install(&device_dispatcher, name, &card);
+    _i = new card_install(&device_dispatcher, name, &card);
   }
   ~install_device(){
     delete _i;
   }
-
 public:
   card_install* _i;
 };
@@ -175,20 +167,51 @@ public:
 class install_command {
 public:
   typedef DISPATCHER<CMD>::INSTALL card_install;
-
 private:
   install_command(const install_command&){unreachable(); }
 public:
   install_command(char const*name, CMD &card){
-    _i=new card_install(&command_dispatcher, name, &card);
+    _i = new card_install(&command_dispatcher, name, &card);
   }
   ~install_command(){
     delete _i;
   }
-
 public:
   card_install* _i;
 };
+
+class install_measure {
+public:
+  typedef DISPATCHER<FUNCTION>::INSTALL measure_install;
+private:
+  install_measure(const install_measure&){unreachable(); }
+public:
+  install_measure(char const*name, FUNCTION &p){
+    _i = new measure_install(&measure_dispatcher, name, &p);
+  }
+  ~install_measure(){
+    delete _i;
+  }
+public:
+  measure_install* _i;
+};
+
+class install_function {
+public:
+  typedef DISPATCHER<FUNCTION>::INSTALL function_install;
+private:
+  install_function(const install_function&){unreachable(); }
+public:
+  install_function(char const*name, FUNCTION &p){
+    _i = new function_install(&function_dispatcher, name, &p);
+  }
+  ~install_function(){
+    delete _i;
+  }
+public:
+  function_install* _i;
+};
+
 %}
 
 
@@ -198,7 +221,7 @@ public:
 //DISPATCHER<MODEL_CARD> model_dispatcher;
 extern DISPATCHER<CARD> device_dispatcher;
 //DISPATCHER<LANGUAGE> language_dispatcher;
-//DISPATCHER<FUNCTION> function_dispatcher;
+extern DISPATCHER<FUNCTION> function_dispatcher;
 
 %{
 extern bool have_default_plugins;

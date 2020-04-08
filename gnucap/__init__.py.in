@@ -71,6 +71,7 @@ from .u_parameter import PARAMETERd, PARAMETERi, PARAMETERb
 from .u_parameter import PARAM_LIST
 from .u_sim_data import SIM_DATA
 from .u_xprobe import XPROBE
+from .u_function import FUNCTION
 from .ap import CS
 from .ap import mySet as Set_
 from .ap import myGet as Get_, Get

@@ -41,6 +41,7 @@ PY_TESTS = \
 	store.py
 
 GC_TESTS = \
+	measure.0.gc \
 	err.0.gc \
 	err_simplugin.gc \
 	use_simplugin.gc \
@@ -87,6 +88,7 @@ err_simplugin.gc.out: $(PWD)/err_simplugin.py
 s_sparam.3.gc.out: $(PWD)/s_sparam.py
 c_nodeset.0.gc.out c_nodeset.1.gc.out: $(PWD)/c_nodeset.py
 c_nodeset.0.nob.gc.out c_nodeset.0.uic.gc.out: $(PWD)/c_nodeset.py
+measure.0.gc.out: $(PWD)/measure_at.py
 
 if VPATH_BUILD
 $(PWD)/%.py: %.py

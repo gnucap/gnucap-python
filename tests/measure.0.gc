@@ -1,0 +1,42 @@
+* Felix Salfelder 2020
+* GPLv3+
+
+attach public c_python.so
+loadpy measure_at.py
+
+* bug? not used in measure or eval output
+options numdgt=5
+
+verilog
+
+resistor #(.r(1)) r1(2,1);
+capacitor #(.c(1)) c2(0,1);
+vsource #(.dc(1)) v1(2,0);
+
+store tran v(1)
+print tran v(1)
+
+parameter xx = .4
+
+dc > /dev/null
+tran 1 uic > /dev/null
+measure vlin at:0(probe='v(1)' x=xx)
+measure vquad at(probe='v(1)' x=xx)
+
+options trtol=1
+dc > /dev/null
+tran 1 uic > /dev/null
+measure vlin at:0(probe='v(1)' x=xx)
+measure vquad at(probe='v(1)' x=xx)
+
+options trtol=.1
+dc > /dev/null
+tran 1 uic > /dev/null
+measure vlin at:0(probe='v(1)' x=xx)
+measure vquad at(probe='v(1)' x=xx)
+
+options trtol=.01
+dc > /dev/null
+tran 1 uic > /dev/null
+measure vlin at:0(probe='v(1)' x=xx)
+measure vquad at(probe='v(1)' x=xx)

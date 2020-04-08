@@ -136,7 +136,6 @@ PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE*, int owner);
 	Py_INCREF($result); // BUG
 }
 
-#if 1 // not yet.
 class COMPONENT : public CARD {
 protected: // these are not private.
   explicit COMPONENT( const COMPONENT& p);
@@ -251,9 +250,6 @@ public: // should come from card..?
 protected:
   node_array* _n;
 }; // COMPONENT
-
-#else
-#endif
 
 
 // BUG: typemap leaks into constructor here.

@@ -1,0 +1,28 @@
+Gnucap : The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2013, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+main version
+core-lib version
+default plugins
+generator: already installed, replacing
+stashing as generator:0
+transient: already installed, replacing
+stashing as transient:0
+transient: already installed, replacing
+stashing as transient:0
+at: already installed, replacing
+stashing as at:0
+vlin= 0.326063084479988
+vquad=0.32951611226786853
+vlin= 0.32848423483441
+vquad=0.330018641313625
+vlin= 0.329402443156465
+vquad=0.329745189381181
+vlin= 0.329629474703186
+vquad=0.3296908487626662
+

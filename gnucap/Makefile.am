@@ -40,6 +40,7 @@ pythongc_LTLIBRARIES = \
 	_globals.la \
 	_md.la \
 	_u_sim_data.la \
+	_u_function.la \
 	_m_cpoly.la \
 	_m_matrix.la \
 	_m_wave.la \
