@@ -48,3 +48,5 @@ Makefile
 
 .deps
 .libs
+
+gnucap-python*gz
