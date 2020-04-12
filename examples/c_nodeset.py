@@ -2,6 +2,7 @@
 # GPLv3+
 
 import gnucap
+from gnucap import IO_mstdout_get
 from gnucap.pending import install
 from gnucap import node_array, TIME_PAIR, FPOLY1
 from gnucap.io_trace import *
@@ -219,26 +220,21 @@ def get_nodesetter():
 class NODESET(gnucap.CMD):
 	def __init__(self):
 		super().__init__() #?
-		pass
+		self._out = IO_mstdout_get();
 
 	def list(self):
 		g = get_nodesetter()
 		ii = 0
-		
-		print()
-		sys.stdout.flush() # ??
-		print("nodeset", end="")
+		self._out << "nodeset"
 		while(True):
 			if g.port_exists(ii):
 				p = "v_"+g.port_value(ii)
 				ic = g.value_raw(ii)
-				print(" %s=%s"%( p,ic), end="")
+				self._out << " %s=%s"%( p,ic)
 			else:
 				break
 			ii += 1
-
-		print()
-		sys.stdout.flush()
+		self._out << "\n"
 
 	def parse(self, args, scope):
 		g = get_nodesetter()
