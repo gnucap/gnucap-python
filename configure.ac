@@ -12,6 +12,7 @@ AC_INIT([gnucap-python], [0.0.5~dev], [gnucap-devel@gnu.org])
 AC_CONFIG_SRCDIR([c_python.cc])
 AM_INIT_AUTOMAKE([foreign])
 AM_CONFIG_HEADER([config.h])
+AM_SILENT_RULES([yes])
 
 # Checks for libraries.
 # this is a c++ program so use c++ for the tests

@@ -97,7 +97,7 @@ _gnucap_swig_la_SOURCES += s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc
 SWIG_FLAGS = -I${GC_INCLUDEDIR}
 
 %.py _%.cxx _%.h: _%.i
-	${SWIG} -python -c++ -Wall $(SWIG_FLAGS) -o _$*.cxx $<
+	$(AM_V_GEN)${SWIG} -python -c++ -Wall $(SWIG_FLAGS) -o _$*.cxx $<
 
 .i.cxx:
 
