@@ -67,7 +67,7 @@ pz.0g.gc.out: | ${PWD}/pz_spice.py
 CLEANFILES = \
 	c_python.so \
 	inv.sp \
-	out3.8 out3.7 out3.6 out2.7 \
+	out3.8 out3.7 out3.6 \
 	opt.log \
 	pz_spice.py \
 	p.typ n.typ \
@@ -118,14 +118,12 @@ ${GC_TESTS:%.gc=%.gc.out}: %.gc.out: %.gc
 	gnucap < ${srcdir}/$*.gc | ${SED_OUT} > $@
 
 all-local:
-	-${LN_S} ${srcdir}/out2 out2.7
 	-${LN_S} ${srcdir}/out3 out3.6
 	-${LN_S} ${srcdir}/out3 out3.7
 	-${LN_S} ${srcdir}/out3 out3.8
 
 EXTRA_DIST = \
 	${TESTS:%=out3/%.out} \
-	${TESTS:%=out2/%.out} \
 	${TESTS} \
 	parse_err.py \
 	simplugin.py \

@@ -56,7 +56,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 AM_CONDITIONAL([VPATH_BUILD], [test ! x$srcdir = "x."])
 
 # Check for python
-AM_PATH_PYTHON([2.7])
+AM_PATH_PYTHON([3.6])
 AC_PYTHON_DEVEL([>= '2.3']) # ???
 AC_SUBST(ac_python_soname)
 AC_SUBST(ac_python_libdir)
