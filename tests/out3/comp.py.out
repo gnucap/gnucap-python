@@ -19,6 +19,10 @@ pythoncomptest #() s (.P(1),.N(0));
  0.         42.       -1.        
  0.5        42.       -1.        
  1.         42.       -1.        
+#Time       fourtytwo(s) v(s)      
+ 0.         42.       -1.        
+ 0.5        42.       -1.        
+ 1.         42.       -1.        
 init 
 mtest 2 
 init 

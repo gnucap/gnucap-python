@@ -85,6 +85,8 @@ from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
 from .l_denoise import fixzero
 from .l_compar import in_order
 
+from .u_time_pair import NEVER
+
 _iomstout = IO_mstdout_get()
 
 def out(s):

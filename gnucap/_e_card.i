@@ -18,7 +18,7 @@
  *------------------------------------------------------------------
  */
 
-%module(directors="0", allprotected="1") e_card
+%module(directors="1", allprotected="0") e_card
 %include _e_base.i
 
 %{
@@ -124,7 +124,7 @@ public:	// dc-tran
 //  virtual bool	 do_tr()		{return true;}
 //  virtual bool	 do_tr_last()		{return true;}
 //  virtual void	 tr_load()		{}
-//  virtual TIME_PAIR tr_review();	//{return TIME_PAIR(NEVER,NEVER);}
+  virtual TIME_PAIR tr_review();	//{return TIME_PAIR(NEVER,NEVER);}
 //  virtual void	 tr_accept()		{}
 //  virtual void	 tr_unload()		{untested();}
 

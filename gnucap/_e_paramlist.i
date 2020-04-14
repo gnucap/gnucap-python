@@ -20,11 +20,11 @@
 %module(directors="1") e_paramlist
 %feature(director) COMMON_PARAMLIST;
 
+%include "_e_compon.i"
 
 %{
 #include <e_paramlist.h>
 %}
-%include "_e_compon.i"
 
 %typemap(out) COMMON_COMPONENT*
 {
