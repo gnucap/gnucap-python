@@ -37,7 +37,6 @@ c_python_la_CPPFLAGS = ${GC_CPPFLAGS} @PYTHON_CPPFLAGS@ \
 
 c_python_la_LDFLAGS = -shared -module -avoid-version @LDFLAGS@ @PYTHON_LIBS@
 c_python_la_LIBADD = ${DEPS_LIBS} @PYTHON_EXTRA_LIBS@
-c_python_la_LIBADD += gnucap/libgnucap-python.la
 
 # possibly required on non-posix systems
 #c_python_la_LIBADD += @GC_LIBS@

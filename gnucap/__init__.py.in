@@ -22,11 +22,7 @@ from __future__ import print_function
 import sys
 import ctypes
 import os
-
-
-def trace(*args, **kwargs):
-	return
-	print(*args, file=sys.stderr, **kwargs)
+from .io_trace import *
 
 ctypes.PyDLL("@LIBGNUCAP_SONAME@", mode=ctypes.RTLD_GLOBAL)
 
@@ -97,9 +93,7 @@ def out(s):
 if(os.name=="posix"):
 	sys.setdlopenflags(oldflags)
 
-# this will change
-from .globals import install_device, need_default_plugins
-from .globals import install_command
+from .globals import install_device, install_command
 
 from .globals import cvar
 device_dispatcher = cvar.device_dispatcher
@@ -132,26 +126,19 @@ else:
 		trace("... in interactive postmortem mode, incomplete")
 
 try:
-	lang = os.environ["GNUCAP_DEFAULT_PLUGINS"]
-except:
+	default_plugins = os.environ["GNUCAP_DEFAULT_PLUGINS"]
+except KeyError:
 	default_plugins = "gnucap-default-plugins.so"
 
 try:
 	lang = os.environ["GNUCAP_LANG"]
-except:
+except KeyError:
 	lang = "acs";
 
-if need_default_plugins():
-	# no c_python. likely "import gnucap"
-	trace("loading default plugins")
+if default_plugins!="":
 	command("load " + default_plugins)
-	command("set lang=" + lang)
-else:
-	trace("from c_python")
-	# calling pythonstuff from c_python?
-	pass
 
-#c_python = True
+command("set lang=" + lang)
 
 # this is the plan
 # for s in simulations:

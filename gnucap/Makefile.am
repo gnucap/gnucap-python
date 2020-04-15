@@ -21,11 +21,6 @@ AM_CPPFLAGS = \
 	-I${PYTHON_SITE_PKG} \
 	-DPYTHON_SO=\"@ac_python_libdir@/@ac_python_soname@\"
 
-# common library
-pkglib_LTLIBRARIES = libgnucap-python.la
-libgnucap_python_la_SOURCES = garbage.cc
-libgnucap_python_la_LDFLAGS =
-
 # python objects
 pythongcdir = $(pythondir)/gnucap
 pythongc_PYTHON = \
@@ -85,8 +80,6 @@ endif
 check: all-local
 
 AM_LDFLAGS = -module -avoid-version
-
-_globals_la_LIBADD = ${AM_LIBADD} libgnucap-python.la
 
 AM_DEFAULT_SOURCE_EXT = .i
 
