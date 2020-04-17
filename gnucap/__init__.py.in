@@ -151,12 +151,5 @@ class session:
 		# this is called *before* the library loaded by PyDLL is destroyed.
 		self.command("clear")
 
-s = None
-if(sys.version_info[0] == 3):
-	trace("making session")
-	s = session()
-else:
-	# TODO: don't know how to call clear at the end in python 2.
-	# this results in a garbage collector assertion in gnucap (if assertions are active)
-	pass
-
+assert(sys.version_info[0] >= 3):
+s = session()
