@@ -223,15 +223,4 @@ extern DISPATCHER<CARD> device_dispatcher;
 //DISPATCHER<LANGUAGE> language_dispatcher;
 extern DISPATCHER<FUNCTION> function_dispatcher;
 
-%{
-extern bool have_default_plugins;
-%}
-
-%inline %{
-bool need_default_plugins(){
-  return !have_default_plugins;
-}
-%}
-
-
 // vim:ts=8:sw=2:et:
