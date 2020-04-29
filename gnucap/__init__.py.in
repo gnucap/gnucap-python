@@ -151,5 +151,5 @@ class session:
 		# this is called *before* the library loaded by PyDLL is destroyed.
 		self.command("clear")
 
-assert(sys.version_info[0] >= 3):
+assert(sys.version_info[0] >= 3)
 s = session()
