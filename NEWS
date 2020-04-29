@@ -41,6 +41,8 @@
 
 0.0.5
 =====
+* nodeset example
+* measurement support & example
 * honour SWIG arg & env variable
-* support for measurements
 * drop Python 2
+* drop private library
