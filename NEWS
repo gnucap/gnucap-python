@@ -38,3 +38,11 @@
 * fix memory leak in clone
 * fix ELEMENT::_y access (breaks workaround)
 * better type bridge (stub)
+
+0.0.5
+=====
+* nodeset example
+* measurement support & example
+* honour SWIG arg & env variable
+* drop Python 2
+* drop private library

@@ -24,7 +24,7 @@ AC_DEFUN([AX_CHECK_LIB_SONAME], [
           AX_CHECK_LIB_SONAME_LIBS="$LIBS"
           LIBS="$LIBS $7 -l$2"
           shrext_regexp=`echo "$shrext_cmds" | sed 's/\./\\./'`
-          AC_TRY_LINK([ ], [ ],
+          AC_TRY_LINK([ extern "C" { char $3(); } ], [ $3() ],
               [AS_VAR_SET([ac_Lib_SONAME], [`ldd conftest$ac_exeext | grep 'lib[$2]'$shrext_regexp | sed 's/^@<:@ \t@:>@*lib[$2]'$shrext_regexp'/lib[$2]'$shrext_regexp'/;s/@<:@ \t@:>@.*$//'`])])
           LIBS="$AX_CHECK_LIB_SONAME_LIBS"
           AS_IF([test x"$ac_Lib_SONAME" = x ],

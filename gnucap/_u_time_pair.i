@@ -19,7 +19,10 @@
  */
 %module(directors="0", allprotected="1") u_time_pair
 
+
 %{
 #include "u_time_pair.h"
 %}
+
+%include "constant.h"
 %include "u_time_pair.h"

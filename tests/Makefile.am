@@ -41,6 +41,7 @@ PY_TESTS = \
 	store.py
 
 GC_TESTS = \
+	measure.0.gc \
 	err.0.gc \
 	err_simplugin.gc \
 	use_simplugin.gc \
@@ -64,8 +65,9 @@ pz.0.gc.out: | ${PWD}/pz_spice.py
 pz.0g.gc.out: | ${PWD}/pz_spice.py
 
 CLEANFILES = \
+	c_python.so \
 	inv.sp \
-	out3.7 out3.6 out2.7 \
+	out3.8 out3.7 out3.6 \
 	opt.log \
 	pz_spice.py \
 	p.typ n.typ \
@@ -79,20 +81,21 @@ endif
 
 XFAIL_TESTS =
 
-CLEANFILES += ${CRASH_OUT} out3.7 c_python.so
+CLEANFILES += ${CRASH_OUT}
 
 use_simplugin.gc.out: $(PWD)/simplugin.py
 err_simplugin.gc.out: $(PWD)/err_simplugin.py
 s_sparam.3.gc.out: $(PWD)/s_sparam.py
 c_nodeset.0.gc.out c_nodeset.1.gc.out: $(PWD)/c_nodeset.py
 c_nodeset.0.nob.gc.out c_nodeset.0.uic.gc.out: $(PWD)/c_nodeset.py
+measure.0.gc.out: $(PWD)/measure_at.py
 
 if VPATH_BUILD
-$(PWD)/%.py: %.py
-	$(LN_S) $< $@
+$(PWD)/%.py: | %.py
+	$(LN_S) $|
 endif
-@nothing@$(PWD)/%.py: ${top_builddir}/examples/%.py
-	$(LN_S) $< $@
+@nothing@$(PWD)/%.py: | ${top_srcdir}/examples/%.py
+	$(LN_S) $|
 
 
 TESTS = ${PY_TESTS} ${GC_TESTS}
@@ -115,13 +118,12 @@ ${GC_TESTS:%.gc=%.gc.out}: %.gc.out: %.gc
 	gnucap < ${srcdir}/$*.gc | ${SED_OUT} > $@
 
 all-local:
-	-${LN_S} ${srcdir}/out2 out2.7
 	-${LN_S} ${srcdir}/out3 out3.6
 	-${LN_S} ${srcdir}/out3 out3.7
+	-${LN_S} ${srcdir}/out3 out3.8
 
 EXTRA_DIST = \
 	${TESTS:%=out3/%.out} \
-	${TESTS:%=out2/%.out} \
 	${TESTS} \
 	parse_err.py \
 	simplugin.py \

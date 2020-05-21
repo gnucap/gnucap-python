@@ -39,7 +39,6 @@
         $action
     } catch (Exception& e) {
       PyErr_SetString(PyExc_Exception, e.message().c_str());
-      return NULL;
     }
 }
 %allowexception;
@@ -79,7 +78,7 @@ protected:
 void parse(char const*command);
 
 %exception command {
-  try{ untested();
+  try{
     $action
   }catch(Exception const& k){ untested();
     PyErr_SetString(PyExc_NameError, k.message().c_str());

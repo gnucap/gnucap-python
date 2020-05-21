@@ -21,11 +21,6 @@ AM_CPPFLAGS = \
 	-I${PYTHON_SITE_PKG} \
 	-DPYTHON_SO=\"@ac_python_libdir@/@ac_python_soname@\"
 
-# common library
-pkglib_LTLIBRARIES = libgnucap-python.la
-libgnucap_python_la_SOURCES = garbage.cc
-libgnucap_python_la_LDFLAGS =
-
 # python objects
 pythongcdir = $(pythondir)/gnucap
 pythongc_PYTHON = \
@@ -40,6 +35,7 @@ pythongc_LTLIBRARIES = \
 	_globals.la \
 	_md.la \
 	_u_sim_data.la \
+	_u_function.la \
 	_m_cpoly.la \
 	_m_matrix.la \
 	_m_wave.la \
@@ -85,8 +81,6 @@ check: all-local
 
 AM_LDFLAGS = -module -avoid-version
 
-_globals_la_LIBADD = ${AM_LIBADD} libgnucap-python.la
-
 AM_DEFAULT_SOURCE_EXT = .i
 
 _gnucap_swig_la_SOURCES = command.cc _gnucap_swig.i
@@ -96,7 +90,7 @@ _gnucap_swig_la_SOURCES += s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc
 SWIG_FLAGS = -I${GC_INCLUDEDIR}
 
 %.py _%.cxx _%.h: _%.i
-	swig -python -c++ -Wall $(SWIG_FLAGS) -o _$*.cxx $<
+	$(AM_V_GEN)${SWIG} -python -c++ -Wall $(SWIG_FLAGS) -o _$*.cxx $<
 
 .i.cxx:
 

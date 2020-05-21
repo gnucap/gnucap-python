@@ -20,6 +20,7 @@
 from .globals import install_device
 from .globals import install_command
 
+from .u_function import FUNCTION
 from .e_compon import COMPONENT
 from .c_comand import CMD
 
@@ -56,6 +57,8 @@ class install:
 			return install_device(name, what)
 		elif(isinstance(what, CMD)):
 			return install_command(name, what)
+		elif(isinstance(what, FUNCTION)):
+			return install_function(name, what)
 		else:
 			raise TypeError("don't know what this is", inspect.getmro(what.__class__))
 	

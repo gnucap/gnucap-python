@@ -8,16 +8,21 @@
 # $Id$
 
 AC_PREREQ(2.69)
-AC_INIT([gnucap-python], [0.0.4], [gnucap-devel@gnu.org])
+AC_INIT([gnucap-python], [0.0.5~dev], [gnucap-devel@gnu.org])
 AC_CONFIG_SRCDIR([c_python.cc])
 AM_INIT_AUTOMAKE([foreign])
 AM_CONFIG_HEADER([config.h])
+AM_SILENT_RULES([yes])
 
 # Checks for libraries.
 # this is a c++ program so use c++ for the tests
 AC_LANG([C++])
 
-AC_PROG_SWIG([3.0.0])
+AX_PKG_SWIG(3.0.0, [], [ AC_MSG_ERROR([SWIG is required to build..]) ])
+AX_SWIG_ENABLE_CXX
+# AX_SWIG_MULTI_MODULE_SUPPORT
+# AX_SWIG_PYTHON
+
 
 # ------------ debug switch
 AC_MSG_CHECKING([if debug code should be compiled in])
@@ -51,7 +56,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 AM_CONDITIONAL([VPATH_BUILD], [test ! x$srcdir = "x."])
 
 # Check for python
-AM_PATH_PYTHON([2.7])
+AM_PATH_PYTHON([3.6])
 AC_PYTHON_DEVEL([>= '2.3']) # ???
 AC_SUBST(ac_python_soname)
 AC_SUBST(ac_python_libdir)
@@ -74,9 +79,12 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST([AM_CXXFLAGS], [-std=c++11])
 
 # export symbols to plugins
-AC_SUBST([AM_LDFLAGS], [-rdynamic $GC_LDFLAGS])
+AC_SUBST([AM_LDFLAGS], ["-rdynamic $GC_LDFLAGS"])
 
-AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [help_dispatcher], [],
+# portability issue. need to use mangled symbol name.
+# upstream issue: generic symbol name in library...
+# (there is a fallback, hence this is less important)
+AX_CHECK_LIB_SONAME([LIBGNUCAP], [gnucap], [_Z11lib_versionv], [],
 		    [AC_MSG_WARN(["cannot find SONAME in -lgnucap, using fallback"])
 		     LIBGNUCAP_SONAME=libgnucap.so ],
 		    [AC_MSG_ERROR(["cannot link -lgnucap"])])
@@ -128,8 +136,6 @@ CPPFLAGS=$save_CPPFLAGS
 AM_CONDITIONAL(NUMPY, test "x$HAS_NUMPY" = "xyes")
 AM_CONDITIONAL(PY2, test "x$PYTHON_VERSION" = "x2.7")
 
-AC_PROG_SWIG()
-
 AC_OUTPUT([
 	Makefile
 	misc/Makefile
@@ -144,6 +150,7 @@ AC_MSG_RESULT([
 
    prefix:                   $prefix
    plugpath:                 $gnucap_plugpath
+   gnucap SONAME:            $LIBGNUCAP_SONAME
    CPPFLAGS:                 $CPPFLAGS
    GC_CPPFLAGS:              $GC_CPPFLAGS
    CFLAGS:                   $CFLAGS
@@ -151,6 +158,7 @@ AC_MSG_RESULT([
    LDFLAGS:                  $LDFLAGS
    LIBS:                     $LIBS
    PYTHON:                   $PYTHON
+   SWIG:                     $SWIG
 
 ])
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Felix Salfelder
+/* Copyright (C) 2020 Felix Salfelder
  * Author: Felix Salfelder <felix@salfelder.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,11 +17,20 @@
  * 02110-1301, USA.
  *------------------------------------------------------------------
  */
-#include <vector>
+%module(directors="0", allprotected="1") u_function
+%feature("director") FUNCTION;
 
-class CMD;
-class PyObject;
+%include stl.i
 
-std::vector<CMD*> installed_commands;
-std::vector<PyObject*> installed_cards;
-bool have_default_plugins=false;
+%{
+#include <u_function.h>
+%}
+#include "u_function.h"
+
+%include "u_function.h"
+
+%pythoncode %{
+from .u_function import FUNCTION
+%}
+
+// vim:ts=8:sw=2:et:

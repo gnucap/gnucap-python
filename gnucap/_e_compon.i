@@ -17,10 +17,7 @@
  * 02110-1301, USA.
  *------------------------------------------------------------------
  */
-%module(directors="0", allprotected="1") e_compon
-
-%feature("director") COMPONENT;
-%feature("director") COMMON_COMPONENT;
+%module(directors="1", allprotected="0") e_compon
 
 %include stl.i
 %include std_string.i
@@ -28,7 +25,11 @@
 %include _m_wave.i
 %include "_e_card.i"
 %include "_e_node.i"
+%include "_u_time_pair.i"
 %include std_shared_ptr.i
+
+%feature("director") COMPONENT;
+%feature("director") COMMON_COMPONENT;
 
 %{
 #include "e_compon.h"
@@ -136,21 +137,11 @@ PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE*, int owner);
 	Py_INCREF($result); // BUG
 }
 
-#if 1 // not yet.
+#if 1 // BUG
 class COMPONENT : public CARD {
 protected: // these are not private.
   explicit COMPONENT( const COMPONENT& p);
   explicit COMPONENT();
-
-public: // hijack __init__
-  %extend {
-    %pythoncode {
-    _old_comp_init = __init__
-    def __init__(self, *args):
-        self._patch_card()
-        return self._old_comp_init(*args)
-    }
-  }
 
 protected:
   virtual ~COMPONENT();
@@ -238,25 +229,67 @@ public: // parameters
   virtual void  do_ac();
   virtual void  ac_load();
 
-public: // should come from card..?
-  virtual bool	 tr_needs_eval()const;
-  virtual void	 tr_begin();
-  virtual void	 tr_restore()		{}
-  virtual void	 tr_advance()		{}
-  virtual void	 tr_regress()		{}
-  virtual bool	 do_tr();
-  virtual void  tr_accept();
-  virtual TIME_PAIR  tr_review();
+public: // should come from CARD. need workaround, still
+  // virtual bool	 tr_needs_eval()const;
+  // virtual void	 tr_begin();
+  // virtual void	 tr_restore()		{}
+  // virtual void	 tr_advance()		{}
+  // virtual void	 tr_regress()		{}
+  // virtual bool	 do_tr();
+  // virtual void  tr_accept();
+  // virtual TIME_PAIR  tr_review();
 
 protected:
   node_array* _n;
 }; // COMPONENT
-
-#else
 #endif
 
+%pythoncode {
+from gnucap.io_trace import *
+}
+
+%extend COMPONENT {
+  %pythoncode {
+  _old_comp_init = __init__
+  def __init__(self, *args):
+      self._patch_card()
+      return self._old_comp_init(*args)
+  }
+}
+// BUG CARD virtuals, these should not be necessary here
+%extend COMPONENT {
+  %pythoncode {
+  def tr_needs_eval(self):
+      untested()
+      return False
+  def tr_begin(self):
+      untested()
+      pass
+  def tr_restore(self):
+      untested()
+      pass
+  def tr_advance(self):
+      untested()
+      pass
+  def tr_regress(self):
+      untested()
+      pass
+  def do_tr(self):
+      untested()
+      return True
+  def tr_accept(self):
+      untested()
+      pass
+  def tr_review(self):
+      untested()
+      from .u_time_pair import NEVER
+      return TIME_PAIR(NEVER, NEVER) # BUG
+  }
+}
 
 // BUG: typemap leaks into constructor here.
+// BUG: this should be sufficient, but need stuff above, still
+//      (will ignore COMPONENT in e_compon.h)
 %include "e_compon.h"
 
 %pythoncode %{

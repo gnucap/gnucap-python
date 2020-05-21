@@ -15,11 +15,14 @@ transient: already installed, replacing
 stashing as transient:0
 transient: already installed, replacing
 stashing as transient:0
-#                v(1)            v(2)           
- 0.              3.3             5.             
-nodesetter #(.v_1(v1),.v_2(v2)) ns (.p0(1),.p1(2));
-nodesetter #(.v_1( 5.),.v_2( 6.)) nodesetter (.p0(1),.p1(2));
-#                v(1)            v(2)           
- 0.              5.              6.             
-nodeset
-nodesetter #() nodesetter ();
+at: already installed, replacing
+stashing as at:0
+vlin= 0.326063084479988
+vquad=0.32951611226786853
+vlin= 0.32848423483441
+vquad=0.330018641313625
+vlin= 0.329402443156465
+vquad=0.329745189381181
+vlin= 0.329629474703186
+vquad=0.3296908487626662
+

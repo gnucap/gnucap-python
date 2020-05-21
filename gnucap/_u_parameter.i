@@ -148,7 +148,7 @@ from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
 	inline bool __ge__(double x){
 		return double(*self) >= x;
 	}
-	inline std::string __repr__(){ untested();
+	inline std::string __repr__(){
 		return self->string();
 	}
 }

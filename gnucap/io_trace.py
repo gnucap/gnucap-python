@@ -63,6 +63,13 @@ def trace(string, *args):
 
 	print("@#@%s"% string, file=_s.stderr , end="")
 	for k,i in enumerate(args):
-		print(" %s=%s" % (s[k],i), end="", file=_s.stderr)
+		try:
+			print(" %s=%s" % (s[k],i), end="", file=_s.stderr)
+		except IndexError:
+			try:
+				print(" ???=%s" % i, end="", file=_s.stderr)
+			except TypeError:
+				print(" ???=", i, end="", file=_s.stderr)
+
 	print(file=_s.stderr)
 	_s.stderr.flush()

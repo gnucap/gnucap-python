@@ -30,6 +30,4 @@ nodesetter #(.extra(19),.v_1(3.3),.v_2(5),.v_a(3)) nodesetter (.p0(1),.p1(2),.p2
 //* transient 1 uic 
 //* but this does 
 nodeset v_1= 3.3 v_2= 5. v_a= 3.
-
 nodeset v_1= 3.3 v_2= 5. v_1= 3.3 v_2= 5. v_a= 3. v_x=NA( NA) v_y=NA( NA)
-

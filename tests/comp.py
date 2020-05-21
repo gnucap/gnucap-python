@@ -5,8 +5,10 @@ from __future__ import print_function
 
 import gnucap
 
-from gnucap import COMPONENT, node_array
+from gnucap import COMPONENT, node_array, CARD
 from gnucap import install_device
+from gnucap import _e_card
+from gnucap.io_trace import *
 from copy import deepcopy, copy
 from sys import stdout
 
@@ -62,8 +64,9 @@ class somecomponent(COMPONENT):
 #		print("reducing")
 #		return(self.__class__, ( ) )
 
-	def clone(self):
-		return somecomponent(self)
+#	def clone(self):
+#		untested()
+#		return somecomponent(self)
 
 	def value(self):
 		return "a";
@@ -87,7 +90,6 @@ class somecomponent(COMPONENT):
 			return -1; # incomplete
 		return 0;
 
-
 	def port_number(self):
 		return 2
 	def port_name(self,x):
@@ -98,6 +100,7 @@ class somecomponent(COMPONENT):
 s = somecomponent()
 print("mtest", s.max_nodes(), s.long_label())
 s2 = s.clone()
+# s2.tr_begin()
 print("mtest", s2.max_nodes(), s2.long_label())
 # s.clone()
 
@@ -111,5 +114,7 @@ gnucap.parse("somecomp #() s(1 0)")
 gnucap.command("list")
 gnucap.command("print dc fourtytwo(s) v(s)")
 gnucap.command("dc v 0 1 .5")
+gnucap.command("print transient fourtytwo(s) v(s)")
+gnucap.command("transient 0 1 .5")
 
 print("done")

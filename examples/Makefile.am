@@ -11,6 +11,7 @@ EXFILES= \
 	dataparse.py \
 	inv.py \
 	inv.sp \
+	measure_at.py \
 	mosfit.py \
 	mosfit.sp \
 	n.typ \
