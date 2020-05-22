@@ -19,6 +19,9 @@
  */
 %module(directors="0") u_parameter
 
+%pythoncode %{
+from .io_trace import untested
+%}
 
 %{
 #include <u_parameter.h>
@@ -97,7 +100,11 @@ public:
 
 
 %pythoncode %{
-from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
+try:
+  from .u_parameter import PARAMETERi, PARAMETERd, PARAMETERb
+except ImportError:
+  untested()
+  from .all import stub
 %}
 
 %extend PARAMETER<double> {
@@ -185,11 +192,22 @@ CS& _para_rshift(CS& a,  PARAMETER<double>& INOUT){
 %}
 
 %pythoncode %{
-from .ap import _getD
+
+try:
+  from .ap import _getD
+except ImportError:
+  from .all import stub
+
 _getD[PARAMETERi] = Get
 _getD[PARAMETERd] = Get
 _getD[PARAMETERb] = Get
-from .ap import _CS_rshift
+
+try:
+  from .ap import _CS_rshift
+except ImportError:
+  untested()
+  from .all import _CS_rshift
+
 _CS_rshift[PARAMETERd] = _para_rshift
 %}
 

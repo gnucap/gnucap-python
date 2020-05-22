@@ -2,7 +2,7 @@
 from gnucap import FUNCTION
 from gnucap import CKT_BASE_find_wave as find_wave
 # from gnucap.pending import install
-from gnucap.globals import install_measure
+from gnucap import install_measure
 from gnucap.io_trace import *
 from gnucap import Get_, PARAMETERd
 

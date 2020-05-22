@@ -20,6 +20,10 @@
 %module(directors="1") e_paramlist
 %feature(director) COMMON_PARAMLIST;
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include "_e_compon.i"
 
 %{
@@ -91,7 +95,11 @@ public:
 };
 
 %pythoncode %{
-# from .e_paramlist import COMMON_PARAMLIST
+try:
+  from .e_paramlist import COMMON_PARAMLIST
+except ImportError:
+  untested()
+  from .all import stub
 %}
 
 %{

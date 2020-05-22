@@ -41,6 +41,24 @@ fi
 	enable_debug=no
 ])
 
+# ------------ monolithic blob
+AC_MSG_CHECKING([whether we build a single blob])
+AC_ARG_ENABLE([blob],
+[  --enable-blob            Enable monolithic blob. [[default: disabled]]],
+[
+if test "X$enable_blob" = "Xno" ; then
+	AC_MSG_RESULT([no])
+else
+	AC_MSG_RESULT([yes])
+	ALL_IN_ONE=1
+	BLOB=yes
+fi
+],
+[
+	AC_MSG_RESULT([no])
+	ALL_IN_ONE=0
+	BLOB=no
+])
 
 AC_CHECK_PROG(HAVE_GCCONF, gnucap-conf, true, false)
 if test "x$HAVE_GCCONF" = "xfalse"; then
@@ -55,6 +73,8 @@ GC_LIBS=$(gnucap-conf$_program_suffix --libs)
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 AM_CONDITIONAL([VPATH_BUILD], [test ! x$srcdir = "x."])
 
+AM_CONDITIONAL([ALL_IN_ONE], [test $BLOB = yes])
+
 # Check for python
 AM_PATH_PYTHON([3.6])
 AC_PYTHON_DEVEL([>= '2.3']) # ???
@@ -68,6 +88,7 @@ AC_SUBST([GC_LIBS])
 AC_SUBST([GC_PKGLIBDIR])
 AC_SUBST([LIBGNUCAP_SONAME])
 AC_SUBST([gnucap_plugpath])
+AC_SUBST([ALL_IN_ONE])
 
 AC_SUBST([nothing])
 

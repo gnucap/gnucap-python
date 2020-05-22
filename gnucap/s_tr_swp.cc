@@ -64,7 +64,6 @@ void TRANSIENT::sweep()
     _sim->restore_voltages();
     CARD_LIST::card_list.tr_restore();
   }else{
-    untested();
     _sim->clear_limit();
     CARD_LIST::card_list.tr_begin();
   }
@@ -72,7 +71,7 @@ void TRANSIENT::sweep()
   first();
   _sim->_genout = gen();
   
-  if (_sim->uic_now()) { untested();
+  if (_sim->uic_now()) {
     advance_time();
     _sim->zero_voltages();
     CARD_LIST::card_list.do_tr();    //evaluate_models
@@ -83,7 +82,7 @@ void TRANSIENT::sweep()
     _converged = true;
     _sim->_loadq.clear(); // fake solve, clear the queue
     //BUG// UIC needs further analysis.
-  }else{ untested();
+  }else{
     _converged = solve_with_homotopy(OPT::DCBIAS,_trace);
     if (!_converged) {
       error(bWARNING, "did not converge\n");

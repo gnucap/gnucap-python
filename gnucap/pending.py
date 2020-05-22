@@ -17,12 +17,16 @@
 # 02110-1301, USA.
 #------------------------------------------------------------------
 
-from .globals import install_device
-from .globals import install_command
+try:
+	from .globals import install_device
+	from .globals import install_command
+except ImportError:
+	from .all import install_device
+	from .all import install_command
 
-from .u_function import FUNCTION
-from .e_compon import COMPONENT
-from .c_comand import CMD
+from gnucap import FUNCTION
+from gnucap import COMPONENT
+from gnucap import CMD
 
 from .io_trace import untested
 

@@ -19,17 +19,16 @@
  */
 %module(directors="0", allprotected="1") e_base
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include _m_wave.i
 %include std_string.i
 %include "director_except.i"
 
 %{
 #include <e_base.h>
-%}
-
-%feature("pythonappend") CKT_BASE %{
-    # this is a test
-	a=1
 %}
 
 class CKT_BASE {
@@ -54,7 +53,10 @@ public:
 }; // CKT_BASE
 
 %pythoncode %{
-from .e_base import CKT_BASE
+try:
+  from .e_base import CKT_BASE
+except ImportError:
+  from .all import stub
 %}
 
 %exception CKT_BASE_find_wave {

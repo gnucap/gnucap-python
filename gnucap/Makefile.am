@@ -29,7 +29,7 @@ pythongc_PYTHON = \
 	pending.py \
 	io_trace.py
 
-pythongc_LTLIBRARIES = \
+INTERFACE = \
 	_ap.la \
 	_gnucap_swig.la \
 	_globals.la \
@@ -61,6 +61,27 @@ pythongc_LTLIBRARIES = \
 	_u_xprobe.la \
 	_s__.la
 
+if ALL_IN_ONE
+
+pythongc_LTLIBRARIES = _all.la
+## TODO: load plugins at run time
+_all_la_SOURCES = \
+   _all.i \
+	command.cc \
+	c_genrat.cc \
+	s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
+
+else
+
+_gnucap_swig_la_SOURCES = \
+	command.cc _gnucap_swig.i \
+	c_genrat.cc \
+	s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
+
+pythongc_LTLIBRARIES = ${INTERFACE}
+endif
+
+
 PY=${pythongc_LTLIBRARIES:_%.la=%.py}
 ppy:
 	echo ${PY}
@@ -82,10 +103,6 @@ check: all-local
 AM_LDFLAGS = -module -avoid-version
 
 AM_DEFAULT_SOURCE_EXT = .i
-
-_gnucap_swig_la_SOURCES = command.cc _gnucap_swig.i
-_gnucap_swig_la_SOURCES += c_genrat.cc
-_gnucap_swig_la_SOURCES += s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
 
 SWIG_FLAGS = -I${GC_INCLUDEDIR}
 
@@ -111,7 +128,7 @@ CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.h}
 clean-local:
 	rm -rf __pycache__
 
-#### dep
+#### dep (obsolete?)
 _c_comand.cxx: _m_wave.i _e_base.i
 _e_cardlist.cxx: _u_nodemap.i _e_card.i
 _e_compon.cxx: _e_card.i _e_base.i _m_wave.i _e_node.i
@@ -129,3 +146,7 @@ _gnucap_swig.cxx: _m_wave.i _s__.i _io_.i
 _globals.cxx: _e_base.i _e_card.i
 # BUG
 _e_cardlist.cxx: _e_elemnt.i _e_compon.i
+
+
+_all.cxx: ${INTERFACE:%.la=%.i}
+

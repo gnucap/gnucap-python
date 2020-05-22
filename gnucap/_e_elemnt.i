@@ -18,8 +18,11 @@
  *------------------------------------------------------------------
  */
 %module(directors="0", allprotected="1") e_elemnt
-
 %feature("director") ELEMENT;
+
+%pythoncode %{
+from .io_trace import untested
+%}
 
 %include stl.i
 %include std_string.i

@@ -20,6 +20,10 @@
 %module(directors="0", allprotected="1") u_function
 %feature("director") FUNCTION;
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include stl.i
 
 %{
@@ -30,7 +34,10 @@
 %include "u_function.h"
 
 %pythoncode %{
-from .u_function import FUNCTION
+try:
+  from .u_function import FUNCTION
+except ImportError:
+  from .all import stub
 %}
 
 // vim:ts=8:sw=2:et:

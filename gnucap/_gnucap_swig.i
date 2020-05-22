@@ -5,9 +5,11 @@
 // this work is derived from gnucap, hence GPLv3+
 
 %module(directors="0", allprotected="1") gnucap_swig
-
-// generate directors for all classes that have virtual methods
 %feature(director);
+
+%pythoncode %{
+from .io_trace import untested
+%}
 
 %include stl.i
 %include std_string.i

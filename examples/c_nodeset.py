@@ -11,7 +11,6 @@ from gnucap import ground_node, node_t, NODE
 from gnucap import PARAM_LIST
 import sys
 
-HACK=[]
 _nodesetter_name = "nodesetter"
 _nodesetter_model_name = "nodesetter"
 
@@ -201,7 +200,7 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 		self.q_eval()
 
 def get_nodesetter():
-	Cmd = CS(gnucap._ap.CS__STRING, _nodesetter_name)
+	Cmd = CS(gnucap.CS__STRING, _nodesetter_name)
 	cii = findbranch(Cmd, CARD_LIST.card_list_(None));
 	try:
 		n = next(cii)

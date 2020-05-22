@@ -18,10 +18,12 @@
  *------------------------------------------------------------------
  */
 %module(directors="0", allprotected="1") c_comand
-
 %feature("director") CMD;
 
-// .h?
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include _e_base.i
 
 %exception {
@@ -49,6 +51,9 @@ public:
 };
 
 %pythoncode %{
-from .c_comand import CMD
+try:
+  from .c_comand import CMD
+except ImportError:
+  from .all import stub
 %}
 

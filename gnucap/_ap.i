@@ -19,6 +19,10 @@
  */
 %module(directors="0", allprotected="1") ap
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %{
 #include <ap.h>
 %}
@@ -130,9 +134,14 @@ public:
 }; // CS
 
 %pythoncode %{
-from .ap import CS
 _CS_rshift = dict()
-from .ap import _CS_rshift
+try:
+  from .ap import CS
+  from .ap import _CS_rshift
+except ImportError:
+  untested()
+  from .all import stub
+
 _CS_rshift[int] = CS.myshift
 %}
 
@@ -184,6 +193,12 @@ bool Get(CS& cmd, const std::string&, double* INOUT, AP_MOD, double=0.);
 
 %pythoncode %{
 
+try:
+  from ._all import Get
+except ImportError:
+  untested()
+  pass
+
 _getD = dict()
 _getD[int] = Get
 _getD[float] = Get
@@ -203,12 +218,6 @@ def myGet(cmd, s, L, *args):
     return a
   else:
     return _chooseGet(cmd, s, L, *args)
-%}
-
-
-
-%pythoncode %{
-from .ap import CS
 %}
 
 // vim:ts=8:sw=2

@@ -18,10 +18,12 @@
  *------------------------------------------------------------------
  */
 %module(directors="0", allprotected="1") globals
-
-// generate directors for all classes that have virtual methods
 %feature("director");
-%feature("nodirector") CARD;
+// %feature("nodirector") CARD;
+
+%pythoncode %{
+from .io_trace import untested
+%}
 
 %include stl.i
 %include std_string.i
@@ -143,7 +145,12 @@ extern std::vector<PyObject*> installed_cards;
 %}
 
 %pythoncode %{
-from .c_comand import CMD
+try:
+  untested()
+  from .c_comand import CMD
+except ImportError:
+  untested()
+  pass
 %}
 
 %inline %{

@@ -20,6 +20,10 @@
 %module(directors="0", allprotected="1") s__
 %feature(director);
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %{
 #include <s__.h>
 %}
@@ -167,8 +171,12 @@ public:
 %}
 
 %pythoncode %{
-from .s__ import SIM_
-from .c_comand import CMD
+try:
+  from .s__ import SIM_
+  from .c_comand import CMD
+except ImportError:
+  untested()
+  from .all import stub
 %}
 
 %extend SIM_ {

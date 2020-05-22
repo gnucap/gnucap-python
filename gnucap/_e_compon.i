@@ -19,6 +19,10 @@
  */
 %module(directors="1", allprotected="0") e_compon
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include stl.i
 %include std_string.i
 %include std_complex.i
@@ -260,16 +264,13 @@ from gnucap.io_trace import *
 %extend COMPONENT {
   %pythoncode {
   def tr_needs_eval(self):
-      untested()
       return False
   def tr_begin(self):
-      untested()
       pass
   def tr_restore(self):
       untested()
       pass
   def tr_advance(self):
-      untested()
       pass
   def tr_regress(self):
       untested()
@@ -281,8 +282,10 @@ from gnucap.io_trace import *
       untested()
       pass
   def tr_review(self):
-      untested()
-      from .u_time_pair import NEVER
+      try:
+        from .u_time_pair import NEVER
+      except:
+        from .all import NEVER
       return TIME_PAIR(NEVER, NEVER) # BUG
   }
 }
@@ -293,7 +296,11 @@ from gnucap.io_trace import *
 %include "e_compon.h"
 
 %pythoncode %{
-from .e_compon import COMPONENT
+try:
+  from .e_compon import COMPONENT
+except ImportError:
+  untested()
+  from .all import stub
 %}
 
 // vim:ts=8:sw=2:et:

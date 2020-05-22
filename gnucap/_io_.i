@@ -19,6 +19,10 @@
  */
 %module(directors="0", allprotected="1") io_
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include std_string.i
 %include std_complex.i
 %include numpy.i
@@ -76,5 +80,9 @@ inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
 }
 
 %pythoncode %{
-from .io_ import OMSTREAM
+try:
+  from .io_ import OMSTREAM
+except ImportError:
+  untested()
+  from .all import stub
 %}

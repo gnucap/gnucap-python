@@ -20,6 +20,10 @@
 %module e_subckt
 %feature("director", allprotected=1) BASE_SUBCKT;
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %include "_e_base.i"
 %include "_e_card.i" // expand
 %include "_e_compon.i"
@@ -135,7 +139,11 @@ protected:
 // not yet %include "e_subckt.h"
 
 %pythoncode %{
-from .e_subckt import BASE_SUBCKT
+try:
+  from .e_subckt import BASE_SUBCKT
+except ImportError:
+  untested()
+  from .all import stub
 %}
 
 // vim:ts=8:sw=2:et:

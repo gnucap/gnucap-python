@@ -21,6 +21,10 @@
 %module(directors="1", allprotected="0") e_card
 %include _e_base.i
 
+%pythoncode %{
+from .io_trace import untested
+%}
+
 %{
 #include <e_card.h>
 %}
@@ -147,5 +151,9 @@ public:        // state, aux data
 }
 
 %pythoncode %{
-from .e_card import CARD
+try:
+  from .e_card import CARD
+except ImportError:
+  untested()
+  from .all import stub
 %}

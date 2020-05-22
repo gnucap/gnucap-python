@@ -35,53 +35,61 @@ if(os.name=="posix"):
 else:
 	untested()
 
-from .e_paramlist import COMMON_PARAMLIST # HACK
-from .e_elemnt import ELEMENT # HACK
+if @ALL_IN_ONE@:
+	from .all import *
+	from ._all import IO_mstdout_get
+	from ._all import CS__STRING
+	from .all import myGet as Get_, Get
+	from .all import mySet as Set_, Set
+	SIM = SIM_
+else:
+	from .e_paramlist import COMMON_PARAMLIST # HACK
+	from .e_elemnt import ELEMENT # HACK
 
+	# BUG: need to import first (why?)
+	from .u_time_pair import TIME_PAIR
 
-# BUG: need to import first (why?)
-from .u_time_pair import TIME_PAIR
+	from .gnucap_swig import command, parse
 
-from .gnucap_swig import command, parse
-trace("cmd imported")
+	from .c_comand import CMD, CMD_cmdproc, CMD_command
+	from .c_exp import eval
+	from .e_compon import COMPONENT, COMMON_COMPONENT
+	from .e_base import CKT_BASE_find_wave, CKT_BASE
+	from .e_cardlist import CARD_LIST, findbranch
+	from .e_node import NODE
+	from .e_node import node_t, node_array, LOGICVAL
+	from .e_node import lvSTABLE0, lvSTABLE1, lvFALLING, lvRISING
+	from .e_card import CARD
+	from .e_subckt import BASE_SUBCKT
 
-from .c_comand import CMD, CMD_cmdproc, CMD_command
-from .c_exp import eval
-from .e_compon import COMPONENT, COMMON_COMPONENT
-from .e_base import CKT_BASE_find_wave, CKT_BASE
-from .e_cardlist import CARD_LIST, findbranch
-from .e_node import NODE
-from .e_node import node_t, node_array, LOGICVAL
-from .e_node import lvSTABLE0, lvSTABLE1, lvFALLING, lvRISING
-from .e_card import CARD
-from .e_subckt import BASE_SUBCKT
-
-from .m_cpoly import FPOLY1, CPOLY1
-from .md import rBATCH, rINTERACTIVE, rPRESET, rPRE_MAIN, rSCRIPT
-from .md import ENV
-from .m_matrix import BSMATRIXd, BSMATRIXc
-from .m_wave import WAVE
-from .s__ import SIM_ as SIM
-from .u_opt import SET_RUN_MODE, OPT_numdgt, OPT_pivtol
-from .u_parameter import PARAMETERd, PARAMETERi, PARAMETERb
-from .u_parameter import PARAM_LIST
-from .u_sim_data import SIM_DATA
-from .u_xprobe import XPROBE
-from .u_function import FUNCTION
-from .ap import CS
-from .ap import mySet as Set_
-from .ap import myGet as Get_, Get
-from .mode import iTOTAL, moANALOG, moDIGITAL
-# from ._io_ import OMSTREAM
-
-from .ap import mNONE, mSCALE, mOFFSET, mINVERT, mPOSITIVE, mOCTAL, mHEX
-from .io_trace import *
-
-from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
-from .l_denoise import fixzero
-from .l_compar import in_order
-
-from .u_time_pair import NEVER
+	from .m_cpoly import FPOLY1, CPOLY1
+	from .md import rBATCH, rINTERACTIVE, rPRESET, rPRE_MAIN, rSCRIPT
+	from .md import ENV
+	from .m_matrix import BSMATRIXd, BSMATRIXc
+	from .m_wave import WAVE
+	from .s__ import SIM_ as SIM
+	from .u_opt import SET_RUN_MODE, OPT_numdgt, OPT_pivtol
+	from .u_parameter import PARAMETERd, PARAMETERi, PARAMETERb
+	from .u_parameter import PARAM_LIST
+	from .u_sim_data import SIM_DATA
+	from .u_xprobe import XPROBE
+	from .u_function import FUNCTION
+	from .ap import CS
+	from ._ap import CS__STRING
+	from .ap import mySet as Set_
+	from .ap import myGet as Get_, Get
+	from .mode import iTOTAL, moANALOG, moDIGITAL
+	# from ._io_ import OMSTREAM
+	from .ap import mNONE, mSCALE, mOFFSET, mINVERT, mPOSITIVE, mOCTAL, mHEX
+	from .io_trace import *
+	from ._io_ import OMSTREAM__print, IO_mstdout_get, outset, outreset
+	from .l_denoise import fixzero
+	from .l_compar import in_order
+	from .u_time_pair import NEVER
+	from .globals import install_device, install_command, install_measure
+	from .globals import cvar
+	from .e_node import get_ground_node_, make_node_
+	from .pending import install as pending_install
 
 _iomstout = IO_mstdout_get()
 
@@ -93,23 +101,11 @@ def out(s):
 if(os.name=="posix"):
 	sys.setdlopenflags(oldflags)
 
-from .globals import install_device, install_command
-
-from .globals import cvar
 device_dispatcher = cvar.device_dispatcher
 del cvar
 
-# from .e_node import cvar
-# ground_node = cvar.ground_node # does not work. why!?
-# del cvar
-
-from .e_node import get_ground_node_, make_node_
 ground_node = get_ground_node_()
 
-# BUG? direct import seems broken
-from .pending import install as pending_install
-
-# from globals import shared_command_installer as command_installer
 sys.stdout.flush()
 out("gnucap-python version: @PACKAGE_VERSION@\n")
 sys.stdout.flush()

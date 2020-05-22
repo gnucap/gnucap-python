@@ -7,7 +7,6 @@ import gnucap
 
 from gnucap import COMPONENT, node_array, CARD
 from gnucap import install_device
-from gnucap import _e_card
 from gnucap.io_trace import *
 from copy import deepcopy, copy
 from sys import stdout
