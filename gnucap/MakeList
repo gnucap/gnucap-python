@@ -1,0 +1,32 @@
+
+INTERFACE = \
+	_ap.la \
+	_gnucap_swig.la \
+	_globals.la \
+	_md.la \
+	_u_sim_data.la \
+	_u_function.la \
+	_m_cpoly.la \
+	_m_matrix.la \
+	_m_wave.la \
+	_mode.la \
+	_c_exp.la \
+	_c_comand.la \
+	_e_base.la \
+	_e_card.la \
+	_e_cardlist.la \
+	_e_compon.la \
+	_e_elemnt.la \
+	_e_node.la \
+	_e_paramlist.la \
+	_e_subckt.la \
+	_io_.la \
+	_l_compar.la \
+	_l_denoise.la \
+	_u_nodemap.la \
+	_u_opt.la \
+	_u_parameter.la \
+	_u_status.la \
+	_u_time_pair.la \
+	_u_xprobe.la \
+	_s__.la
