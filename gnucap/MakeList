@@ -1,5 +1,49 @@
+# gnucap-python python MakeList
+# Author: 2020 Felix Salfelder
+# license GPL-3+
+
+EXTRA_DIST = \
+	MakeList \
+	director_except.i \
+	pending.py \
+	numpy.i \
+	m_wave_.h \
+	wrap.h
 
 INTERFACE = \
+	_ap.i \
+	_gnucap_swig.i \
+	_globals.i \
+	_md.i \
+	_u_sim_data.i \
+	_u_function.i \
+	_m_cpoly.i \
+	_m_matrix.i \
+	_m_wave.i \
+	_mode.i \
+	_c_exp.i \
+	_c_comand.i \
+	_e_base.i \
+	_e_card.i \
+	_e_cardlist.i \
+	_e_compon.i \
+	_e_elemnt.i \
+	_e_node.i \
+	_e_paramlist.i \
+	_e_subckt.i \
+	_io_.i \
+	_l_compar.i \
+	_l_denoise.i \
+	_u_nodemap.i \
+	_u_opt.i \
+	_u_parameter.i \
+	_u_status.i \
+	_u_time_pair.i \
+	_u_xprobe.i \
+	_s__.i
+
+# don't know why we cant use substitution here.
+INTERFACE_LA = \
 	_ap.la \
 	_gnucap_swig.la \
 	_globals.la \

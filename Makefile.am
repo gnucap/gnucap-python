@@ -13,6 +13,7 @@ SUBDIRS = \
 	examples \
 	gnucap \
 	misc \
+	. \
 	tests
 
 all-local:

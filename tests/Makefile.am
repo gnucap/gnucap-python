@@ -92,10 +92,10 @@ measure.0.gc.out: $(PWD)/measure_at.py
 
 if VPATH_BUILD
 $(PWD)/%.py: | %.py
-	$(LN_S) $|
+	-$(LN_S) $|
 endif
 @nothing@$(PWD)/%.py: | ${top_srcdir}/examples/%.py
-	$(LN_S) $|
+	-$(LN_S) $|
 
 
 TESTS = ${PY_TESTS} ${GC_TESTS}

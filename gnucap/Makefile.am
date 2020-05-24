@@ -1,13 +1,19 @@
 # gnucap-python python library Makefile.am
-# Author: 2018 Felix Salfelder
+# Author: 2018, 2020 Felix Salfelder
 # license GPL-3+
 #
-# (inspired by now obsolete files from Henrik Johansson)
+# (inspired by now obsolete files by Henrik Johansson)
 #
 
 include MakeList
 
-BUILT_SOURCES = u_xprobe.h m_matrix_hack.h
+BUILT_SOURCES = \
+   ${INTERFACE:%.i=%.cxx} \
+   ${INTERFACE:%.i=%.h} \
+	u_xprobe.h \
+	m_matrix_hack.h \
+	__init__.py
+
 u_xprobe.h: ${GC_INCLUDEDIR}/u_xprobe.h
 	cp $< $@
 	sed -i '/^  explicit.*XPROBE():$$/s/e/public:e/' $@
@@ -26,18 +32,19 @@ AM_CPPFLAGS = \
 # python objects
 pythongcdir = $(pythondir)/gnucap
 pythongc_PYTHON = \
-	${pythongc_LTLIBRARIES:_%.la=%.py} \
-	__init__.py \
 	pending.py \
 	io_trace.py
 
+nodist_pythongc_PYTHON = \
+	${PY} \
+	__init__.py
 
 if ALL_IN_ONE
 
 pythongc_LTLIBRARIES = _all.la
 ## TODO: load plugins at run time
 _all_la_SOURCES = \
-   _all.i \
+	_all.i \
 	command.cc \
 	c_genrat.cc \
 	s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
@@ -49,11 +56,10 @@ _gnucap_swig_la_SOURCES = \
 	c_genrat.cc \
 	s_tr.cc s_tr_set.cc s_tr_swp.cc s__solve.cc s__out.cc s__init.cc
 
-pythongc_LTLIBRARIES = ${INTERFACE}
+pythongc_LTLIBRARIES = ${INTERFACE_LA}
 endif
 
-
-PY=${pythongc_LTLIBRARIES:_%.la=%.py}
+PY = ${INTERFACE:_%.i=%.py}
 ppy:
 	echo ${PY}
 py: ${PY}
@@ -82,24 +88,14 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 
 .i.cxx:
 
-EXTRA_DIST = \
-	director_except.i \
-	pending.py \
-	numpy.i \
-	m_wave_.h \
-	wrap.h
-
 CLEANFILES = *~ *.pyc
 
-CLEANFILES+= ${BUILT_SOURCES}
-CLEANFILES+= ${pythongc_LTLIBRARIES:_%.la=%.py}
-CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.cxx}
-CLEANFILES+= ${pythongc_LTLIBRARIES:%.la=%.h}
+CLEANFILES += ${BUILT_SOURCES} ${PY}
 
 clean-local:
 	rm -rf __pycache__
 
-#### dep (obsolete?)
+#### dep (not building blob)
 _c_comand.cxx: _m_wave.i _e_base.i
 _e_cardlist.cxx: _u_nodemap.i _e_card.i
 _e_compon.cxx: _e_card.i _e_base.i _m_wave.i _e_node.i
@@ -118,6 +114,4 @@ _globals.cxx: _e_base.i _e_card.i
 # BUG
 _e_cardlist.cxx: _e_elemnt.i _e_compon.i
 
-
-_all.cxx: ${INTERFACE:%.la=%.i}
-
+_all.cxx: ${INTERFACE}

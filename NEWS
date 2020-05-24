@@ -46,3 +46,4 @@
 * honour SWIG arg & env variable
 * drop Python 2
 * drop private library
+* monolithic build option
