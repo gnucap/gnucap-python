@@ -146,7 +146,6 @@ extern std::vector<PyObject*> installed_cards;
 
 %pythoncode %{
 try:
-  untested()
   from .c_comand import CMD
 except ImportError:
   untested()

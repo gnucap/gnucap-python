@@ -196,7 +196,6 @@ bool Get(CS& cmd, const std::string&, double* INOUT, AP_MOD, double=0.);
 try:
   from ._all import Get
 except ImportError:
-  untested()
   pass
 
 _getD = dict()

@@ -35,25 +35,19 @@ import inspect
 xxx=[]
 class install:
 	def __del__(self):
-		untested()
 		self.i1 = None
 
 	def __init__(self, *argv, **args):
 		if(len(argv)>1):
-			untested()
 			self.name = argv[0]
 			self.i1 = self._install_instance(argv[0], argv[1])
 		elif(len(argv)==1):
-			untested()
 			if(isinstance(argv[0], type)):
-				untested()
 				self.name = None
 				self.i1 = self(argv[0])
 			else:
-				untested()
 				self.name = argv[0]
 		elif(len(argv)==0):
-			untested()
 			self.name = None
 
 	def _install_instance(self, name, what):
@@ -69,11 +63,9 @@ class install:
 	def __call__(self, cls):
 		cls._hidden_instance = cls()
 		if(self.name is None):
-			untested()
 			self.name = cls._hidden_instance.dev_type()
 		else:
 			pass
-			untested()
 		cls.i1 = self._install_instance(self.name, cls._hidden_instance)
 
 		return cls

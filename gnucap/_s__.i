@@ -175,7 +175,6 @@ try:
   from .s__ import SIM_
   from .c_comand import CMD
 except ImportError:
-  untested()
   from .all import stub
 %}
 

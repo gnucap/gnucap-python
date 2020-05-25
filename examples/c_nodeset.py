@@ -47,12 +47,10 @@ class BM_NODESET(gnucap.COMMON_COMPONENT):
 			pass
 		elif _sim.analysis_is_static():
 			if _sim.uic_now():
-				untested()
 				elt._y[0] = FPOLY1(0, 1, ic);
 				elt.q_load()
 				ret = False
 			else:
-				untested()
 				elt._y[0] = FPOLY1(0, 1, ic)
 				elt.q_load()
 		else:
@@ -70,10 +68,8 @@ bmns.set_modelname("bm_nodeset")
 class NODESETTER(gnucap.BASE_SUBCKT):
 	def __init__(self, other=None):
 		if other is None:
-			untested()
 			super().__init__()
 		else:
-			untested()
 			super().__init__(other)
 		self.attach_common(nsc)
 
@@ -120,7 +116,6 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 	def expand(self):
 		super().expand()
 		if not self.subckt():
-			untested()
 			self.new_subckt()
 			sc = self.subckt()
 		else:
@@ -139,7 +134,6 @@ class NODESETTER(gnucap.BASE_SUBCKT):
 		for i in range(n):
 			VS = proto.clone()
 			if not self.port_exists(i):
-				untested()
 				break
 
 			key = "v_"+self.port_value(i)
@@ -268,7 +262,6 @@ class NODESET(gnucap.CMD):
 			untested()
 			self.clear()
 		else:
-			untested()
 			assert self is not None
 			self.parse(args, scope)
 			incomplete()
