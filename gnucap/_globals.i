@@ -80,7 +80,7 @@ assert(_wrap_SWIGTYPE_p_ELEMENT_p);
 		$result = c;
 	}else if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
 		$result = d->swig_get_self();
-	}else if(auto c=_wrap_SWIGTYPE_cp_ELEMENT($1, $owner)){ untested();
+	}else if(auto c=_wrap_SWIGTYPE_cp_ELEMENT($1, $owner)){
 		$result = c;
 	}else if($1){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);

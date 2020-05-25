@@ -63,7 +63,7 @@ PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner);
 {
 	if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){
 		$result = d->swig_get_self();
-	}else if(auto c=_wrap_SWIGTYPE_p_ELEMENT($1, $owner)){ untested();
+	}else if(auto c=_wrap_SWIGTYPE_p_ELEMENT($1, $owner)){
 		$result = c;
 	}else if(COMPONENT* c=dynamic_cast<COMPONENT*>($1)){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_COMPONENT, $owner);

@@ -50,9 +50,9 @@ PyObject* (*_wrap_SWIGTYPE_p_ELEMENT_p)(CARD* p, int owner);
 	assert(_wrap_SWIGTYPE_p_ELEMENT_p);
   if($owner == SWIG_POINTER_NEW){ untested();
 		$result = SWIG_NewPointerObj(SWIG_as_voidptr($1), $1_descriptor, $owner);
-	}else if(auto c=_wrap_SWIGTYPE_p_COMMON_PARAMLIST($1, $owner)){ untested();
+	}else if(auto c=_wrap_SWIGTYPE_p_COMMON_PARAMLIST($1, $owner)){
 		$result = c;
-	}else if(auto c= (*_wrap_SWIGTYPE_p_ELEMENT_p)($1, $owner)){ untested();
+	}else if(auto c= (*_wrap_SWIGTYPE_p_ELEMENT_p)($1, $owner)){
 		$result = c;
 	}else if(Swig::Director* d=dynamic_cast<Swig::Director*>($1)){ untested();
 		$result = d->swig_get_self();

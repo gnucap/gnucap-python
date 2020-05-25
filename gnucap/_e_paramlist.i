@@ -113,11 +113,11 @@ PyObject* _wrap_SWIGTYPE_pc_COMMON_PARAMLIST(CKT_BASE const* p, int mode=0){
 	}
 }
 PyObject* _wrap_SWIGTYPE_p_COMMON_PARAMLIST(CKT_BASE* p, int mode=0){
-	if(dynamic_cast<COMMON_PARAMLIST*>(p)){ untested();
+	if(dynamic_cast<COMMON_PARAMLIST*>(p)){
 		PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_COMMON_PARAMLIST, mode);
 		assert(r);
 		return r;
-	}else{ untested();
+	}else{
 		return NULL;
 	}
 }

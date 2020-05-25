@@ -111,11 +111,11 @@ except ImportError:
 	double float_(){
 		return *self;
 	}
-	inline PARAMETER<double>& assign(std::string const& s){ untested();
+	inline PARAMETER<double>& assign(std::string const& s){
 		*self = s;
 		return *self;
 	}
-	inline double __sub__(double const&x){ untested();
+	inline double __sub__(double const&x){
 		return *self - x;
 	}
 	inline double __sub__(PARAMETER<double> const&x){ untested();
@@ -229,7 +229,7 @@ PAR_OPS(PARAMETER<bool>)
 %extend PARAM_LIST_RANGE {
 	PARAM_LIST_RANGE::ref_type __next__() {
 		PARAM_LIST::iterator& p = $self->_cur;
-		if (p != $self->_end) { untested();
+		if (p != $self->_end) {
 			PARAM_LIST_RANGE::value_type r = *p;
 			++p;
 			return r;

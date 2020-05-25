@@ -85,7 +85,7 @@ void parse(char const*command);
   }catch(Exception const& k){ untested();
     PyErr_SetString(PyExc_NameError, k.message().c_str());
     return NULL;
-  }catch(MyBadCommand const& k){ untested();
+  }catch(MyBadCommand const& k){
     PyErr_SetString(PyExc_NameError, k._s.c_str());
     return NULL;
   }

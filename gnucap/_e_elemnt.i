@@ -305,21 +305,21 @@ namespace swig {
 %}
 
 %{
-PyObject* _wrap_SWIGTYPE_cp_ELEMENT(CARD const* p, int owner){ untested();
+PyObject* _wrap_SWIGTYPE_cp_ELEMENT(CARD const* p, int owner){
   if(dynamic_cast<ELEMENT const*>(p)){
     PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, owner);
     assert(r);
     return r;
-  }else{
+  }else{ untested();
     return NULL;
   }
 }
-PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner){ untested();
+PyObject* _wrap_SWIGTYPE_p_ELEMENT(CARD* p, int owner){
   if(dynamic_cast<ELEMENT*>(p)){
     PyObject* r=SWIG_NewPointerObj(SWIG_as_voidptr(p), SWIGTYPE_p_ELEMENT, owner);
     assert(r);
     return r;
-  }else{
+  }else{ untested();
     return NULL;
   }
 }

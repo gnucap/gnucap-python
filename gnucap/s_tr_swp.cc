@@ -59,7 +59,6 @@ void TRANSIENT::sweep()
   _sim->set_inc_mode_bad();
   
   if (_cont) {  // use the data from last time
-    untested();
     _sim->_phase = p_RESTORE;
     _sim->restore_voltages();
     CARD_LIST::card_list.tr_restore();

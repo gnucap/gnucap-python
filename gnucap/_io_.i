@@ -74,7 +74,7 @@ inline OMSTREAM& operator<<(OMSTREAM& o, std::complex<double> const& c)
   // OMSTREAM& operator<<(double const& d){
   //   return *self << d;
   // }
-  OMSTREAM& operator<<(std::complex<double> const& c){ untested();
+  OMSTREAM& operator<<(std::complex<double> const& c){
     return *self << c;
   }
 }
