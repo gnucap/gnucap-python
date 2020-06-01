@@ -89,6 +89,7 @@ AC_SUBST([GC_PKGLIBDIR])
 AC_SUBST([LIBGNUCAP_SONAME])
 AC_SUBST([gnucap_plugpath])
 AC_SUBST([ALL_IN_ONE])
+AC_SUBST([NUMPY_DIR])
 
 AC_SUBST([nothing])
 
@@ -139,17 +140,16 @@ AS_IF([ test "X$enable_plugpath_override" = "Xyes"],
 
 ## Check for numpy development file
 AC_PYTHON_MODULE(numpy)
-NUMPY_DIR="${PYTHON_SITE_PKG}/numpy"
+NUMPY_DIR=$($PYTHON -c 'import numpy; print(numpy.get_include())')
 AC_ARG_WITH([numpy], [AC_HELP_STRING([--with-numpy=DIR],
-                     [directory where numpy is installed
-                      [default=${PYLIBDIR}/numpy] ])],
+                     [numpy install path
+                      [default=${NUMPY_DIR}] ])],
         NUMPY_DIR=$withval)
-NUMPY_DIR="${NUMPY_DIR}/core/include/numpy"
 save_CPPFLAGS="$CPPFLAGS"
 CPPFLAGS="$CPPFLAGS $PYTHON_CPPFLAGS -I$NUMPY_DIR"
 HAS_NUMPY=no
 
-AC_CHECK_HEADER([${NUMPY_DIR}/arrayobject.h],
+AC_CHECK_HEADER([numpy/arrayobject.h],
                 [ AC_DEFINE(HAS_NUMPY,[],[wether to include numpy support])
 		HAS_NUMPY=yes],[],[#include "Python.h"])
 CPPFLAGS=$save_CPPFLAGS
@@ -173,6 +173,7 @@ AC_MSG_RESULT([
    plugpath:                 $gnucap_plugpath
    gnucap SONAME:            $LIBGNUCAP_SONAME
    CPPFLAGS:                 $CPPFLAGS
+   NUMPY_DIR:                $NUMPY_DIR
    GC_CPPFLAGS:              $GC_CPPFLAGS
    CFLAGS:                   $CFLAGS
    CXXFLAGS:                 $CXXFLAGS
