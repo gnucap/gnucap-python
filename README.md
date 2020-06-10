@@ -18,7 +18,7 @@ Your support is gratefully received.
 requirements are:
   * gnucap >= oct '17
   * Python >= 3.6
-  * Swig >= 3.0.0 (tested with 3.0.12, issue with Swig4 [1])
+  * Swig >= 3.0.0 (tested with 3.0.12, 4.0.1)
   * Numpy (with development headers/libraries)
   * c++11 compiler (known issue with gcc 9, param.py)
 
@@ -125,5 +125,3 @@ for some applications
 * python sometimes generates .pyc files containing cached bytecode in random
   places. these may lead to weird error messages, if they are outdated. delete
   them.
-
-[1] https://github.com/swig/swig/issues/1642.

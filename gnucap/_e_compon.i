@@ -57,9 +57,9 @@ from .io_trace import untested
    int res2 = 0 ;
 
        // BUG: memory leak
-  Py_INCREF(obj1 /*HERE*/ );
+  Py_INCREF($input /*HERE*/ );
 
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_COMMON_COMPONENT, 0 |  0 );
+  res2 = SWIG_ConvertPtr($input, &argp2,SWIGTYPE_p_COMMON_COMPONENT, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "COMPONENT_attach_common" "', argument " "2"" of type '" "COMMON_COMPONENT *""'"); 
   }

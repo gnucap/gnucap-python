@@ -85,6 +85,7 @@ SWIG_FLAGS = -I${GC_INCLUDEDIR}
 
 %.py _%.cxx _%.h: _%.i
 	$(AM_V_GEN)${SWIG} -python -c++ -Wall $(SWIG_FLAGS) -o _$*.cxx $<
+	sed -i 's/ =  = /==/' _$*.{h,cxx}
 
 .i.cxx:
 

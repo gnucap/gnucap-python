@@ -162,16 +162,16 @@ except ImportError:
 %enddef
 
 %typemap(argout) PARAMETER<double> *INOUT {
-  $result=SWIG_Python_AppendOutput($result, obj2);
-  Py_INCREF(obj2);
+  $result=SWIG_Python_AppendOutput($result, $input);
+  Py_INCREF($input);
 }
 %typemap(argout) PARAMETER<int> *INOUT { untested();
-  $result=SWIG_Python_AppendOutput($result, obj2);
-  Py_INCREF(obj2);
+  $result=SWIG_Python_AppendOutput($result, $input);
+  Py_INCREF($input);
 }
 %typemap(argout) PARAMETER<bool> *INOUT { untested();
-  $result=SWIG_Python_AppendOutput($result, obj2);
-  Py_INCREF(obj2);
+  $result=SWIG_Python_AppendOutput($result, $input);
+  Py_INCREF($input);
 }
 
 bool Get(CS& cmd, const std::string& key, PARAMETER<bool>* INOUT);
@@ -180,8 +180,8 @@ bool Get(CS& cmd, const std::string& key, PARAMETER<double>* INOUT);
 
 
 %typemap(argout) PARAMETER<double> &INOUT {
-  $result=SWIG_Python_AppendOutput($result, obj1);
-  Py_INCREF(obj1);
+  $result=SWIG_Python_AppendOutput($result, $input);
+  Py_INCREF($input);
 }
 %inline %{
 
