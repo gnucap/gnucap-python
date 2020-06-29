@@ -61,8 +61,8 @@ NODESET_TESTS = \
 nodeset_check: ${NODESET_TESTS:%.gc=%.log}
 
 err.0.gc.out: $(PWD)/parse_err.py
-pz.0.gc.out: | ${PWD}/pz_spice.py
-pz.0g.gc.out: | ${PWD}/pz_spice.py
+pz.0.gc.out: ${PWD}/pz_spice.py
+pz.0g.gc.out: ${PWD}/pz_spice.py
 
 CLEANFILES = \
 	c_python.so \
@@ -91,11 +91,11 @@ c_nodeset.0.nob.gc.out c_nodeset.0.uic.gc.out: $(PWD)/c_nodeset.py
 measure.0.gc.out: $(PWD)/measure_at.py
 
 if VPATH_BUILD
-$(PWD)/%.py: | %.py
-	-$(LN_S) $|
+$(PWD)/%.py: %.py
+	-$(LN_S) $<
 endif
-@nothing@$(PWD)/%.py: | ${top_srcdir}/examples/%.py
-	-$(LN_S) $|
+@nothing@$(PWD)/%.py: ${top_srcdir}/examples/%.py
+	-$(LN_S) $<
 
 
 TESTS = ${PY_TESTS} ${GC_TESTS}
