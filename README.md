@@ -1,14 +1,19 @@
+# gnucap-python
+
 This package contains a python plugin for the circuit simulator Gnucap which
 allows the user to implement commands or components (or anything) in Python,
 and run the simulator in a python environment, e.g. for postprocessing or
 plotting purposes.
 
-The package also provides a command for gnucap that loads python modules, such
-as python modules implementing custom commands or components (or anything).
-See examples.
+The package also provides a command for Gnucap that loads Python modules, such
+as Python modules implementing custom commands or components (or anything).
+See [examples](examples).
 
- Requirements
--------------
+Your support is gratefully received.
+
+[![donate](https://liberapay.com/assets/widgets/donate.svg "donate through lp")](https://liberapay.com/felixs/donate)
+
+## Requirements
 
 requirements are:
   * gnucap >= oct '17
@@ -17,8 +22,7 @@ requirements are:
   * Numpy (with development headers/libraries)
   * c++11 compiler (known issue with gcc 9, param.py)
 
- Installation
--------------
+##  Installation
 
 Build python plugin for gnucap
 
@@ -33,8 +37,7 @@ Build python plugin for gnucap
 
 will install the python module "gnucap" and a gnucap plugin "python".
 
- no Installation
-----------------
+## no Installation
 
 after
 
@@ -51,11 +54,9 @@ it should be possible to "import gnucap" from a python interpreter, e.g.
 	$ python3 some/test_or_example.py
 
 
-Examples
---------
+## Examples
 
-From gnucap
-~~~~~~~~~~~
+### From gnucap
 
 This seems outdated. See examples/README
 
@@ -73,8 +74,7 @@ First, the Python plugin is loaded. The second line loads a new command called
 circuit and runs an ac analysis. Finally the ac magnitude of node 2 is plotted
 using the new plotting command.
 
-From Python
-~~~~~~~~~~~
+### From Python
 
 Do the same directly from Python
 
@@ -90,8 +90,7 @@ stuff is not documented much, but closely resembles the libgnucap interface.
 Exceptions are additional Pythonicity, and some usability hacks. see examples
 for some applications
 
-Caveats
-~~~~~~~
+## Caveats
 
 * Sometimes tests fail because of stream buffer races. don't know how to
   synchronize Python output with library output. Check manually...
